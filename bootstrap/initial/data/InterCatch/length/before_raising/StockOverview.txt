@@ -1,0 +1,193 @@
+Country	Season	Season type	Year	Stock	Area	Fleets	Effort	UnitEffort	Catch. kg	Catch Cat.	Report cat.	Discards Imported Or Raised
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	4853.00	Landings	A-All - reported, nonre	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_32-69_0_0	6417	kWd	156.52	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_100-119_0_0_all	34474	kWd	0.00	Discards	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	DRB_MOL_0_0_0_all	1044669	kWd	577.97	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_<16_0_0_all	374	kWd	22.72	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	399000	kWd	6425.19	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	237820	kWd	2734.94	Landings	R-Reported	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	19909.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	1825.00	Discards	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_All_0_0_All	-9	NA	27.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	10426.00	Discards	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	23142.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	3.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	55.00	Landings	A-All - reported, nonre	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTM_DEF_70-99_0_0_all	29579	kWd	7.60	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_70-99_0_0	13133	kWd	387.73	Landings	R-Reported	Imported
+Netherlands	1	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_100-119_0_0_all	11277	kWd	20.00	Landings	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_70-99_0_0_all	-9	NA	39.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_16-31_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_100-119_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_16-31_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	14.00	Landings	A-All - reported, nonre	Imported
+UK(Scotland)	2022	Year	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	5488	kWd	3.00	Landings	R-Reported	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	9502.00	Landings	A-All - reported, nonre	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	57066	kWd	78.88	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	135853	kWd	408.16	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_100-119_0_0	758968	kWd	7797.62	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0	2917876	kWd	614.99	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	207425	kWd	8141.40	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	237820	kWd	0.00	Logbook Registered Discard	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	0.00	Discards	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	31.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_All_0_0_All	-9	NA	5.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	98.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	266587.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	58.00	Landings	A-All - reported, nonre	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	LLS_DEF	25112	kWd	18.44	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_70-99_0_0	751	kWd	2.10	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_80-99_0_0	3854	kWd	0.00	Discards	R-Reported	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	10387.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+Belgium	2022	Year	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	818527	kWd	124473.00	Discards	R-Reported	Imported
+Belgium	1	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_70-99_0_0_all	2124	kWd	20.00	Landings	R-Reported	Imported
+Belgium	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_100-119_0_0_all	1269	kWd	62.00	Landings	R-Reported	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	60.00	BMS landing	A-All - reported, nonre	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_32-69_0_0	4004	kWd	16.00	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_100-119_0_0_all	14413	kWd	189.56	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	17737	kWd	108.09	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_<16_0_0_all	1999	kWd	58.54	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	237820	kWd	0.00	Discards	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	399000	kWd	0.00	Discards	R-Reported	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	15228.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	3604.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	180.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	37145.00	Discards	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	5856.00	Discards	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	5.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_All_0_0_All	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	LLS_DEF	12368	kWd	2.68	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_70-99_0_0	202	kWd	3.00	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_80-99_0_0	3854	kWd	2.48	Landings	R-Reported	Imported
+Netherlands	3	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_100-119_0_0_all	8821	kWd	30.00	Landings	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	0.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	1.00	Landings	A-All - reported, nonre	Imported
+Belgium	2022	Year	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	818527	kWd	107378.00	Landings	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_100-119_0_0_all	34474	kWd	607.62	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	168921	kWd	0.00	Discards	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	8204	kWd	112.29	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	85378	kWd	40.01	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_120-219_0_0_all	26365	kWd	0.00	Discards	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	207977	kWd	0.00	Discards	R-Reported	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	17617.00	Discards	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	3937.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	200975.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	14622.00	Landings	A-All - reported, nonre	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTM_DEF_70-99_0_0_all	19875	kWd	143.27	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_100-119_0_0	4326	kWd	602.50	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_16-31_0_0	4206	kWd	77.49	Landings	R-Reported	Imported
+UK (Channel Island Jersey)	3	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	3.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_16-31_0_0_all	-9	NA	68.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_100-119_0_0_all	-9	NA	21.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_16-31_0_0_all	-9	NA	18.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_All_0_0_All	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	8548.00	Landings	A-All - reported, nonre	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	168921	kWd	872.25	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_32-69_0_0	4988	kWd	72.50	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	207977	kWd	413.88	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0	2665097	kWd	219.39	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_120-219_0_0_all	26365	kWd	1098.00	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_100-119_0_0	943650	kWd	8659.56	Landings	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	4145.00	Discards	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	90522.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	258.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	27267.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	15309.00	Landings	A-All - reported, nonre	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_all_0_0_all	5507	kWd	7.30	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_100-119_0_0	6443	kWd	82.36	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_16-31_0_0	2538	kWd	13.41	Landings	R-Reported	Imported
+UK (Channel Island Jersey)	4	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	0.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_All_0_0_All	-9	NA	314.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_32-69_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	103.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	DRB_MOL_0_0_0_all	454137	kWd	1437.67	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_>=220_0_0_all	135853	kWd	0.00	Discards	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	DRB_MOL_0_0_0_all	93343	kWd	12.95	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0	1987695	kWd	947.56	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_100-119_0_0	1196103	kWd	10243.77	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	207425	kWd	5047.11	Discards	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_120-219_0_0_all	19572	kWd	824.51	Landings	R-Reported	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_70-99_0_0_all	-9	NA	50.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	20335.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	54999.00	Discards	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	158.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_All_0_0_All	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	LLS_DEF	52228	kWd	302.72	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTM_DEF_70-99_0_0_all	56593	kWd	83.04	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_100-119_0_0	4703	kWd	142.11	Landings	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	36.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_16-31_0_0_all	-9	NA	19.00	Landings	A-All - reported, nonre	Imported
+Belgium	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_100-119_0_0_all	3105	kWd	14.00	Landings	R-Reported	Imported
+Belgium	3	Quarter	2022	ple.27.7e	27.7.e	SSC_DEF_100-119_0_0_all	15930	kWd	50.00	Landings	R-Reported	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_120-219_0_0_all	34236	kWd	554.70	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_120-219_0_0_all	35981	kWd	2225.23	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0	2524881	kWd	495.65	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	19308	kWd	103.11	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	DRB_MOL_0_0_0_all	1419296	kWd	420.35	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	371304	kWd	5859.69	Discards	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	22344.00	Discards	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_all_0_0_all	-9	NA	2101.00	Landings	A-All - reported, nonre	Imported
+UK (England)	1	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	254.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	697.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0_all	-9	NA	16138.00	Landings	A-All - reported, nonre	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	1437	kWd	40.00	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_100-119_0_0	4074	kWd	12.14	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_16-31_0_0	1109	kWd	14.10	Landings	R-Reported	Imported
+UK (Channel Island Jersey)	2	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	68.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_32-69_0_0_all	-9	NA	2.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	26.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_100-119_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	2.00	Landings	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	3551.00	Landings	A-All - reported, nonre	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_32-69_0_0	4432	kWd	27.51	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_100-119_0_0_all	21502	kWd	211.56	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	40657	kWd	123.81	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	10551	kWd	28.83	Landings	R-Reported	Imported
+France	1	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_100-119_0_0	825286	kWd	6052.48	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_70-99_0_0	371304	kWd	13827.60	Landings	R-Reported	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_100-119_0_0_all	23126	kWd	364.25	Landings	R-Reported	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	155473.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_>=120_0_0_all	-9	NA	105.00	Discards	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	TBB_DEF_70-99_0_0_all	-9	NA	1276.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	OTB_DEF_>=120_0_0_all	-9	NA	21947.00	Discards	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_70-99_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	GTR_DEF_all_0_0_all	-9	NA	1571.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	73.00	Landings	A-All - reported, nonre	Imported
+France	2	Quarter	2022	ple.27.7e	27.7.e	LLS_DEF	48864	kWd	381.04	Landings	R-Reported	Imported
+France	3	Quarter	2022	ple.27.7e	27.7.e	OTT_DEF_70-99_0_0	8432	kWd	16.49	Landings	R-Reported	Imported
+France	4	Quarter	2022	ple.27.7e	27.7.e	GNS_DEF_80-99_0_0	465	kWd	0.30	Landings	R-Reported	Imported
+UK (Channel Island Jersey)	1	Quarter	2022	ple.27.7e	27.7.e	MIS_MIS_0_0_0_HC	-9	NA	318.00	Landings	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_100-119_0_0_all	-9	NA	2.00	Landings	A-All - reported, nonre	Imported
+UK (England)	2	Quarter	2022	ple.27.7e	27.7.e	LLS_FIF_0_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	4	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_16-31_0_0_all	-9	NA	0.00	BMS landing	A-All - reported, nonre	Imported
+UK (England)	3	Quarter	2022	ple.27.7e	27.7.e	FPO_CRU_0_0_0_all	-9	NA	201.00	Landings	A-All - reported, nonre	Imported
+Belgium	2	Quarter	2022	ple.27.7e	27.7.e	OTB_CRU_70-99_0_0_all	1421	kWd	65.00	Landings	R-Reported	Imported

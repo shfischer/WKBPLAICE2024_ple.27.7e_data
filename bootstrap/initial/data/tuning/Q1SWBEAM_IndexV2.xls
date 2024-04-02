@@ -1,0 +1,861 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="Generator" content="SAS Software Version 9.4, see www.sas.com">
+<meta http-equiv="Content-type" content="text/html; charset=windows-1252">
+<title>SAS Output</title>
+<style type="text/css">
+<!--
+.batch
+{
+  border: 1px solid #000000;
+  border-collapse: separate;
+  border-spacing: 1px;
+  font-family: 'courier new';
+}
+.bycontentfolder
+{
+  margin-left: 6pt;
+}
+.bylinecontainer
+{
+  width: 100%;
+}
+.contentfolder
+{
+  margin-left: 6pt;
+}
+.contentitem
+{
+  margin-left: 6pt;
+}
+.contents
+{
+}
+.folderaction
+{
+  margin-left: 6pt;
+}
+.graph
+{
+  border: 1px solid #000000;
+  border-collapse: separate;
+  border-spacing: 1px;
+}
+.indexaction
+{
+  margin-left: 6pt;
+}
+.indexitem
+{
+  margin-left: 6pt;
+}
+.list
+{
+  list-style-type: disc;
+}
+.list10
+{
+  list-style-type: square;
+}
+.list2
+{
+  list-style-type: circle;
+}
+.list3
+{
+  list-style-type: square;
+}
+.list4
+{
+  list-style-type: square;
+}
+.list5
+{
+  list-style-type: square;
+}
+.list6
+{
+  list-style-type: square;
+}
+.list7
+{
+  list-style-type: square;
+}
+.list8
+{
+  list-style-type: square;
+}
+.list9
+{
+  list-style-type: square;
+}
+.listitem
+{
+  list-style-type: disc;
+}
+.listitem10
+{
+  list-style-type: square;
+}
+.listitem2
+{
+  list-style-type: circle;
+}
+.listitem3
+{
+  list-style-type: square;
+}
+.listitem4
+{
+  list-style-type: square;
+}
+.listitem5
+{
+  list-style-type: square;
+}
+.listitem6
+{
+  list-style-type: square;
+}
+.listitem7
+{
+  list-style-type: square;
+}
+.listitem8
+{
+  list-style-type: square;
+}
+.listitem9
+{
+  list-style-type: square;
+}
+.output
+{
+  border: 1px solid #000000;
+  border-collapse: separate;
+  border-spacing: 1px;
+}
+.pages
+{
+}
+.pagesitem
+{
+  margin-left: 6pt;
+}
+.systitleandfootercontainer
+{
+  width: 100%;
+}
+.table
+{
+  border: 1px solid #000000;
+  border-collapse: separate;
+  border-spacing: 1px;
+}
+.top_stacked_value
+{
+  padding-bottom: 1px;
+  border: 0;
+}
+.middle_stacked_value
+{
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border: 0;
+}
+.bottom_stacked_value
+{
+  padding-top: 1px;
+  border: 0;
+}
+.titleandnotecontainer
+{
+  width: 100%;
+}
+.l {text-align: left }
+.c {text-align: center }
+.r {text-align: right }
+.d {text-align: right }
+.j {text-align: justify }
+.t {vertical-align: top }
+.m {vertical-align: middle }
+.b {vertical-align: bottom }
+TD, TH {vertical-align: top }
+.stacked_cell{padding: 0 }
+-->
+</style>
+<script language="javascript" type="text/javascript">
+<!-- 
+function startup(){
+
+}
+function shutdown(){
+
+}
+
+//-->
+</script>
+
+</head>
+<body onload="startup()" onunload="shutdown()" class="body">
+
+<script language="javascript" type="text/javascript">
+<!-- 
+var _info = navigator.userAgent
+var _ie = (_info.indexOf("MSIE") > 0
+          && _info.indexOf("Win") > 0
+          && _info.indexOf("Windows 3.1") < 0);
+var _ie64 = _info.indexOf("x64") > 0
+
+//-->
+</script>
+
+<div class="branch">
+<a name="IDX"></a>
+<table class="systitleandfootercontainer" width="100%" summary="Page Layout">
+<tr>
+<td class="c systemtitle">The SAS System</td>
+</tr>
+</table><br>
+<div>
+<div align="center">
+<table class="table" cellspacing="1" cellpadding="7" rules="all" frame="box" border="1" summary="Procedure Print: Data Set WORK.W_INDEX_BI">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">Year</th>
+<th class="r header" scope="col">_TYPE_</th>
+<th class="r header" scope="col">_FREQ_</th>
+<th class="r header" scope="col">Area</th>
+<th class="r header" scope="col">AAge1</th>
+<th class="r header" scope="col">AAge2</th>
+<th class="r header" scope="col">AAge3</th>
+<th class="r header" scope="col">AAge4</th>
+<th class="r header" scope="col">AAge5</th>
+<th class="r header" scope="col">AAge6</th>
+<th class="r header" scope="col">AAge7</th>
+<th class="r header" scope="col">AAge8</th>
+<th class="r header" scope="col">AAge9</th>
+<th class="r header" scope="col">AAge10</th>
+<th class="r header" scope="col">AAge11</th>
+<th class="r header" scope="col">AAge12</th>
+<th class="r header" scope="col">AAge13</th>
+<th class="r header" scope="col">AAge14</th>
+<th class="r header" scope="col">AAge15</th>
+<th class="r header" scope="col">AAge16</th>
+<th class="r header" scope="col">AAge17</th>
+<th class="r header" scope="col">AAge18</th>
+<th class="r header" scope="col">AAge19</th>
+<th class="r header" scope="col">AAge20</th>
+<th class="r header" scope="col">AAge21</th>
+<th class="r header" scope="col">AAge22</th>
+<th class="r header" scope="col">AAge23</th>
+<th class="r header" scope="col">AAge24</th>
+<th class="r header" scope="col">AAge25</th>
+<th class="r header" scope="col">AAge26</th>
+<th class="r header" scope="col">AAge27</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">2006</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">1.83287</td>
+<td class="r data">34.2832</td>
+<td class="r data">24.873</td>
+<td class="r data">15.345</td>
+<td class="r data">6.7108</td>
+<td class="r data">2.9127</td>
+<td class="r data">0.1932</td>
+<td class="r data">0.15249</td>
+<td class="r data">0.30497</td>
+<td class="r data">0.71909</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.44251</td>
+<td class="r data">0.25231</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2007</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.78033</td>
+<td class="r data">13.1502</td>
+<td class="r data">23.442</td>
+<td class="r data">16.397</td>
+<td class="r data">3.6102</td>
+<td class="r data">4.1079</td>
+<td class="r data">1.8244</td>
+<td class="r data">3.44378</td>
+<td class="r data">0.21306</td>
+<td class="r data">1.77685</td>
+<td class="r data">0.21306</td>
+<td class="r data">1.07015</td>
+<td class="r data">0.81628</td>
+<td class="r data">0.21306</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2008</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">1.12974</td>
+<td class="r data">25.3439</td>
+<td class="r data">10.941</td>
+<td class="r data">5.611</td>
+<td class="r data">3.4107</td>
+<td class="r data">1.2333</td>
+<td class="r data">1.9298</td>
+<td class="r data">0.30134</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">1.12104</td>
+<td class="r data">0.15452</td>
+<td class="r data">0.23970</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2009</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">1.01421</td>
+<td class="r data">48.8747</td>
+<td class="r data">40.006</td>
+<td class="r data">10.908</td>
+<td class="r data">7.5552</td>
+<td class="r data">2.8062</td>
+<td class="r data">2.8345</td>
+<td class="r data">0.38077</td>
+<td class="r data">0.22828</td>
+<td class="r data">0.38077</td>
+<td class="r data">0.38077</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.63259</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.79023</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2010</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">1.18271</td>
+<td class="r data">38.2780</td>
+<td class="r data">35.151</td>
+<td class="r data">19.395</td>
+<td class="r data">2.9286</td>
+<td class="r data">2.2342</td>
+<td class="r data">1.8709</td>
+<td class="r data">0.97583</td>
+<td class="r data">0.47939</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.23970</td>
+<td class="r data">0.00000</td>
+<td class="r data">1.17091</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.15249</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2011</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">2.31058</td>
+<td class="r data">59.1947</td>
+<td class="r data">77.499</td>
+<td class="r data">28.002</td>
+<td class="r data">6.4937</td>
+<td class="r data">6.4757</td>
+<td class="r data">3.1858</td>
+<td class="r data">0.59751</td>
+<td class="r data">0.40430</td>
+<td class="r data">0.14527</td>
+<td class="r data">0.45657</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.15219</td>
+<td class="r data">0.15219</td>
+<td class="r data">0.15219</td>
+<td class="r data">0.66379</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2012</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">11.3889</td>
+<td class="r data">55.040</td>
+<td class="r data">28.072</td>
+<td class="r data">8.8327</td>
+<td class="r data">4.9772</td>
+<td class="r data">4.4124</td>
+<td class="r data">0.52567</td>
+<td class="r data">0.79854</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.23970</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.18368</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.15249</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2013</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.38352</td>
+<td class="r data">17.1804</td>
+<td class="r data">88.400</td>
+<td class="r data">58.166</td>
+<td class="r data">11.5149</td>
+<td class="r data">4.3721</td>
+<td class="r data">3.1793</td>
+<td class="r data">1.27222</td>
+<td class="r data">0.97244</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.16051</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.14522</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2014</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">1.16522</td>
+<td class="r data">76.5965</td>
+<td class="r data">161.335</td>
+<td class="r data">196.238</td>
+<td class="r data">68.2789</td>
+<td class="r data">10.6457</td>
+<td class="r data">1.6091</td>
+<td class="r data">2.72764</td>
+<td class="r data">1.19862</td>
+<td class="r data">0.62348</td>
+<td class="r data">0.35881</td>
+<td class="r data">0.20281</td>
+<td class="r data">0.21784</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.20281</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2015</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">34.2605</td>
+<td class="r data">46.269</td>
+<td class="r data">30.245</td>
+<td class="r data">39.6588</td>
+<td class="r data">24.7713</td>
+<td class="r data">5.6069</td>
+<td class="r data">3.54212</td>
+<td class="r data">1.20992</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">1.26437</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.23970</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.25231</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2016</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.28200</td>
+<td class="r data">14.9510</td>
+<td class="r data">126.268</td>
+<td class="r data">50.107</td>
+<td class="r data">23.9246</td>
+<td class="r data">35.9096</td>
+<td class="r data">23.0456</td>
+<td class="r data">7.59591</td>
+<td class="r data">7.75357</td>
+<td class="r data">0.89742</td>
+<td class="r data">4.46216</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2017</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">17.1778</td>
+<td class="r data">78.477</td>
+<td class="r data">170.624</td>
+<td class="r data">35.4065</td>
+<td class="r data">29.5515</td>
+<td class="r data">17.0328</td>
+<td class="r data">3.39333</td>
+<td class="r data">6.39584</td>
+<td class="r data">0.48120</td>
+<td class="r data">2.69588</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.39218</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.23970</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2018</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">10.8741</td>
+<td class="r data">44.089</td>
+<td class="r data">31.627</td>
+<td class="r data">52.5983</td>
+<td class="r data">20.0679</td>
+<td class="r data">11.2316</td>
+<td class="r data">9.38669</td>
+<td class="r data">6.37854</td>
+<td class="r data">1.49890</td>
+<td class="r data">1.20798</td>
+<td class="r data">0.15249</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.15249</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2019</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.23970</td>
+<td class="r data">14.4154</td>
+<td class="r data">30.009</td>
+<td class="r data">52.571</td>
+<td class="r data">35.7669</td>
+<td class="r data">36.7600</td>
+<td class="r data">13.4933</td>
+<td class="r data">8.05739</td>
+<td class="r data">3.78256</td>
+<td class="r data">2.06657</td>
+<td class="r data">1.65446</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.22828</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2020</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">50.4201</td>
+<td class="r data">66.322</td>
+<td class="r data">33.367</td>
+<td class="r data">17.8319</td>
+<td class="r data">10.4893</td>
+<td class="r data">6.1970</td>
+<td class="r data">5.19421</td>
+<td class="r data">3.51459</td>
+<td class="r data">2.17467</td>
+<td class="r data">2.39523</td>
+<td class="r data">0.32380</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2021</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">37.2306</td>
+<td class="r data">131.757</td>
+<td class="r data">92.020</td>
+<td class="r data">20.2263</td>
+<td class="r data">7.5839</td>
+<td class="r data">7.4613</td>
+<td class="r data">3.03012</td>
+<td class="r data">1.11191</td>
+<td class="r data">1.33195</td>
+<td class="r data">0.23589</td>
+<td class="r data">0.19088</td>
+<td class="r data">0.13862</td>
+<td class="r data">0.25231</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2022</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.59622</td>
+<td class="r data">39.4343</td>
+<td class="r data">82.267</td>
+<td class="r data">152.864</td>
+<td class="r data">38.7923</td>
+<td class="r data">6.1971</td>
+<td class="r data">8.5095</td>
+<td class="r data">1.51816</td>
+<td class="r data">3.85220</td>
+<td class="r data">0.78904</td>
+<td class="r data">0.27394</td>
+<td class="r data">4.11552</td>
+<td class="r data">0.16225</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<br>
+</div>
+</body>
+</html>

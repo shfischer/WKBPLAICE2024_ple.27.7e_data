@@ -1,0 +1,12 @@
+"age";"year";"unit";"season";"area";"iter";"data"
+0;2022;"unique";"all";"unique";"1";NA
+1;2022;"unique";"all";"unique";"1";0.140100924119455
+2;2022;"unique";"all";"unique";"1";0.144115214760292
+3;2022;"unique";"all";"unique";"1";0.105619317380953
+4;2022;"unique";"all";"unique";"1";0.114941402653648
+5;2022;"unique";"all";"unique";"1";0.132448561227262
+6;2022;"unique";"all";"unique";"1";0.14944724743828
+7;2022;"unique";"all";"unique";"1";0.255977430273709
+8;2022;"unique";"all";"unique";"1";0.144266255981148
+9;2022;"unique";"all";"unique";"1";NA
+10;2022;"unique";"all";"unique";"1";NA
