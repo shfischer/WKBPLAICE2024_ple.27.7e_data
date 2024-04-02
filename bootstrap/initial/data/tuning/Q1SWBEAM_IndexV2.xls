@@ -185,31 +185,8 @@ TD, TH {vertical-align: top }
 .stacked_cell{padding: 0 }
 -->
 </style>
-<script language="javascript" type="text/javascript">
-<!-- 
-function startup(){
-
-}
-function shutdown(){
-
-}
-
-//-->
-</script>
-
 </head>
-<body onload="startup()" onunload="shutdown()" class="body">
-
-<script language="javascript" type="text/javascript">
-<!-- 
-var _info = navigator.userAgent
-var _ie = (_info.indexOf("MSIE") > 0
-          && _info.indexOf("Win") > 0
-          && _info.indexOf("Windows 3.1") < 0);
-var _ie64 = _info.indexOf("x64") > 0
-
-//-->
-</script>
+<body class="body">
 
 <div class="branch">
 <a name="IDX"></a>
@@ -836,6 +813,39 @@ var _ie64 = _info.indexOf("x64") > 0
 <td class="r data">0.27394</td>
 <td class="r data">4.11552</td>
 <td class="r data">0.16225</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0</td>
+<td class="r data">0.00000</td>
+<td class="r data">0</td>
+</tr>
+<tr>
+<td class="r data">2023</td>
+<td class="r data">1</td>
+<td class="r data">11</td>
+<td class="r data">48068</td>
+<td class="r data">0.00000</td>
+<td class="r data">41.0873</td>
+<td class="r data">44.854</td>
+<td class="r data">55.416</td>
+<td class="r data">42.3314</td>
+<td class="r data">5.4061</td>
+<td class="r data">1.6231</td>
+<td class="r data">1.91519</td>
+<td class="r data">0.70996</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.00000</td>
+<td class="r data">0.13862</td>
 <td class="r data">0.00000</td>
 <td class="r data">0.00000</td>
 <td class="r data">0.00000</td>
