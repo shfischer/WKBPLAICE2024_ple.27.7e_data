@@ -2309,3 +2309,293 @@
 "ple.27.7e","UK (England)",2021,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0_all",23335,-9,NA,NA,"Sampled_Distribution",0,7,577,30,722
 "ple.27.7e","UK (England)",2021,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",313869,-9,NA,NA,"Sampled_Distribution",0,41,11402,30,722
 "ple.27.7e","UK (England)",2021,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",9912,-9,NA,NA,"Sampled_Distribution",0,32,1079,5,62
+"ple.27.7e","Belgium",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","SSC_DEF_70-99_0_0_all",7.01,2124,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","SSC_DEF_70-99_0_0_all",20,2124,"kWd",0,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","DRB_MOL_0_0_0_all",202.45,1044669,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","DRB_MOL_0_0_0_all",577.97,1044669,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GNS_DEF_80-99_0_0",0,3854,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GNS_DEF_80-99_0_0",2.48,3854,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_>=220_0_0_all",0,135853,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_>=220_0_0_all",408.16,135853,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_100-119_0_0_all",607.62,34474,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_100-119_0_0_all",0,34474,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_120-219_0_0_all",1098,26365,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_120-219_0_0_all",0,26365,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","GTR_DEF_all_0_0_all",0,19308,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_all_0_0_all",103.11,19308,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","LLS_DEF",2.68,12368,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","LLS_DEF",0.94,12368,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0",495.65,2524881,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0",173.61,2524881,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_100-119_0_0",6052.48,825286,"kWd",NA,"Estimated_Distribution",0,5,54,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","OTB_DEF_100-119_0_0",2120.04,825286,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_16-31_0_0",14.1,1109,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","OTB_DEF_16-31_0_0",4.94,1109,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_32-69_0_0",72.5,4988,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","OTB_DEF_32-69_0_0",25.4,4988,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_70-99_0_0",5047.11,207425,"kWd",NA,"Estimated_Distribution",0,3,38,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_70-99_0_0",8141.4,207425,"kWd",NA,"Estimated_Distribution",0,2,30,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","OTM_DEF_70-99_0_0_all",50.18,19875,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTM_DEF_70-99_0_0_all",143.27,19875,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTT_DEF_100-119_0_0",12.14,4074,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","OTT_DEF_100-119_0_0",4.25,4074,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","OTT_DEF_70-99_0_0",1.05,202,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","OTT_DEF_70-99_0_0",3,202,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Netherlands",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","1","Quarter","SSC_DEF_100-119_0_0_all",20,11277,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Netherlands",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","1","Quarter","SSC_DEF_100-119_0_0_all",7.01,11277,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0_HC",318,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0_HC",111.39,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","FPO_CRU_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","FPO_CRU_0_0_0_all",10.86,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","FPO_CRU_0_0_0_all",31,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","GTR_DEF_all_0_0_all",88.97,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_all_0_0_all",254,-9,NA,NA,"Estimated_Distribution",0,1,1,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","GTR_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","LLS_FIF_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","LLS_FIF_0_0_0_all",0.35,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","LLS_FIF_0_0_0_all",1,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0_HC",1699.89,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0_HC",60,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","MIS_MIS_0_0_0_HC",4853,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","OTB_CRU_16-31_0_0_all",6.3,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_CRU_16-31_0_0_all",18,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_CRU_16-31_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_>=120_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_70-99_0_0_all",5,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","SSC_DEF_All_0_0_All",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","SSC_DEF_All_0_0_All",1.75,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","SSC_DEF_All_0_0_All",5,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","TBB_DEF_>=120_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","TBB_DEF_>=120_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","TBB_DEF_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","1","Quarter","TBB_DEF_70-99_0_0_all",12752.09,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_70-99_0_0_all",65,1421,"kWd",0,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_CRU_70-99_0_0_all",22.77,1421,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","DRB_MOL_0_0_0_all",503.58,454137,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","DRB_MOL_0_0_0_all",1437.67,454137,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_>=220_0_0_all",872.25,168921,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_>=220_0_0_all",0,168921,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","GTR_DEF_100-119_0_0_all",0,23126,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_100-119_0_0_all",364.25,23126,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_120-219_0_0_all",2225.23,35981,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","GTR_DEF_120-219_0_0_all",0,35981,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_all_0_0_all",28.83,10551,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","GTR_DEF_all_0_0_all",0,10551,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","LLS_DEF",133.47,48864,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","LLS_DEF",381.04,48864,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0",614.99,2917876,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0",215.42,2917876,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_DEF_<16_0_0_all",20.51,1999,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_<16_0_0_all",58.54,1999,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_DEF_100-119_0_0",2731.33,758968,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_100-119_0_0",7797.62,758968,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_DEF_16-31_0_0",27.14,4206,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_16-31_0_0",77.49,4206,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_32-69_0_0",156.52,6417,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_DEF_32-69_0_0",54.83,6417,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_70-99_0_0",5859.69,371304,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_70-99_0_0",13827.6,371304,"kWd",NA,"Estimated_Distribution",0,10,45,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTM_DEF_70-99_0_0_all",83.04,56593,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTM_DEF_70-99_0_0_all",29.09,56593,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTT_DEF_100-119_0_0",142.11,4703,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTT_DEF_100-119_0_0",49.78,4703,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","OTT_DEF_70-99_0_0",135.81,13133,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","OTT_DEF_70-99_0_0",387.73,13133,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","TBB_DEF_70-99_0_0_all",35.98,40657,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_70-99_0_0_all",123.81,40657,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_all_0_0_all",7.3,5507,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","2","Quarter","TBB_DEF_all_0_0_all",2.56,5507,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0_HC",68,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0_HC",23.82,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","FPO_CRU_0_0_0_all",73,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","FPO_CRU_0_0_0_all",25.57,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","FPO_CRU_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","GNS_DEF_all_0_0_all",3604,-9,NA,NA,"Estimated_Distribution",0,11,10,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","GTR_DEF_all_0_0_all",20.32,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","GTR_DEF_all_0_0_all",58,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","LLS_FIF_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","LLS_FIF_0_0_0_all",12.61,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0_HC",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0_HC",2994.17,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_CRU_100-119_0_0_all",7.36,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_100-119_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_100-119_0_0_all",21,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_CRU_16-31_0_0_all",23.82,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_16-31_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_16-31_0_0_all",68,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_32-69_0_0_all",2,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_32-69_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_CRU_32-69_0_0_all",0.7,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","OTB_CRU_70-99_0_0_all",13.66,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_CRU_70-99_0_0_all",39,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_>=120_0_0_all",697,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","SSC_DEF_All_0_0_All",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","SSC_DEF_All_0_0_All",27,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","SSC_DEF_All_0_0_All",9.46,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_>=120_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","2","Quarter","TBB_DEF_>=120_0_0_all",9.3,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_>=120_0_0_all",14,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK(Scotland)",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","annual","Year","OTB_DEF_>=120_0_0_all",3,5488,"kWd",0,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK(Scotland)",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","annual","Year","OTB_DEF_>=120_0_0_all",1.05,5488,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_100-119_0_0_all",62,1269,"kWd",0,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_DEF_100-119_0_0_all",21.72,1269,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","SSC_DEF_100-119_0_0_all",17.51,15930,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","SSC_DEF_100-119_0_0_all",50,15930,"kWd",0,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","DRB_MOL_0_0_0_all",4.54,93343,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","DRB_MOL_0_0_0_all",12.95,93343,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_>=220_0_0_all",0,207977,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_>=220_0_0_all",413.88,207977,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_100-119_0_0_all",211.56,21502,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","GTR_DEF_100-119_0_0_all",0,21502,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","GTR_DEF_120-219_0_0_all",0,34236,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_120-219_0_0_all",554.7,34236,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","GTR_DEF_all_0_0_all",0,17737,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_all_0_0_all",108.09,17737,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","LLS_DEF",106.04,52228,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","LLS_DEF",302.72,52228,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0",947.56,1987695,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0",331.91,1987695,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_<16_0_0_all",22.72,374,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_DEF_<16_0_0_all",7.96,374,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_DEF_100-119_0_0",3588.16,1196103,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_100-119_0_0",10243.77,1196103,"kWd",NA,"Estimated_Distribution",0,12,304,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_16-31_0_0",13.41,2538,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_DEF_16-31_0_0",4.7,2538,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_DEF_32-69_0_0",5.6,4004,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_32-69_0_0",16,4004,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_70-99_0_0",0,399000,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_70-99_0_0",6425.19,399000,"kWd",NA,"Estimated_Distribution",0,5,102,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTM_DEF_70-99_0_0_all",7.6,29579,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTM_DEF_70-99_0_0_all",2.66,29579,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTT_DEF_100-119_0_0",211.04,4326,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTT_DEF_100-119_0_0",602.5,4326,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","OTT_DEF_70-99_0_0",16.49,8432,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","OTT_DEF_70-99_0_0",5.78,8432,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","TBB_DEF_70-99_0_0_all",22.92,57066,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_70-99_0_0_all",78.88,57066,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Netherlands",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","3","Quarter","SSC_DEF_100-119_0_0_all",10.51,8821,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Netherlands",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","3","Quarter","SSC_DEF_100-119_0_0_all",30,8821,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0_HC",1.05,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0_HC",3,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","FPO_CRU_0_0_0_all",201,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","FPO_CRU_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","FPO_CRU_0_0_0_all",70.41,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","GTR_DEF_all_0_0_all",90.37,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_all_0_0_all",258,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","GTR_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","LLS_FIF_0_0_0_all",19.27,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","LLS_FIF_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","LLS_FIF_0_0_0_all",55,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0_HC",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0_HC",9502,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","MIS_MIS_0_0_0_HC",3328.33,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_CRU_100-119_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_CRU_100-119_0_0_all",0.7,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_CRU_100-119_0_0_all",2,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_CRU_70-99_0_0_all",50,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_CRU_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_CRU_70-99_0_0_all",17.51,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_>=120_0_0_all",3,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","OTB_DEF_70-99_0_0_all",2971.21,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","SSC_DEF_All_0_0_All",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","3","Quarter","SSC_DEF_All_0_0_All",109.99,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","SSC_DEF_All_0_0_All",314,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_>=120_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_>=120_0_0_all",158,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_70-99_0_0_all",1276,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_100-119_0_0_all",14,3105,"kWd",0,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","Belgium",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","OTB_DEF_100-119_0_0_all",4.9,3105,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","DRB_MOL_0_0_0_all",147.24,1419296,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","DRB_MOL_0_0_0_all",420.35,1419296,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","GNS_DEF_80-99_0_0",0,465,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","GNS_DEF_80-99_0_0",0.3,465,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","GTR_DEF_>=220_0_0_all",0,85378,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","GTR_DEF_>=220_0_0_all",40.01,85378,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","GTR_DEF_100-119_0_0_all",189.56,14413,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","GTR_DEF_100-119_0_0_all",0,14413,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","GTR_DEF_120-219_0_0_all",824.51,19572,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","GTR_DEF_120-219_0_0_all",0,19572,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","GTR_DEF_all_0_0_all",0,8204,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","GTR_DEF_all_0_0_all",112.29,8204,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","LLS_DEF",18.44,25112,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","LLS_DEF",6.46,25112,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","MIS_MIS_0_0_0",219.39,2665097,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","MIS_MIS_0_0_0",76.85,2665097,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_100-119_0_0",8659.56,943650,"kWd",NA,"Estimated_Distribution",0,5,291,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","OTB_DEF_100-119_0_0",3033.25,943650,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_32-69_0_0",27.51,4432,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","OTB_DEF_32-69_0_0",9.64,4432,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0",2734.94,237820,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0",0,237820,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Logbook Registered Discard","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0",0,237820,"kWd",10,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTT_DEF_100-119_0_0",82.36,6443,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","OTT_DEF_100-119_0_0",28.85,6443,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","OTT_DEF_70-99_0_0",2.1,751,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","OTT_DEF_70-99_0_0",0.74,751,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Discards","Reported","Raised_Discards",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",11.62,1437,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","France",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",40,1437,"kWd",NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (Channel Island Jersey)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","MIS_MIS_0_0_0_HC",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","FPO_CRU_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","FPO_CRU_0_0_0_all",26,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","FPO_CRU_0_0_0_all",9.11,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","GNS_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","GTR_DEF_all_0_0_all",550.29,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","GTR_DEF_all_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","GTR_DEF_all_0_0_all",1571,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","LLS_FIF_0_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","LLS_FIF_0_0_0_all",2,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","LLS_FIF_0_0_0_all",0.7,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","MIS_MIS_0_0_0_HC",3551,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","MIS_MIS_0_0_0_HC",1243.83,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","MIS_MIS_0_0_0_HC",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_CRU_16-31_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_CRU_16-31_0_0_all",19,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","OTB_CRU_16-31_0_0_all",6.66,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_>=120_0_0_all",98,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0_all",2955.49,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_>=120_0_0_all",103,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_>=120_0_0_all",0,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Raised_Discards",NA,"27.7.e","4","Quarter","TBB_DEF_>=120_0_0_all",68.45,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"BMS landing","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",180,-9,NA,NA,"Estimated_Distribution",0,0,0,0,0
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","GNS_DEF_all_0_0_all",2101,-9,NA,NA,"Sampled_Distribution",0,21,609,28,704
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_>=120_0_0_all",23142,-9,NA,NA,"Sampled_Distribution",0,29,1594,28,704
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_>=120_0_0_all",37145,-9,NA,NA,"Sampled_Distribution",0,9,341,2,18
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_70-99_0_0_all",1825,-9,NA,NA,"Sampled_Distribution",0,5,59,2,18
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","OTB_DEF_70-99_0_0_all",14622,-9,NA,NA,"Sampled_Distribution",0,5,401,28,704
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","1","Quarter","TBB_DEF_70-99_0_0_all",90522,-9,NA,NA,"Sampled_Distribution",0,31,9095,28,704
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","LLS_FIF_0_0_0_all",36,-9,NA,NA,"Sampled_Distribution",0,26,40,32,696
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","MIS_MIS_0_0_0_HC",8548,-9,NA,NA,"Sampled_Distribution",0,7,365,32,696
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_>=120_0_0_all",20335,-9,NA,NA,"Sampled_Distribution",0,35,1868,32,696
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_>=120_0_0_all",21947,-9,NA,NA,"Sampled_Distribution",0,12,472,8,69
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_70-99_0_0_all",16138,-9,NA,NA,"Sampled_Distribution",0,10,339,32,696
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","OTB_DEF_70-99_0_0_all",4145,-9,NA,NA,"Sampled_Distribution",0,6,101,8,69
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_70-99_0_0_all",155473,-9,NA,NA,"Sampled_Distribution",0,35,11021,32,696
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","2","Quarter","TBB_DEF_70-99_0_0_all",22344,-9,NA,NA,"Sampled_Distribution",0,22,200,8,69
+"ple.27.7e","Belgium",2022,"Discards","Reported","Imported_Data",NA,"27.7.e","annual","Year","TBB_DEF_70-99_0_0_all",124473,818527,"kWd",NA,"Sampled_Distribution",0,5,455,5,71
+"ple.27.7e","Belgium",2022,"Landings","Reported","Imported_Data",NA,"27.7.e","annual","Year","TBB_DEF_70-99_0_0_all",107378,818527,"kWd",107000,"Sampled_Distribution",0,5,659,5,145
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","GNS_DEF_all_0_0_all",10387,-9,NA,NA,"Sampled_Distribution",0,14,275,29,657
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_>=120_0_0_all",17617,-9,NA,NA,"Sampled_Distribution",0,6,189,9,85
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_>=120_0_0_all",27267,-9,NA,NA,"Sampled_Distribution",0,34,2031,29,657
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","OTB_DEF_70-99_0_0_all",15309,-9,NA,NA,"Sampled_Distribution",0,9,1138,29,657
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_>=120_0_0_all",105,-9,NA,NA,"Sampled_Distribution",0,25,164,9,85
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_70-99_0_0_all",54999,-9,NA,NA,"Sampled_Distribution",0,43,517,9,85
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","3","Quarter","TBB_DEF_70-99_0_0_all",266587,-9,NA,NA,"Sampled_Distribution",0,30,11469,29,657
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","GNS_DEF_all_0_0_all",3937,-9,NA,NA,"Sampled_Distribution",0,12,680,25,716
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_>=120_0_0_all",19909,-9,NA,NA,"Sampled_Distribution",0,14,598,25,716
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_>=120_0_0_all",5856,-9,NA,NA,"Sampled_Distribution",0,8,33,2,21
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","OTB_DEF_70-99_0_0_all",15228,-9,NA,NA,"Sampled_Distribution",0,4,626,25,716
+"ple.27.7e","UK (England)",2022,"Landings","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",200975,-9,NA,NA,"Sampled_Distribution",0,43,14685,25,716
+"ple.27.7e","UK (England)",2022,"Discards","All - reported, nonreported and misreported","Imported_Data",NA,"27.7.e","4","Quarter","TBB_DEF_70-99_0_0_all",10426,-9,NA,NA,"Sampled_Distribution",0,13,62,2,21
