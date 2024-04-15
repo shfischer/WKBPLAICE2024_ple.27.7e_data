@@ -11,7 +11,7 @@
 ### ------------------------------------------------------------------------ ###
 
 ### load packages
-suppressPackageStartupMessages(library(TAF))
+suppressPackageStartupMessages(library(icesTAF))
 taf.libPaths()
 suppressPackageStartupMessages(library(FLCore))
 suppressPackageStartupMessages(library(TMB))

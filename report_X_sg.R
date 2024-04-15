@@ -8,7 +8,7 @@
 ##         report/standard_graphs/stock_status.png
 
 ### load packages
-suppressPackageStartupMessages(library(TAF))
+suppressPackageStartupMessages(library(icesTAF))
 taf.libPaths()
 suppressPackageStartupMessages(library(icesSAG))
 suppressPackageStartupMessages(library(Cairo))

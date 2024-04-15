@@ -7,7 +7,7 @@
 ## Before:
 ## After:
 
-library(TAF)
+library(icesTAF)
 
 ### run XSA
 ### - not used anymore - too wrong

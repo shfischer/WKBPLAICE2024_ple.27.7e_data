@@ -6,7 +6,7 @@
 ## Before:
 ## After:
 
-library(TAF)
+library(icesTAF)
 
 mkdir("report")
 mkdir("report/XSA/")

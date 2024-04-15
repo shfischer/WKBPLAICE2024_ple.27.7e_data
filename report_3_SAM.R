@@ -13,7 +13,7 @@
 ## After:  many of plots and tables in report/SAM/
 
 ### load packages
-suppressPackageStartupMessages(library(TAF))
+suppressPackageStartupMessages(library(icesTAF))
 taf.libPaths()
 suppressPackageStartupMessages(library(icesAdvice))
 suppressPackageStartupMessages(library(ggplot2))

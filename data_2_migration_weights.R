@@ -22,7 +22,7 @@
 ##         some data plots: data/plots_*.png
 
 ### packages
-suppressPackageStartupMessages(library(TAF))
+suppressPackageStartupMessages(library(icesTAF))
 taf.libPaths()
 suppressPackageStartupMessages(library(ggplot2))
 suppressPackageStartupMessages(library(Cairo))

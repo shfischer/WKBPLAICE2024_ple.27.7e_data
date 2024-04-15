@@ -17,7 +17,7 @@
 ### ------------------------------------------------------------------------ ###
 
 ### load packages
-suppressPackageStartupMessages(library(TAF))
+suppressPackageStartupMessages(library(icesTAF))
 taf.libPaths()
 suppressPackageStartupMessages(library(XML))
 suppressPackageStartupMessages(library(tidyr))

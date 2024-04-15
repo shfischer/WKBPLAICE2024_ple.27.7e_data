@@ -14,7 +14,7 @@
 
 ### load packages
 suppressPackageStartupMessages(library(icesAdvice))
-suppressPackageStartupMessages(library(TAF))
+suppressPackageStartupMessages(library(icesTAF))
 taf.libPaths()
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidyr))

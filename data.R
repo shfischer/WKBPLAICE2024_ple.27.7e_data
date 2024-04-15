@@ -5,7 +5,7 @@
 ## Before:
 ## After:
 
-library(TAF)
+library(icesTAF)
 
 ### create folder to store data
 mkdir("data")
