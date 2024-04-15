@@ -33,7 +33,7 @@ mkdir("data/length/")
 source("utilities.R")
 
 ### set WG year
-year <- 2023
+year <- 2024
 data_year <- year - 1
 
 if (!exists("verbose")) verbose <- FALSE
@@ -206,6 +206,7 @@ if (isTRUE(verbose))
 ### in all years only UK data, but for Landings & Discards
 ### 2021: BE & FR & UKE: D & L
 ### 2022: BE, FR, UKE
+### 2023: BE & FR: LD; FR L
 
 ### spread
 ### spread out seasons
