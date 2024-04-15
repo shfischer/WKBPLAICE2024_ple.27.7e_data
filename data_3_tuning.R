@@ -2,12 +2,12 @@
 ### extend tuning time series ####
 ### ------------------------------------------------------------------------ ###
 
-## before:  bootstrap/data/tuning/:
+## before:  boot/data/tuning/:
 ##            FSP_numbers.csv, 
 ##            FSP_biomass.csv,
 ##            Q1SWBEAM_Index.xls
-##          bootstrap/data/vpa_files/PLE7ETU_full.dat
-##          bootstrap/data/accessions/LPUE.csv
+##          boot/data/vpa_files/PLE7ETU_full.dat
+##          boot/data/accessions/LPUE.csv
 
 ## after: data/PLE7ETU_full.dat (updated)
 ##        data/plots_data_LPUE.png 
@@ -27,14 +27,14 @@ suppressPackageStartupMessages(library(ggplot2))
 if (!exists("verbose")) verbose <- FALSE
 
 ### load file with survey indices
-idx_file <- readLines(con = "bootstrap/data/vpa_files/PLE7ETU_full.dat")
+idx_file <- readLines(con = "boot/data/vpa_files/PLE7ETU_full.dat")
 
 
 ### ------------------------------------------------------------------------ ###
 ### update FSP - numbers ####
 
 ### load new index data
-idx_update <- read.csv(paste0("bootstrap/data/tuning/FSP_numbers.csv"))
+idx_update <- read.csv(paste0("boot/data/tuning/FSP_numbers.csv"))
 ### year range
 new_years <- idx_update$year
 ### ages
@@ -76,7 +76,7 @@ idx_file <- unlist(idx_file, recursive = TRUE)
 ### update FSP - biomass ####
 
 ### load new index data
-idx_update <- read.csv(paste0("bootstrap/data/tuning/FSP_biomass.csv"))
+idx_update <- read.csv(paste0("boot/data/tuning/FSP_biomass.csv"))
 ### year range
 new_years <- idx_update$year
 ### ages
@@ -123,7 +123,7 @@ idx_file <- unlist(idx_file, recursive = TRUE)
 ### update Q1SWBeam ####
 
 ### read data
-# idx_update <- readHTMLTable(doc = paste0("bootstrap/data/tuning/",
+# idx_update <- readHTMLTable(doc = paste0("boot/data/tuning/",
 #                                          "Q1SWBEAM_Index.xls"),
 #                             colClasses = "numeric")[[2]]
 # 
@@ -190,7 +190,7 @@ writeLines(text = idx_file, con = "data/PLE7ETU_full.dat",
 ### ------------------------------------------------------------------------ ###
 
 ### get data from ADF spreadsheet
-LPUE <- read.csv("bootstrap/data/accessions/LPUE.csv")
+LPUE <- read.csv("boot/data/accessions/LPUE.csv")
 
 ### reshape
 LPUE <- LPUE %>% gather(key = "key", value = "value", 2:5) %>%

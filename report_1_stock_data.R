@@ -8,8 +8,8 @@
 ##         model/diags.rds
 ##         data/model_input_idx.RDS
 ##         model/retro.rds
-##         bootstrap/data/previous_results/diags_2017.rds
-##         bootstrap/data/previous_results/stock_2017.rds
+##         boot/data/previous_results/diags_2017.rds
+##         boot/data/previous_results/stock_2017.rds
 ## After:  many of plots and tables in report/
 
 ### load packages

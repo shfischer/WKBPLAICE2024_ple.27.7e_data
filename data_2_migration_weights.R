@@ -4,8 +4,8 @@
 ### update VPA files
 ### ------------------------------------------------------------------------ ###
 
-## Before: many InterCatch data files: bootstrap/data/InterCatch/*
-##         VPA files in bootstrap/data/vpa_files/:
+## Before: many InterCatch data files: boot/data/InterCatch/*
+##         VPA files in boot/data/vpa_files/:
 ##           PLE7ECA.DAT PLE7ECN.DAT PLE7ECW.DAT PLE7EDA.DAT PLE7EDN.DAT
 ##           PLE7EDW.DAT PLE7EIND_C.DAT PLE7EIND_L.DAT PLE7ELA.DAT PLE7ELN.DAT
 ##           PLE7ELW.DAT PLE7EMO.DAT PLE7ENM.DAT PLE7EPF.DAT PLEEPM.DAT 
@@ -18,7 +18,7 @@
 ##           PLE7ESW_C.DAT PLE7EDW_L.DAT
 ##           PLE7ETU_full.dat
 ##         updated files with migration history in
-##           bootstrap/data/InterCatch/migration/*.RDS and *.RData
+##           boot/data/InterCatch/migration/*.RDS and *.RData
 ##         some data plots: data/plots_*.png
 
 ### packages
@@ -40,19 +40,19 @@ if (!exists("verbose")) verbose <- FALSE
 ### ------------------------------------------------------------------------ ###
 
 ### load landings data from InterCatch
-laton <- readFLQuant(input_file = "bootstrap/data/InterCatch/landings/caton.txt")
-lanum <- readFLQuant(input_file = "bootstrap/data/InterCatch/landings/canum.txt")
-wela <- readFLQuant(input_file = "bootstrap/data/InterCatch/landings/weca.txt")
+laton <- readFLQuant(input_file = "boot/data/InterCatch/landings/caton.txt")
+lanum <- readFLQuant(input_file = "boot/data/InterCatch/landings/canum.txt")
+wela <- readFLQuant(input_file = "boot/data/InterCatch/landings/weca.txt")
 
 ### load discards data from InterCatch
-daton <- readFLQuant(input_file = "bootstrap/data/InterCatch/discards/caton.txt")
-danum <- readFLQuant(input_file = "bootstrap/data/InterCatch/discards/canum.txt")
-weda <- readFLQuant(input_file = "bootstrap/data/InterCatch/discards/weca.txt")
+daton <- readFLQuant(input_file = "boot/data/InterCatch/discards/caton.txt")
+danum <- readFLQuant(input_file = "boot/data/InterCatch/discards/canum.txt")
+weda <- readFLQuant(input_file = "boot/data/InterCatch/discards/weca.txt")
 
 ### load catch data from InterCatch
-caton <- readFLQuant(input_file = "bootstrap/data/InterCatch/catch/caton.txt")
-canum <- readFLQuant(input_file = "bootstrap/data/InterCatch/catch/canum.txt")
-weca <- readFLQuant(input_file = "bootstrap/data/InterCatch/catch/weca.txt")
+caton <- readFLQuant(input_file = "boot/data/InterCatch/catch/caton.txt")
+canum <- readFLQuant(input_file = "boot/data/InterCatch/catch/canum.txt")
+weca <- readFLQuant(input_file = "boot/data/InterCatch/catch/weca.txt")
 
 ### get year
 year <- dims(caton)$maxyear
@@ -63,7 +63,7 @@ data_year <- year
 ### ------------------------------------------------------------------------ ###
 ### check if data for previous years exist, e.g. because of revisions
 ###
-rev_dirs <- list.files(path = "bootstrap/data/InterCatch/", 
+rev_dirs <- list.files(path = "boot/data/InterCatch/", 
                        pattern = paste0(2012:(data_year - 1), "_revision", 
                                         collapse = "|"))
 rev_years <- as.numeric(gsub(x = rev_dirs, pattern = "\\D", replacement = ""))
@@ -77,7 +77,7 @@ if (length(rev_years) > 0) {
   ### load data
   hist_data <- lapply(rev_dirs, function(y) {
     
-    path_tmp <- paste0("bootstrap/data/InterCatch/", y, "/")
+    path_tmp <- paste0("boot/data/InterCatch/", y, "/")
     list(
       ### landings
       laton = readFLQuant(paste0(path_tmp, "landings/caton.txt")),
@@ -146,7 +146,7 @@ if (length(rev_years) > 0) {
 ### ------------------------------------------------------------------------ ###
 ### load migration data ####
 ### ------------------------------------------------------------------------ ###
-migration_path <- "bootstrap/data/InterCatch/migration/"
+migration_path <- "boot/data/InterCatch/migration/"
 ### ------------------------------------------------------------------------ ###
 ### total catch tonnage ####
 
@@ -556,8 +556,8 @@ catch_numbers <- setPlusGroupSum(number = combined_canum, plusgroup = 10)
 ### ------------------------------------------------------------------------ ###
 
 ### copy files from last year into data folder
-file.copy(from = paste0("bootstrap/data/vpa_files/",
-                        list.files("bootstrap/data/vpa_files/", 
+file.copy(from = paste0("boot/data/vpa_files/",
+                        list.files("boot/data/vpa_files/", 
                                    pattern = "*.DAT$")),
           to = "data/", overwrite = TRUE)
 

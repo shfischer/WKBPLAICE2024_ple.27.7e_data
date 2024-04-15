@@ -3,12 +3,12 @@
 ### ------------------------------------------------------------------------ ###
 ### from InterCatch and accessions
 
-## Before: many InterCatch data files: bootstrap/data/InterCatch/*
-##         bootstrap/data/accessions/discards_alk.csv
-##         bootstrap/data/accessions/landings_alk.csv
+## Before: many InterCatch data files: boot/data/InterCatch/*
+##         boot/data/accessions/discards_alk.csv
+##         boot/data/accessions/landings_alk.csv
 ##         
-## After:  some temporary InterCatch files: bootstrap/data/InterCatch/*
-##         historical time series updateded: bootstrap/data/InterCatch/*
+## After:  some temporary InterCatch files: boot/data/InterCatch/*
+##         historical time series updateded: boot/data/InterCatch/*
 ##         some data plots: data/plots_*.png
 
 ### ------------------------------------------------------------------------ ###
@@ -41,7 +41,7 @@ if (!exists("verbose")) verbose <- FALSE
 ### ------------------------------------------------------------------------ ###
 ### revisions to previous years? ####
 ### ------------------------------------------------------------------------ ###
-revs <- list.dirs("bootstrap/data/InterCatch/length/", recursive = FALSE, 
+revs <- list.dirs("boot/data/InterCatch/length/", recursive = FALSE, 
                   full.names = FALSE)
 revs <- revs[grep(x = revs, pattern = "[0-9]{4}_revision")]
 yrs_dirs <- c("", revs)
@@ -60,16 +60,16 @@ names(yrs_dirs) <- yrs
 
 ### unzip files from InterCatch export (before raising)
 . <- lapply(yrs_dirs, function(x) {
-  taf.unzip(zipfile = paste0("bootstrap/data/InterCatch/length/", x, 
+  taf.unzip(zipfile = paste0("boot/data/InterCatch/length/", x, 
                              "/before_raising/",
                              "Numbers_at_age_and_mean_weights_at_age.zip"), 
-      exdir = paste0("bootstrap/data/InterCatch/length/", x, "/before_raising"))
+      exdir = paste0("boot/data/InterCatch/length/", x, "/before_raising"))
 })
 
 ### ------------------------------------------------------------------------ ###
 ### load overview
 StockOverview <- lapply(yrs_dirs, function(x) {
-  tmp <- read.table(paste0("bootstrap/data/InterCatch/length/", x,
+  tmp <- read.table(paste0("boot/data/InterCatch/length/", x,
                            "/before_raising/StockOverview.txt"),
                     sep = "\t", header = TRUE, as.is = TRUE)
   tmp$Season <- gsub(x = tmp$Season,
@@ -78,7 +78,7 @@ StockOverview <- lapply(yrs_dirs, function(x) {
   return(tmp)
 })
 ### load also previous years
-StockOverview_hist <- read.csv(paste0("bootstrap/data/InterCatch/length/",
+StockOverview_hist <- read.csv(paste0("boot/data/InterCatch/length/",
                                       "before_raising/",
                                       "StockOverview_hist.csv"),
                                as.is = TRUE)
@@ -99,11 +99,11 @@ StockOverview_all$Season <- gsub(x = StockOverview_all$Season,
 ### save entire InterCatch history
 ### including current year
 write.csv(StockOverview_all, 
-          file = paste0("bootstrap/data/InterCatch/length/before_raising/",
+          file = paste0("boot/data/InterCatch/length/before_raising/",
                         "StockOverview_hist.csv"),
           row.names = FALSE)
 ### load
-# StockOverview_all <- read.csv(paste0("bootstrap/data/InterCatch/length/",
+# StockOverview_all <- read.csv(paste0("boot/data/InterCatch/length/",
 #                                      "before_raising/StockOverview_hist.csv"),
 #                               as.is = TRUE)
 
@@ -159,7 +159,7 @@ if (isTRUE(verbose))
 ### submitted sample data
 ### load data for current year
 samples <- lapply(yrs_dirs, function(x) {
-  tmp <- read.table(paste0("bootstrap/data/InterCatch/length/", x, 
+  tmp <- read.table(paste0("boot/data/InterCatch/length/", x, 
                            "/before_raising/NumbersAtAgeLength.txt"),
                     sep = "\t", header = TRUE, skip = 2, as.is = TRUE)
   tmp$Season <- gsub(x = tmp$Season, pattern = "[0-9]{4}",
@@ -167,7 +167,7 @@ samples <- lapply(yrs_dirs, function(x) {
   return(tmp)
 })
 ### load also previous years
-samples_hist <- read.csv(paste0("bootstrap/data/InterCatch/length/", 
+samples_hist <- read.csv(paste0("boot/data/InterCatch/length/", 
                                 "before_raising/NumbersAtAgeLength_hist.csv"), 
                          as.is = TRUE)
 samples_hist$Season <- gsub(x = samples_hist$Season, pattern = "[0-9]{4}",
@@ -190,12 +190,12 @@ samples_all <- unique(samples_all)
 
 ### save entire history including current year
 write.csv(samples_all, 
-          file = paste0("bootstrap/data/InterCatch/length/before_raising/",
+          file = paste0("boot/data/InterCatch/length/before_raising/",
                         "NumbersAtAgeLength_hist.csv"),
           row.names = FALSE)
 
 ### load
-# samples_all <- read.csv(file = paste0("bootstrap/data/InterCatch/before_rais",
+# samples_all <- read.csv(file = paste0("boot/data/InterCatch/before_rais",
 #                                       "ing/NumbersAtAgeLength_hist.csv"))
 
 
@@ -546,7 +546,7 @@ if (isTRUE(verbose)) groups_country %>% print(width = Inf)
 ###         SeasonType: Quarter, ALL, AreaType: Div, ALL
 ### click on "Aggregate" - wait...
 ### click "Export of Files"
-### Download zip file and save in bootstrap/initial/data/InterCatch/length/catch/
+### Download zip file and save in boot/initial/data/InterCatch/length/catch/
 ### select "Final Export"
 
 
@@ -554,12 +554,12 @@ if (isTRUE(verbose)) groups_country %>% print(width = Inf)
 ### unzip data & extract tables for all catch categories
 . <- lapply(yrs_dirs, function(x) {
   ### unzip 
-  taf.unzip(zipfile = paste0("bootstrap/data/InterCatch/length/", x, "/catch/",
+  taf.unzip(zipfile = paste0("boot/data/InterCatch/length/", x, "/catch/",
                              "/*.zip"), 
-            exdir = paste0("bootstrap/data/InterCatch/length/", x, "/catch/"), 
+            exdir = paste0("boot/data/InterCatch/length/", x, "/catch/"), 
             unzip = "unzip")
   ### extract tables with age and sample data
-  extract_tables(file_path = paste0("bootstrap/data/InterCatch/length/", x, 
+  extract_tables(file_path = paste0("boot/data/InterCatch/length/", x, 
                                     "/catch/"))
 })
 
@@ -567,7 +567,7 @@ if (isTRUE(verbose)) groups_country %>% print(width = Inf)
 ### ignore table 1 because it should be identical to table 1 from the age 
 ### allocations
 table2_new <- lapply(yrs_dirs, function(x) {
-  tmp <- read.table(paste0("bootstrap/data/InterCatch/length/", x, 
+  tmp <- read.table(paste0("boot/data/InterCatch/length/", x, 
                            "/catch/table2.txt"), 
                     sep = "\t", header = TRUE, stringsAsFactors = FALSE)
   tmp$Season[!tmp$Season %in% 1:4] <- "annual"
@@ -575,7 +575,7 @@ table2_new <- lapply(yrs_dirs, function(x) {
 })
 
 ### load historical values
-table2_hist <- read.csv(paste0("bootstrap/data/InterCatch/length/catch/", 
+table2_hist <- read.csv(paste0("boot/data/InterCatch/length/catch/", 
                                "table2_hist.csv"), 
                         as.is = TRUE, stringsAsFactors = FALSE)
 table2_hist$Season[!table2_hist$Season %in% 1:4] <- "annual"
@@ -585,13 +585,13 @@ table2 <- table2_hist %>% filter(!Year %in% yrs)
 table2 <- Reduce(bind_rows, append(list(table2), table2_new))
 
 ### save to file
-write.csv(table2, file = paste0("bootstrap/data/InterCatch/length/catch/",
+write.csv(table2, file = paste0("boot/data/InterCatch/length/catch/",
                                 "table2_hist.csv"), 
           row.names = FALSE)
 if (isTRUE(verbose))
-  table2 <- read.csv(paste0("bootstrap/data/InterCatch/length/catch/",
+  table2 <- read.csv(paste0("boot/data/InterCatch/length/catch/",
                             "table2_hist.csv"), as.is = TRUE)
-# table2 <- read.csv("bootstrap/data/InterCatch/length/catch/table2_hist.csv")
+# table2 <- read.csv("boot/data/InterCatch/length/catch/table2_hist.csv")
 
 ### ------------------------------------------------------------------------ ###
 ### length frequencies ####
@@ -630,7 +630,7 @@ ggsave(file = "data/length/plots_length_distribution_annual.png", plot = p,
 ### ------------------------------------------------------------------------ ###
 
 ### load ALKS (historical and current)
-alks <- read.csv("bootstrap/data/accessions/ALKs.csv", 
+alks <- read.csv("boot/data/accessions/ALKs.csv", 
                   stringsAsFactors = FALSE, as.is = TRUE)
 names(alks)[1] <- "year"
 alks <- alks %>% gather(key = "age", value = "count", X1:X26) %>%
@@ -678,13 +678,13 @@ if (isTRUE(verbose)) {
     group_by(Year, Age, LngtClass) %>%
     summarise(CANoAtLngt = sum(CANoAtLngt))
   saveRDS(object = Q1_ple, 
-          file = "bootstrap/initial/data/DATRAS/Q1SWBeam_ple_ALK.rds")
+          file = "boot/initial/data/DATRAS/Q1SWBeam_ple_ALK.rds")
   # saveRDS(object = Q1_ple, 
-  #         file = "bootstrap/data/DATRAS/Q1SWBeam_ple_ALK.rds")
+  #         file = "boot/data/DATRAS/Q1SWBeam_ple_ALK.rds")
 }
 
 ### load ALK from bootstrap directory
-Q1_ple <- readRDS("bootstrap/data/DATRAS/Q1SWBeam_ple_ALK.rds")
+Q1_ple <- readRDS("boot/data/DATRAS/Q1SWBeam_ple_ALK.rds")
 saveRDS(object = Q1_ple, file = "data/length/Q1SWBeam_ple.rds")
 
 ### plot ALKs

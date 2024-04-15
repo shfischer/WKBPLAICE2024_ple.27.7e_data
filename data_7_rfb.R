@@ -9,14 +9,14 @@ mkdir("data/rfb")
 ### ------------------------------------------------------------------------ ###
 
 ### copy csv file with FSP biomass at age
-file.copy(from = "bootstrap/data/tuning/FSP_biomass.csv", 
+file.copy(from = "boot/data/tuning/FSP_biomass.csv", 
           to = "data/rfb/FSP_biomass.csv")
 
 ### ------------------------------------------------------------------------ ###
 ### length data from InterCatch ####
 ### ------------------------------------------------------------------------ ###
 
-file.copy(from = "bootstrap/data/InterCatch/length/catch/table2_hist.csv",
+file.copy(from = "boot/data/InterCatch/length/catch/table2_hist.csv",
           to = "data/rfb/InterCatch_length.csv")
 
 
@@ -25,12 +25,12 @@ file.copy(from = "bootstrap/data/InterCatch/length/catch/table2_hist.csv",
 ### ------------------------------------------------------------------------ ###
 
 ### summary file
-advice <- read.csv("bootstrap/data/advice/advice_history.csv")
+advice <- read.csv("boot/data/advice/advice_history.csv")
 
 ### load catch data
-migration_caton_hist <- readRDS("bootstrap/data/InterCatch/migration/TotRemovalsFirstQVIIe_catch_historical.RDS")
-migration_laton_hist <- readRDS("bootstrap/data/InterCatch/migration/TotRemovalsFirstQVIIe_historical.RDS")
-migration_daton_hist <- readRDS("bootstrap/data/InterCatch/migration/TotRemovalsFirstQVIIe_discards_historical.RDS")
+migration_caton_hist <- readRDS("boot/data/InterCatch/migration/TotRemovalsFirstQVIIe_catch_historical.RDS")
+migration_laton_hist <- readRDS("boot/data/InterCatch/migration/TotRemovalsFirstQVIIe_historical.RDS")
+migration_daton_hist <- readRDS("boot/data/InterCatch/migration/TotRemovalsFirstQVIIe_discards_historical.RDS")
 stk <- readRDS("data/model_input_stk_d.RDS")
 
 years <- advice$year
