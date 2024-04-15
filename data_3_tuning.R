@@ -123,57 +123,108 @@ idx_file <- unlist(idx_file, recursive = TRUE)
 ### update Q1SWBeam ####
 
 ### read data
-# idx_update <- readHTMLTable(doc = paste0("boot/data/tuning/",
-#                                          "Q1SWBEAM_Index.xls"),
-#                             colClasses = "numeric")[[2]]
-# 
-# ### year range
-# new_years <- idx_update[, grep(x = names(idx_update), 
-#                                pattern = "[yY]ear")]
-# ### ages
-# new_ages <- names(idx_update)[grep(x = names(idx_update), pattern = "AAge*")]
-# new_ages <- as.numeric(gsub(x = new_ages, pattern = "[[:alpha:]]", 
-#                             replacement = ""))
-# 
-# ### format index value for insertion
-# idx_insert <- idx_update[, c(1, grep(x = names(idx_update),
-#                                      pattern = "^AAge*"))]
-# ### use first column for effort
-# idx_insert[, 1] <- 1
-# ### use tab to separate cells
-# idx_insert <- apply(idx_insert, MARGIN = 1, paste, collapse = "\t")
-# 
-# ### find position where survey starts
-# start <- grep(x = idx_file, pattern = "^Q1SWBeam$")
-# ### find start of index values
-# idx_start <- start + 4
-# ### find end, i.e. start of next index
-# idx_end <- start + 
-#   grep(x = idx_file[-seq(start)], pattern = "^[a-zA-Z]+")[1] - 1
-# ### or if last index, use last data row
-# if (is.na(idx_end)) {
-#   idx_end <- start + 
-#     tail(grep(x = idx_file[-seq(start)], pattern = "^[0-9]+"), 1)
-# }
-# 
-# ### update year range
-# idx_file[start + 1] <- paste(range(new_years), collapse = " ")
-# ### update age range
-# idx_file[start + 3] <- paste(range(new_ages), collapse = " ")
-# 
-# ### coerce object into list for easier insertion of values
-# idx_file <- as.list(idx_file)
-# 
-# ### remove old values (apart from first row)
-# idx_file[(idx_start + 1):idx_end] <- NULL
-# ### insert new values
-# idx_file[idx_start] <- list(idx_insert)
-# idx_file <- unlist(idx_file, recursive = TRUE)
+idx_update <- readHTMLTable(doc = paste0("boot/data/tuning/",
+                                         "Q1SWBEAM_IndexV2i.xls"),
+                            colClasses = "numeric")[[2]]
+
+### year range
+new_years <- idx_update[, grep(x = names(idx_update),
+                               pattern = "[yY]ear")]
+### ages
+new_ages <- names(idx_update)[grep(x = names(idx_update), pattern = "AAge*")]
+new_ages <- as.numeric(gsub(x = new_ages, pattern = "[[:alpha:]]",
+                            replacement = ""))
+
+### format index value for insertion
+idx_insert <- idx_update[, c(1, grep(x = names(idx_update),
+                                     pattern = "^AAge*"))]
+### use first column for effort
+idx_insert[, 1] <- 1
+### use tab to separate cells
+idx_insert <- apply(idx_insert, MARGIN = 1, paste, collapse = "\t")
+
+### find position where survey starts
+start <- grep(x = idx_file, pattern = "^Q1SWBeam$")
+### find start of index values
+idx_start <- start + 4
+### find end, i.e. start of next index
+idx_end <- start +
+  grep(x = idx_file[-seq(start)], pattern = "^[a-zA-Z]+")[1] - 1
+### or if last index, use last data row
+if (is.na(idx_end)) {
+  idx_end <- start +
+    tail(grep(x = idx_file[-seq(start)], pattern = "^[0-9]+"), 1)
+}
+
+### update year range
+idx_file[start + 1] <- paste(range(new_years), collapse = " ")
+### update age range
+idx_file[start + 3] <- paste(range(new_ages), collapse = " ")
+
+### coerce object into list for easier insertion of values
+idx_file <- as.list(idx_file)
+
+### remove old values (apart from first row)
+idx_file[(idx_start + 1):idx_end] <- NULL
+### insert new values
+idx_file[idx_start] <- list(idx_insert)
+idx_file <- unlist(idx_file, recursive = TRUE)
+
+### ------------------------------------------------------------------------ ###
+### update Q1SWBeam-biomass ####
+
+### read data
+idx_update <- readHTMLTable(doc = paste0("boot/data/tuning/",
+                                         "Q1SWBEAM_IndexV2i.xls"),
+                            colClasses = "numeric")[[2]]
+
+### year range
+new_years <- idx_update[, grep(x = names(idx_update),
+                               pattern = "[yY]ear")]
+### ages
+new_ages <- names(idx_update)[grep(x = names(idx_update), pattern = "WWAge*")]
+new_ages <- as.numeric(gsub(x = new_ages, pattern = "WWAge_",
+                            replacement = ""))
+
+### format index value for insertion
+idx_insert <- idx_update[, c(1, grep(x = names(idx_update),
+                                     pattern = "^AAge*"))]
+### use first column for effort
+idx_insert[, 1] <- 1
+### use tab to separate cells
+idx_insert <- apply(idx_insert, MARGIN = 1, paste, collapse = "\t")
+
+### find position where survey starts
+start <- grep(x = idx_file, pattern = "^Q1SWBeam-biomass$")
+### find start of index values
+idx_start <- start + 4
+### find end, i.e. start of next index
+idx_end <- start +
+  grep(x = idx_file[-seq(start)], pattern = "^[a-zA-Z]+")[1] - 1
+### or if last index, use last data row
+if (is.na(idx_end)) {
+  idx_end <- start +
+    tail(grep(x = idx_file[-seq(start)], pattern = "^[0-9]+"), 1)
+}
+
+### update year range
+idx_file[start + 1] <- paste(range(new_years), collapse = " ")
+### update age range
+idx_file[start + 3] <- paste(range(new_ages), collapse = " ")
+
+### coerce object into list for easier insertion of values
+idx_file <- as.list(idx_file)
+
+### remove old values (apart from first row)
+idx_file[(idx_start + 1):idx_end] <- NULL
+### insert new values
+idx_file[idx_start] <- list(idx_insert)
+idx_file <- unlist(idx_file, recursive = TRUE)
 
 
 ### ------------------------------------------------------------------------ ###
 ### update description ####
-idx_file[1] <- "ple.27.7e WGCSE 2023"
+idx_file[1] <- "ple.27.7e WGCSE 2024"
 
 
 
