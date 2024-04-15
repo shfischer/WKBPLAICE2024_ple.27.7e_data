@@ -35,10 +35,10 @@ vignettes/*.pdf
 *.Rproj
 
 # taf directories 
-/bootstrap/data/
-/bootstrap/config/
-/bootstrap/library/
-/bootstrap/software/
+/boot/data/
+/boot/config/
+/boot/library/
+/boot/software/
 
 # results
 /report/
