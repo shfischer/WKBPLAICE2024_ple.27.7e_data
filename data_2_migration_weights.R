@@ -677,11 +677,14 @@ vpa_data2 <- as.data.frame(vpa_data) %>%
 vpa_data2$qname <- factor(as.character(vpa_data2$qname),
                           levels = rev(levels(vpa_data2$qname)))
 
-p <- ggplot(vpa_data2) +
-  geom_bar(aes(x = year, y = data, fill = qname), 
+p <- ggplot() +
+  geom_bar(data = vpa_data2 %>% filter(is.na(discard_rate)),
+           aes(x = year, y = data, fill = qname), 
            stat = "identity") +
-  geom_point(aes(x = year, y = discard_rate)) + 
-  geom_line(aes(x = year, y = discard_rate)) + 
+  geom_point(data = vpa_data2 %>% filter(!is.na(discard_rate)),
+             aes(x = year, y = discard_rate)) + 
+  geom_line(data = vpa_data2 %>% filter(!is.na(discard_rate)),
+            aes(x = year, y = discard_rate)) + 
   facet_wrap(~ quant, scales = "free") +
   scale_fill_discrete("") +
   ylim(0, NA) +
