@@ -47,13 +47,17 @@ stock_original <- stock
 ### ------------------------------------------------------------------------ ###
 ### SOP correction ####
 ### ------------------------------------------------------------------------ ###
+### "correct" numbers
 
 SOP_l <- landings(stock) / quantSums(landings.n(stock) * landings.wt(stock)) 
-landings.wt(stock) <- landings.wt(stock) * rep(c(SOP_l), each = dims(stock)$age)
+#landings.wt(stock) <- landings.wt(stock) * rep(c(SOP_l), each = dims(stock)$age)
+landings.n(stock) <- landings.n(stock) * rep(c(SOP_l), each = dims(stock)$age)
 SOP_d <- discards(stock) / quantSums(discards.n(stock) * discards.wt(stock)) 
-discards.wt(stock) <- discards.wt(stock) * rep(c(SOP_d), each = dims(stock)$age)
+#discards.wt(stock) <- discards.wt(stock) * rep(c(SOP_d), each = dims(stock)$age)
+discards.n(stock) <- discards.n(stock) * rep(c(SOP_d), each = dims(stock)$age)
 SOP_c <- catch(stock) / quantSums(catch.n(stock) * catch.wt(stock)) 
-catch.wt(stock) <- catch.wt(stock) * rep(c(SOP_c), each = dims(stock)$age)
+#catch.wt(stock) <- catch.wt(stock) * rep(c(SOP_c), each = dims(stock)$age)
+catch.n(stock) <- catch.n(stock) * rep(c(SOP_c), each = dims(stock)$age)
 
 ### ------------------------------------------------------------------------ ###
 ### guestimate discards prior to 2012 ####

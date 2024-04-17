@@ -55,8 +55,10 @@ SOP_factor <- landings(stock)/catch(stock)
 # SOP_factor
 
 ### correct wts
-landings.wt(stock) <- catch.wt(stock) <- landings.wt(stock) * 
-  rep(c(SOP_factor), each = dims(stock)$age)
+# landings.wt(stock) <- catch.wt(stock) <- landings.wt(stock) * 
+#   rep(c(SOP_factor), each = dims(stock)$age)
+### -> not needed
+
 
 # computeLandings(stock)/landings(stock)
 ### update total catch with imported catch values
@@ -83,6 +85,7 @@ idx[["FSP-7e"]] <- idx[["FSP-7e"]][ac(2:8),]
 
 ### adapt Q1SWBeam: ages 2-9
 idx[["Q1SWBeam"]] <- idx[["Q1SWBeam"]][ac(2:9),]
+index(idx[["Q1SWBeam"]])[,"2022"] <- NA # survey disrupted, strata missing
 
 ### last age is not a plusgroup
 range(idx[["FSP-7e"]])[["plusgroup"]] <- NA

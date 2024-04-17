@@ -188,7 +188,7 @@ new_ages <- as.numeric(gsub(x = new_ages, pattern = "WWAge_",
 
 ### format index value for insertion
 idx_insert <- idx_update[, c(1, grep(x = names(idx_update),
-                                     pattern = "^AAge*"))]
+                                     pattern = "^WWAge*"))]
 ### use first column for effort
 idx_insert[, 1] <- 1
 ### use tab to separate cells
