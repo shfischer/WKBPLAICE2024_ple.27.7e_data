@@ -32,7 +32,9 @@ idx_cc <- idx_full
 idx_cc$Q1SWBeam <- trim(idx_cc$Q1SWBeam, age = 1:10)
 idx_cc$`FSP-7e` <- trim(idx_cc$`FSP-7e`, age = 1:10)
 idx_cc$`FSP-7e-biomass` <- trim(idx_cc$`FSP-7e-biomass`, age = 1:10)
-names(idx_cc) <- c("UK-FSP (numbers)", "Q1SWBeam (numbers)", "UK-FSP (biomass)")
+idx_cc$`Q1SWBeam-biomass` <- trim(idx_cc$`Q1SWBeam-biomass`, age = 1:10)
+names(idx_cc) <- c("UK-FSP (numbers)", "Q1SWBeam (numbers)", 
+                   "UK-FSP (biomass)", "Q1SWBeam (biomass)")
 
 
 ### raw values
