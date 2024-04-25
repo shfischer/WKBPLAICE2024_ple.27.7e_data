@@ -6,6 +6,7 @@
 ##         historical time series updateded: boot/data/InterCatch/*
 ##         some data plots: data/plots_*.png
 ##         data/discard_ratio.txt
+##         data/catch_history_7e.csv
 
 
 ### ------------------------------------------------------------------------ ###
@@ -973,5 +974,14 @@ if (isTRUE(verbose))
   write.csv(x = ratios, file = "data/discard_rates.csv", row.names = FALSE)
   
 
+### ------------------------------------------------------------------------ ###
+### 7e catch summary ####
+### ------------------------------------------------------------------------ ###
 
-
+smry7e <- table1 %>%
+    group_by(Year, CatchCategory) %>%
+    mutate(CatchCategory = ifelse(CatchCategory == "Landings", "Landings",
+                                  "Discards")) %>%
+    summarise(catch = sum(CATON)/1000)
+write.csv(smry7e, file = "data/catch_history_7e.csv", row.names = FALSE)  
+View(smry7e)  
