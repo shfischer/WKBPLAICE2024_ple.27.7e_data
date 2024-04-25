@@ -43,6 +43,13 @@ p <- plot_catch_curve(input = idx_cc, cohort = FALSE, standardize = FALSE,
 if (isTRUE(verbose)) p
 ggsave(file = "report/surveys/plots_data_survey_cc_raw.png", plot = p, 
        width = 15, height = 13.4, units = "cm", dpi = 300, type = "cairo-png")
+### with sum
+p <- plot_catch_curve(input = idx_cc, cohort = FALSE, standardize = FALSE,
+                      y_label = "numbers or biomass", total = TRUE)
+if (isTRUE(verbose)) p
+ggsave(file = "report/surveys/plots_data_survey_cc_raw_total.png", plot = p, 
+       width = 22, height = 15, units = "cm", dpi = 300, type = "cairo-png")
+
 
 ### means standardised
 p <- plot_catch_curve(input = idx_cc, cohort = FALSE, standardize = TRUE,
@@ -57,6 +64,12 @@ p <- plot_catch_curve(input = idx_cc, cohort = TRUE, standardize = TRUE,
 if (isTRUE(verbose)) p
 ggsave(file = "report/surveys/plots_data_survey_cc_cohort_std.png", plot = p, 
        width = 15, height = 13.4, units = "cm", dpi = 300, type = "cairo-png")
+
+### cohorts on log-scale
+p <- plot_catch_curve(input = idx_cc[1:2], cohort = TRUE, standardize = FALSE,
+                      y_label = "log numbers", log = TRUE, rm_ages = 1)
+ggsave(file = "report/surveys/plots_data_survey_cc_cohort_log.png", plot = p, 
+       width = 15, height = 10, units = "cm", dpi = 300, type = "cairo-png")
 
 ### ------------------------------------------------------------------------ ###
 ### survey correlations ####

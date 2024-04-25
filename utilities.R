@@ -681,6 +681,8 @@ plot_catch_curve <- function(input, ### FLStock? or FLIndex/FLIndices
                              slots = "landings.n", ### slots if input is FLStock
                              cohort = FALSE, ### track cohorts
                              standardize = FALSE, ### standardize cohorts
+                             log = FALSE, ### y-axis on log-scale?
+                             rm_ages = FALSE, ### remove some ages?
                              total = FALSE, ### sum over all ages
                              y_label = "", ### axis label
                              wide = FALSE ### plot in wide format
@@ -737,10 +739,16 @@ plot_catch_curve <- function(input, ### FLStock? or FLIndex/FLIndices
     
   }
   
+  if (!isFALSE(rm_ages)) 
+    res_df <- res_df[res_df$age != rm_ages, ]
   
   ### standardize names of grouping
   names(res_df)[ncol(res_df)] <- "group"
-  names(res_df)[2] <- "x_axis"
+  #names(res_df)[2] <- "x_axis"
+  if (isTRUE(cohort)) {
+    res_df$year <- res_df$cohort + as.numeric(as.character(res_df$age))
+    res_df$cohort <- as.factor(res_df$cohort)
+  }
 
   ### set order
   res_df$age <- as.factor(res_df$age)
@@ -755,8 +763,14 @@ plot_catch_curve <- function(input, ### FLStock? or FLIndex/FLIndices
 
   
   ### plot
-  p <- ggplot(data = res_df,
-              aes(x = x_axis, y = data, colour = age)) +
+  if (isTRUE(cohort)) {
+    p <- ggplot(data = res_df,
+                aes(x = year, y = data, colour = cohort))
+  } else {
+    p <- ggplot(data = res_df,
+                aes(x = year, y = data, colour = age))
+  }
+  p <- p +
        geom_line() +
        geom_text(aes(label = age),
                  colour = "black", show.legend = FALSE, size = 2) +
@@ -769,10 +783,12 @@ plot_catch_curve <- function(input, ### FLStock? or FLIndex/FLIndices
   if(isTRUE(total)){
     p <- p + facet_wrap(~ group + (age == "all"), ncol = 2, scales = "free_y")
   }
-### plot in wide format, if requested
+  ### plot in wide format, if requested
   if(isTRUE(wide)){
     p <- p + facet_wrap(~ (age == "all") + group, nrow = 2, scales = "free_y")
   }
+  ### log scale
+  if (isTRUE(log)) p <- p + scale_y_log10()
   p
 
     
