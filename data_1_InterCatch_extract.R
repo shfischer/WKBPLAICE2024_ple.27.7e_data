@@ -651,6 +651,14 @@ if (isTRUE(verbose))
     mutate(country_rel = catch / sum(catch) * 100) %>%
     print(n = Inf)
 
+### proportion per country UK combined - total catch
+if (isTRUE(verbose))
+  table1 %>% 
+  group_by(Year, Country2) %>%
+  summarise(catch = sum(CATON/1000)) %>%
+  mutate(country_rel = catch / sum(catch) * 100) %>%
+  print(n = Inf)
+
 ### plot
 p <- table1 %>%
   filter(CatchCategory %in% c("Landings", "Discards")) %>%
@@ -768,6 +776,14 @@ if (isTRUE(verbose))
     mutate(gear_contribution = catch / sum(catch)) %>%
     mutate(ICES_rounded = icesRound(gear_contribution * 100)) %>%
     filter(Year == data_year)
+### same for total catches
+if (isTRUE(verbose))
+  gears %>% 
+  group_by(Year, gear_group) %>%
+  summarise(catch = sum(CATON)) %>%
+  mutate(gear_contribution = catch / sum(catch)) %>%
+  mutate(ICES_rounded = icesRound(gear_contribution * 100)) %>%
+  filter(Year == data_year)
 
 if (isTRUE(verbose))
   ### catch per catch category
