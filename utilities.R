@@ -94,10 +94,10 @@ readFLQuant <- function(input_file) {
 ### ------------------------------------------------------------------------ ###
 
 setPlusGroupWeca <- function(number, weight, plusgroup){
-
+  
   ### select ages to be condensed
-  ages <- plusgroup:dims(number)$max
-
+  ages <- ac(plusgroup:dims(number)$max)
+  
   ### calculate plusgroup weight (weighted mean)
   res_weight <- quantSums(number[ages,]*weight[ages,])/quantSums(number[ages,])
   
@@ -105,10 +105,10 @@ setPlusGroupWeca <- function(number, weight, plusgroup){
   res <- setPlusGroup(weight, plusgroup)
   
   ### enter correct plusgroup weight
-  res[plusgroup,] <- res_weight
+  res[ac(plusgroup),] <- res_weight
   
   return(res) 
-
+  
 }
 
 ### ------------------------------------------------------------------------ ###
@@ -116,10 +116,10 @@ setPlusGroupWeca <- function(number, weight, plusgroup){
 ### ------------------------------------------------------------------------ ###
 
 setPlusGroupSum <- function(number, plusgroup){
-
+  
   ### select ages to be condensed
-  ages <- plusgroup:dims(number)$max
-
+  ages <- ac(plusgroup:dims(number)$max)
+  
   ### calculate plusgroup weight (weighted mean)
   res_number <- quantSums(number[ages,])
   
@@ -127,10 +127,10 @@ setPlusGroupSum <- function(number, plusgroup){
   res <- setPlusGroup(number, plusgroup)
   
   ### enter correct plusgroup weight
-  res[plusgroup,] <- res_number
+  res[ac(plusgroup),] <- res_number
   
   return(res) 
-
+  
 }
 
 ### ------------------------------------------------------------------------ ###
