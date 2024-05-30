@@ -10,6 +10,10 @@ library(ggplot2)
 library(icesDatras)
 library(mapdata)
 library(foreign)
+library(FLCore)
+library(foreach)
+
+source("utilities.R")
 
 mkdir("data/surveys")
 mkdir("data/surveys/plots")
@@ -145,6 +149,212 @@ p <- ggplot() +
   scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/map_Q1SWBeam_biomass.png", 
-       width = 20, height = 14, units = "cm", dpi = 300, plot = p)
+       width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+
+### ------------------------------------------------------------------------ ###
+### UK-FSP ####
+### ------------------------------------------------------------------------ ###
+
+### original filenames
+### TotalBioData_PLEv2.csv -> FSP_biomass.csv
+### DataFor_MeanNbyAgeP2_PLEv2.csv -> FSP_numbers.csv
+
+### load data
+FSP_numbers <- read.csv("boot/initial/data/surveys/FSP_numbers.csv")
+FSP_biomass <- read.csv("boot/initial/data/surveys/FSP_biomass.csv")
+
+### format
+FSP_numbers <- FSP_numbers %>%
+  select(-X_TYPE_, -X_FREQ_) %>%
+  pivot_longer(cols = starts_with("AAge"),
+               names_prefix = "AAge", 
+               names_to = "age", values_to = "numbers") %>%
+  mutate(age = as.numeric(as.character(age)))
+FSP_biomass <- FSP_biomass %>%
+  select(-X_TYPE_, -X_FREQ_, -TBio_index) %>%
+  pivot_longer(cols = starts_with("WAAge"),
+               names_prefix = "WAAge", 
+               names_to = "age", values_to = "biomass") %>%
+  mutate(age = as.numeric(as.character(age)))
+### average weight at age
+FSP_weight <- full_join(FSP_numbers,
+                        FSP_biomass) %>%
+  mutate(weight = biomass/numbers)
+
+
+### bubble plot of numbers
+p <- FSP_numbers %>%
+  mutate(numbers = ifelse(numbers > 0, numbers, NA)) %>%
+  ggplot(aes(x = year, y = age, size = numbers)) +
+  geom_point(shape = 21) +
+  #scale_size(expression(Numbers h[1])) + 
+  scale_size(bquote(Numbers~h^-1~m~beam^-1), range = c(0, 6)) + 
+  labs(x = "Year", y = "Age (years)") +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/FSP_bubbles_numbers.png", 
+       width = 12, height = 7, units = "cm", dpi = 300, plot = p)
+
+### plot numbers and biomass
+cols <- scales::hue_pal()(length(1:10))
+cols <- cols[c(seq(from = 1, to = length(cols), by = 3),
+               seq(from = 2, to = length(cols), by = 3),
+               seq(from = 3, to = length(cols), by = 3))]
+p <- full_join(FSP_numbers %>% mutate(type = "Numbers"),
+          FSP_biomass %>% mutate(type = "Biomass") %>%
+            rename(numbers = biomass)) %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = sort(unique(age)))) %>%
+  ggplot(aes(x = year, y = numbers, colour = age)) +
+  geom_line() +
+  geom_text(aes(label = age), show.legend = FALSE) +
+  scale_colour_manual("Age (years)", values = cols) + 
+  facet_wrap(~ type, scales = "free_y") + 
+  labs(x = "Year", y = bquote(Numbers/Biomass~h^-1~m~beam^-1)) +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/FSP_numbers_biomass.png", 
+       width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+
+### weight at age
+p <- FSP_weight %>%
+  pivot_longer(c(numbers, biomass, weight), 
+               names_to = "unit") %>%
+  mutate(unit = factor(unit, 
+                       levels = c("numbers", "biomass", "weight"),
+                       labels = c("Numbers~h^-1~m~beam^-1",
+                                  "kg~h^-1~m~beam^-1",
+                                  "Weight~at~age~(kg)"))) %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = sort(unique(age)))) %>%
+  ggplot(aes(x = year, y = value, colour = age)) +
+  geom_line(linewidth = 0.3) +
+  geom_text(aes(label = age), show.legend = FALSE, size = 2) +
+  facet_wrap(~ unit, scales = "free_y", ncol = 1, labeller = label_parsed, 
+             strip.position = "left") +
+  scale_colour_manual("Age (years)", values = cols) +
+  labs(x = "Year", y = "Weight at age (kg)") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"),
+        axis.title.y = element_blank(), 
+        strip.placement = "outside", 
+        strip.background = element_blank(),
+        strip.text = element_text(size = 8))
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/FSP_weight_at_age.png", 
+       width = 10, height = 10, units = "cm", dpi = 300, plot = p)
+  
+
+### ------------------------------------------------------------------------ ###
+### Q1SWBeam ####
+### ------------------------------------------------------------------------ ###
+
+### V2i = full area, 2022 index numbers cover smaller area (11/13 strata)
+### V2ii = reduced area in all years (11 strata)
+### => use V2i
+
+### load data
+Q1SWBeam_numbers <- read.csv("boot/initial/data/surveys/Q1SWBEAM_IndexV2i.csv")
+
+### format
+Q1SWBeam_numbers <- Q1SWBeam_numbers %>%
+  select(-X_TYPE_, -X_FREQ_, -Area, -count)
+Q1SWBeam_numbers <- full_join(Q1SWBeam_numbers %>%
+            select(Year, starts_with("AAge")) %>%
+            pivot_longer(-Year, names_to = "Age", values_to = "Numbers") %>%
+            mutate(Age = gsub(x = Age, pattern = "AAge", replacement = "")) %>%
+            mutate(Age = as.numeric(as.character(Age))),
+          Q1SWBeam_numbers %>%
+            select(Year, starts_with("WWAge")) %>%
+            pivot_longer(-Year, names_to = "Age", values_to = "Biomass") %>%
+            mutate(Age = gsub(x = Age, pattern = "WWAge_", replacement = "")) %>%
+            mutate(Age = as.numeric(as.character(Age)))) %>%
+  mutate(Weight = Biomass/Numbers)
+
+
+### bubble plot of numbers
+p <- Q1SWBeam_numbers %>%
+  mutate(Numbers = ifelse(Numbers > 0, Numbers, NA)) %>%
+  ggplot(aes(x = Year, y = Age, size = Numbers)) +
+  geom_point(shape = 21) +
+  #scale_size(expression(Numbers h[1])) + 
+  scale_size(bquote(Numbers~km^-2), range = c(0, 6)) + 
+  labs(x = "Year", y = "Age (years)") +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/Q1SWBeam_bubbles_numbers.png", 
+       width = 12, height = 7, units = "cm", dpi = 300, plot = p)
+
+### plot numbers and biomass
+cols <- scales::hue_pal()(length(1:10))
+cols <- cols[c(seq(from = 1, to = length(cols), by = 3),
+               seq(from = 2, to = length(cols), by = 3),
+               seq(from = 3, to = length(cols), by = 3))]
+p <- Q1SWBeam_numbers %>%
+  pivot_longer(-1:-2) %>%
+  filter(Age <= 10) %>%
+  mutate(Age = factor(Age, levels = sort(unique(Age)))) %>%
+  filter(name %in% c("Biomass", "Numbers")) %>%
+  ggplot(aes(x = Year, y = value, colour = Age)) +
+  geom_line() +
+  geom_text(aes(label = Age), show.legend = FALSE) +
+  scale_colour_manual("Age (years)", values = cols) + 
+  facet_wrap(~ name, scales = "free_y") + 
+  labs(x = "Year", y = bquote(Numbers/Biomass~km^-2)) +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/Q1SWBeam_numbers_biomass.png", 
+       width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+
+### weight at age
+p <- Q1SWBeam_numbers %>%
+  pivot_longer(-1:-2) %>%
+  filter(Age <= 10) %>%
+  mutate(Age = factor(Age, levels = sort(unique(Age)))) %>%
+  mutate(name = factor(name, 
+                       levels = c("Numbers", "Biomass", "Weight"),
+                       labels = c("Numbers~km^-2",
+                                  "kg~km^-2",
+                                  "Weight~at~age~(kg)"))) %>%
+  ggplot(aes(x = Year, y = value, colour = Age)) +
+  geom_line(linewidth = 0.3) +
+  geom_text(aes(label = Age), show.legend = FALSE, size = 2) +
+  facet_wrap(~ name, scales = "free_y", ncol = 1, labeller = label_parsed, 
+             strip.position = "left") +
+  scale_colour_manual("Age (years)", values = cols) +
+  labs(x = "Year", y = "Weight at age (kg)") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"),
+        axis.title.y = element_blank(), 
+        strip.placement = "outside", 
+        strip.background = element_blank(),
+        strip.text = element_text(size = 8))
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/Q1SWBeam_weight_at_age.png", 
+       width = 10, height = 10, units = "cm", dpi = 300, plot = p)
+
+### ------------------------------------------------------------------------ ###
+### age correlations ####
+### ------------------------------------------------------------------------ ###
+
+FSP_qnt <- as.FLQuant(FSP_numbers %>%
+                        select(year, age, data = numbers) %>%
+                        filter(age <= 10))
+
+p <- idx_cor(FLIndices("UK-FSP" = FLIndex(index = FSP_qnt)))
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/FSP_correlations.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+Q1SWBeam_qnt <- as.FLQuant(Q1SWBeam_numbers %>%
+                        select(year = Year, age = Age, data = Numbers) %>%
+                        filter(age <= 10))
+
+p <- idx_cor(FLIndices("Q1SWBeam" = FLIndex(index = Q1SWBeam_qnt)))
+if (isTRUE(verbose)) p
+ggsave("data/surveys/plots/Q1SWBeam_correlations.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
 
 
