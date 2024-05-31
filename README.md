@@ -15,16 +15,20 @@ icesTAF
 ggplot2
 tidyr
 dplyr
+stringr
 foreach
 patchwork
 XLConnect
+icesDatras
+mapdata
+foreign
 ```
 
 They can be installed with:
 
 ``` r
 ### list with required packages
-req_pkgs <- c("icesTAF", "ggplot2", "tidyr", "dplyr", "foreach", "patchwork", "XLConnect")
+req_pkgs <- c("icesTAF", "ggplot2", "tidyr", "dplyr", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign")
 ### install/update packages
 install.packages(req_pkgs)
 ```
