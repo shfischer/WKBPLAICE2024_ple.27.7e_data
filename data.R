@@ -18,3 +18,9 @@ sourceTAF("data_surveys.R")
 
 ### ALKs
 sourceTAF("data_ALK.R")
+
+### natural mortality
+sourceTAF("data_natural_mortality.R")
+
+### maturity
+sourceTAF("data_maturity.R")
