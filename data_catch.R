@@ -521,6 +521,7 @@ p2 <- as.data.frame(catch$DA/catch$CA * 100) %>%
   mutate(data = ifelse(data == 0, NA, data)) %>%
   ggplot(aes(x = year, y = data, colour = "Discard rate")) +
   geom_line() +
+  ylim(c(0, NA)) +
   scale_colour_manual("", values = "black") +
   labs(x = "Year", y = "Discard rate (%)") + 
   theme_bw(base_size = 8)
