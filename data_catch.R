@@ -1129,3 +1129,82 @@ ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.png"),
        width = 25, height = 18,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
 
+### ------------------------------------------------------------------------ ###
+### Discard survivability explorations ####
+### ------------------------------------------------------------------------ ###
+### Morfin et al. (2017), https://doi.org/10.1016/j.jenvman.2017.08.046
+### - otter trawls: 58.2%
+### Revill et al. (2013), https://doi.org/10.1016/j.fishres.2013.07.005
+### - beam trawls: 37.5%
+
+### InterCatch catch history
+table1 <- read.csv("boot/initial/data/InterCatch/table1_hist.txt")
+
+### catch by gear
+gear_split <- table1 %>% 
+  filter(CatchCategory %in% c("Landings", "Discards")) %>%
+  mutate(CatchCategory = factor(CatchCategory, 
+                                levels = c("Landings", "Discards"))) %>%
+  mutate(Gear = substr(x = Fleet, start = 1, stop = 3)) %>%
+  mutate(Gear = ifelse(Gear %in% c("TBB", "OTB"), Gear, "Other")) %>%
+  select(Year, CatchCategory, Gear, CATON) %>%
+  ### keep only TBB and OTB
+  filter(Gear %in% c("TBB", "OTB")) %>%
+  group_by(Year, CatchCategory, Gear) %>%
+  summarise(CATON = sum(CATON)) %>%
+  mutate(prop = CATON/sum(CATON)) %>%
+  mutate(Gear = factor(Gear, levels = rev(c("TBB", "OTB"))))
+
+### add discard survivability
+gear_split_surv <- gear_split %>% 
+  filter(CatchCategory == "Discards") %>%
+  ungroup() %>%
+  full_join(data.frame(Gear = c("OTB", "TBB"),
+                       survivability = c(0.582, 0.375)))
+gear_split_surv_yr <- gear_split_surv %>%
+  group_by(Year) %>%
+  summarise(survivability = weighted.mean(x = survivability, w = prop),
+            discards = sum(CATON))
+### plot rate
+p1 <- gear_split_surv_yr %>%
+  ggplot(aes(x = Year, y = survivability * 100)) +
+  geom_line() + 
+  geom_hline(yintercept = mean(gear_split_surv_yr$survivability) * 100,
+             linetype = "dashed", show.legend = TRUE) +
+  labs(x = "Year", y = "Survival (%)") +
+  ylim(c(0, NA)) +
+  xlim(c(2002, 2023)) +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p1
+
+### include historical discards
+catch_2_10 <- readRDS("data/catch/catch_pg.rds")
+gear_split_surv_yr_hist <- 
+  gear_split_surv_yr %>%
+  full_join(as.data.frame(catch_2_10$DA) %>%
+              select(Year = year, discards = data) %>%
+              mutate(discards = discards * 1000) %>%
+              filter(discards > 0 & Year < 2012)) %>%
+  mutate(survivability = ifelse(Year < 2012, mean(survivability, na.rm = TRUE), 
+                                survivability)) %>%
+  mutate(dead = discards * survivability,
+         surviving = discards * (1 - survivability)) %>%
+  select(Year, dead, surviving) %>%
+  pivot_longer(-Year, names_to = "type", values_to = "discards")
+### plot
+p2 <- gear_split_surv_yr_hist %>%
+  mutate(type = factor(type, levels = c("surviving", "dead"))) %>%
+  ggplot(aes(x = Year, y = discards/1000, fill = type)) +
+  geom_col() + 
+  scale_fill_brewer("Discards", palette = "Dark2") +
+  labs(x = "Year", y = "Discards (t)") +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p2
+
+### combine plots
+p <- p1/p2
+if (isTRUE(verbose)) p
+ggsave(file = paste0("data/catch/plots/Discards_survival.png"),
+       width = 15, height = 10,  plot = p,
+       units = "cm", dpi = 300, type = "cairo")
+
