@@ -18,7 +18,7 @@ if (!exists("verbose")) verbose <- FALSE
 ### ------------------------------------------------------------------------ ###
 
 ### get von Bertalanffy growth parameters
-vB_pars <- read.csv("data/ALKs/vB_pars.csv")
+vB_pars <- read.csv("data/ALKs/vB_pars_q.csv")
 ### use values estimated with last five years of data
 vB_Linf <- tail(vB_pars$Linf, 1)
 vB_k <- tail(vB_pars$k, 1)
@@ -100,7 +100,7 @@ p <- df_M %>%
                                 expression(Lorenzen~M[L==L[infinity]]),
                                 "Then")) + 
   xlim(c(0, NA)) +
-  ylim(c(0, NA)) + 
+  ylim(c(0, 0.75)) + 
   labs(x = "Age (years)", y = "Natural mortality M (per year)") +
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
