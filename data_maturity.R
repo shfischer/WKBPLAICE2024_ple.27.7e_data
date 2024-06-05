@@ -4,9 +4,13 @@
 
 library(icesTAF)
 library(tidyr)
+library(dplyr)
+library(tibble)
 library(stringr)
 library(ggplot2)
 library(lme4)
+library(slider)
+library(FLCore)
 
 mkdir("data/maturity")
 mkdir("data/maturity/plots")
@@ -381,10 +385,13 @@ mat_age <- pred_df_join %>%
 ### average
 mat_age_mean <- mat_age %>%
   group_by(age) %>%
-  summarise(prop_mature = mean(prop_mature, na.rm = TRUE))
+  summarise(prop_mature = mean(prop_mature, na.rm = TRUE)) %>%
+  mutate(year = "average")
 
 ### plot by year
-p <- mat_age %>%
+p <- bind_rows(mat_age %>% 
+                 mutate(year = as.character(year)), 
+               mat_age_mean) %>%
   ggplot(aes(x = age, y = prop_mature)) +
   geom_line() +
   facet_wrap(~ year) +
@@ -418,3 +425,224 @@ p <- mat_age %>%
 if (isTRUE(verbose)) p
 ggsave("data/maturity/plots/maturity_age_timeseries.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+### ------------------------------------------------------------------------ ###
+### convert to maturity at age - apply vB model fit ####
+### ------------------------------------------------------------------------ ###
+
+### define ages
+ages <- 0:15
+### estimate length at age
+### von Bertalanffy growth function
+vB_length <- function(L_inf, k, t, t_0 = 0){
+  L_inf * (1 - exp(-k * (t - t_0)))
+}
+### get von Bertalanffy growth parameters
+vB_pars <- read.csv("data/ALKs/vB_pars_q.csv")
+### use values estimated with last five years of data
+vB_Linf <- vB_pars$Linf[vB_pars$year == "all"]
+vB_k <- vB_pars$k[vB_pars$year == "all"]
+vB_t0 <- vB_pars$t0[vB_pars$year == "all"]
+
+### lengths corresponding to ages
+lengths <- vB_length(L_inf = vB_Linf, k = vB_k, t_0 = vB_t0, t = ages)
+
+### predict maturity at these lengths
+pred_ALK <- expand.grid(length = lengths, year = as.vector(yrs))
+pred_ALK_values <- predict(glm_, pred_ALK, type = "response")
+pred_ALK$prop_mature <- pred_ALK_values
+pred_ALK$age <- ages
+
+### average
+pred_ALK_mean <- pred_ALK %>%
+  group_by(age) %>%
+  summarise(prop_mature = mean(prop_mature, na.rm = TRUE)) %>%
+  mutate(year = "average")
+
+### plot by year
+p <- bind_rows(pred_ALK %>% 
+                 mutate(year = as.character(year)), 
+               pred_ALK_mean) %>%
+  ggplot(aes(x = age, y = prop_mature)) +
+  geom_line() +
+  facet_wrap(~ year) +
+  labs(x = "Age (years)", y = "Proportion mature") +
+  coord_cartesian(xlim = c(0, 15)) +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_age.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+### plot time series
+cols <- scales::hue_pal()(length(0:10))
+cols <- cols[c(seq(from = 1, to = length(cols), by = 3),
+               seq(from = 2, to = length(cols), by = 3),
+               seq(from = 3, to = length(cols), by = 3))]
+p <- pred_ALK %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = 10:0)) %>%
+  ggplot(aes(x = year, y = prop_mature, colour = age)) +
+  geom_line() + geom_point(size = 0.3) +
+  geom_hline(data = pred_ALK_mean %>%
+               filter(age <= 10) %>%
+               mutate(age = factor(age, levels = 10:0)),
+             aes(yintercept = prop_mature, colour = age),
+             linetype = "1212", alpha = 0.5) +
+  scale_colour_manual("Age (years)", values = cols) +
+  labs(x = "Year", y = "Proportion mature") +
+  #coord_cartesian(xlim = c(0, 15)) +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_age_timeseries.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+### annual vB model fits
+### lengths corresponding to ages
+lengths_yr <- lapply(yrs, function(yr) {#  browser()
+  vB_Linf_i <- vB_pars$Linf[vB_pars$year == yr]
+  vB_k_i <- vB_pars$k[vB_pars$year == yr]
+  vB_t0_i <- vB_pars$t0[vB_pars$year == yr]
+  lengths_i <- vB_length(L_inf = vB_Linf_i, k = vB_k_i, t_0 = vB_t0_i, t = ages)
+  data.frame(age = ages,
+             length = lengths_i,
+             year = yr)
+})
+lengths_yr <- do.call(rbind, lengths_yr)
+
+### predict maturity at these lengths
+pred_ALK_yr <- lengths_yr
+pred_ALK_yr_values <- predict(glm_, pred_ALK_yr, type = "response")
+pred_ALK_yr$prop_mature <- pred_ALK_yr_values
+pred_ALK_yr$age <- ages
+
+### average
+pred_ALK_yr_mean <- pred_ALK_yr %>%
+  group_by(age) %>%
+  summarise(prop_mature = mean(prop_mature, na.rm = TRUE)) %>%
+  mutate(year = "average")
+
+### plot by year
+p <- bind_rows(pred_ALK_yr %>% 
+                 mutate(year = as.character(year)), 
+               pred_ALK_yr_mean) %>%
+  ggplot(aes(x = age, y = prop_mature)) +
+  geom_line() +
+  facet_wrap(~ year) +
+  labs(x = "Age (years)", y = "Proportion mature") +
+  coord_cartesian(xlim = c(0, 15)) +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_yr_age.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+p <- pred_ALK_yr %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = 10:0)) %>%
+  ggplot(aes(x = year, y = prop_mature, colour = age)) +
+  geom_line() + geom_point(size = 0.3) +
+  geom_hline(data = pred_ALK_yr_mean %>%
+               filter(age <= 10) %>%
+               mutate(age = factor(age, levels = 10:0)),
+             aes(yintercept = prop_mature, colour = age),
+             linetype = "1212", alpha = 0.5) +
+  scale_colour_manual("Age (years)", values = cols) +
+  labs(x = "Year", y = "Proportion mature") +
+  #coord_cartesian(xlim = c(0, 15)) +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_yr_age_timeseries.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+
+### moving average - 3-year average
+head(pred_ALK_yr)
+pred_ALK_yr_ma3 <- pred_ALK_yr %>%
+  select(year, age, prop_mature) %>%
+  pivot_wider(names_from = age, values_from = prop_mature) %>%
+  column_to_rownames("year") %>%
+  ### moving average for all ages
+  mutate(across(everything(), ~ slide(.x, .f = mean, .before = 2, .after = 0,
+                                      .complete = TRUE))) %>%
+  rownames_to_column("year") %>%
+  pivot_longer(-year, names_to = "age", values_to = "prop_mature") %>%
+  mutate(year = as.numeric(year),
+         age = as.numeric(age)) %>%
+  mutate(prop_mature = sapply(prop_mature, 
+                              function(x) {ifelse(is.null(x), NA, x)}))
+### 5-year average
+pred_ALK_yr_ma5 <- pred_ALK_yr %>%
+  select(year, age, prop_mature) %>%
+  pivot_wider(names_from = age, values_from = prop_mature) %>%
+  column_to_rownames("year") %>%
+  ### moving average for all ages
+  mutate(across(everything(), ~ slide(.x, .f = mean, .before = 4, .after = 0,
+                                      .complete = TRUE))) %>%
+  rownames_to_column("year") %>%
+  pivot_longer(-year, names_to = "age", values_to = "prop_mature") %>%
+  mutate(year = as.numeric(year),
+         age = as.numeric(age)) %>%
+  mutate(prop_mature = sapply(prop_mature, 
+                              function(x) {ifelse(is.null(x), NA, x)}))
+### plot
+p <- bind_rows(pred_ALK_yr_ma3 %>% mutate(source = "3-year average"),
+          pred_ALK_yr_ma5 %>% mutate(source = "5-year average"),
+          pred_ALK_yr %>% mutate(source = "annual")) %>%
+  mutate(source = factor(source, levels = c("annual", "3-year average",
+                                            "5-year average"))) %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = 10:0)) %>%
+  ggplot(aes(x = year, y = prop_mature, colour = age, linetype = source,
+             alpha = source)) +
+  geom_line() +
+  scale_colour_manual("Age (years)", values = cols) +
+  scale_linetype_manual("", values = c("annual" = "solid",
+                                       "3-year average" = "3131",
+                                       "5-year average" = "1111")) +
+  scale_alpha_manual("", values = c("annual" = 1,
+                                       "3-year average" = 1,
+                                       "5-year average" = 0.5)) + 
+  labs(x = "Year", y = "Proportion mature") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_yr_age_timeseries_smoothed.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+### ------------------------------------------------------------------------ ###
+### final data for OM ####
+### ------------------------------------------------------------------------ ###
+### maturity values from Q1SWBeam survey
+### - females only
+### - modelled with logistic regression, year as a random effect
+### - converted to age with annual von Bertalanffy growth model fit
+### - smoothed with 3-year moving average
+### - ages 2 - 10
+### - before maturity time series: mean of available values
+
+### FLQuant template
+flq_mat <- FLQuant(NA, dimnames = list(ages = 2:10, year = 1980:2023))
+
+### fill in values from survey
+mat_tmp_annual <- pred_ALK_yr_ma3 %>%
+  pivot_wider(names_from = age, values_from = prop_mature) %>%
+  filter(year >= 2008) %>%
+  select(year, as.character(2:10)) %>%
+  column_to_rownames("year") %>%
+  t()
+flq_mat[, ac(2008:2023)] <- mat_tmp_annual
+
+### historical year: mean
+mat_tmp_mean <- pred_ALK_yr %>%
+  select(age, year, prop_mature) %>%
+  group_by(age) %>%
+  summarise(prop_mature = mean(prop_mature)) %>%
+  filter(age %in% 2:10) %>%
+  select(prop_mature) %>%
+  unlist()
+flq_mat[, ac(1980:2007)] <- mat_tmp_mean
+
+### save
+mkdir("data/OM")
+saveRDS(flq_mat, "data/OM/maturity.rds")
