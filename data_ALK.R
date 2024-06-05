@@ -265,7 +265,7 @@ if (isTRUE(verbose))
 ### fit model by year
 yrs_alk <- as.list(unique(ALK_fit$year))
 names(yrs_alk) <- yrs_alk
-yrs_alk <- append(yrs_alk, list("last5" = c(2019:2023)))
+yrs_alk <- append(yrs_alk, list("all" = c(2006:2023), "last5" = c(2019:2023)))
 
 model_fits <- lapply(yrs_alk, function(x) {
   df_i <- ALK_fit %>%
