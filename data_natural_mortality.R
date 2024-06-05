@@ -108,3 +108,27 @@ if (isTRUE(verbose)) p
 ggsave("data/M/plots/M_options.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
 
+### ------------------------------------------------------------------------ ###
+### final data for OM ####
+### ------------------------------------------------------------------------ ###
+
+### FLQuant template
+flq_M <- FLQuant(NA, dimnames = list(ages = 2:10, year = 1980:2023))
+
+### M - Then et al. (2015)
+M_Then <- flq_M %=% M_Then(Linf = vB_Linf, k = vB_k)
+  
+### M - Lorenzen et al. (2022) - Linf
+M_Lorenzen_Linf <- flq_M %=% M_Lorenzen_Linf(Linf = vB_Linf, k = vB_k)
+
+### M - Gislason et al. (2010)
+ages <- 2:10 + 0.5
+lengths <- vB_length(L_inf = vB_Linf, k = vB_k, t_0 = vB_t0, t = ages)
+M_Gislason <- flq_M %=% M_Gislason(L = lengths, Linf = vB_Linf, k = vB_k)
+
+### save
+mkdir("data/OM")
+saveRDS(M_Then, "data/OM/M_Then.rds")
+saveRDS(M_Lorenzen_Linf, "data/OM/M_Lorenzen_Linf.rds")
+saveRDS(M_Gislason, "data/OM/M_Gislason.rds")
+

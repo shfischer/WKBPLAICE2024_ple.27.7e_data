@@ -1208,3 +1208,17 @@ ggsave(file = paste0("data/catch/plots/Discards_survival.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
 
+### ------------------------------------------------------------------------ ###
+### final data for OM ####
+### ------------------------------------------------------------------------ ###
+### total catch
+### catch (landings/discards/catch) weights: raw, as far as available
+### stock weights: from model fit, back-calculated to beginning of year
+###                including all discards because they are part of the stock
+
+
+catch <- readRDS("data/catch/catch_pg_SOP.rds")
+saveRDS(catch, file = "data/OM/catch.rds")
+
+stock_weights <- readRDS("data/catch/stock_weights_pg.rds")
+saveRDS(stock_weights, file = "data/OM/stock_weights.rds")
