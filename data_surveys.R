@@ -357,4 +357,11 @@ if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/Q1SWBeam_correlations.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
 
+### ------------------------------------------------------------------------ ###
+### final data ####
+### ------------------------------------------------------------------------ ###
+
+### save
+saveRDS(Q1SWBeam_numbers, file = "data/OM/idx_Q1SWBeam.rds")
+saveRDS(FSP_weight, file = "data/OM/idx_FSP.rds")
 

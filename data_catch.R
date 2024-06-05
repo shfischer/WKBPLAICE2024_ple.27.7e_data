@@ -1,6 +1,11 @@
+### ------------------------------------------------------------------------ ###
+### catch data ####
+### ------------------------------------------------------------------------ ###
+
 ### packages
 library(icesTAF)
 taf.libPaths()
+library(icesAdvice)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
@@ -1207,6 +1212,21 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/Discards_survival.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+
+### ------------------------------------------------------------------------ ###
+### fbar range ####
+### ------------------------------------------------------------------------ ###
+catch <- readRDS("data/catch/catch_pg_SOP.rds")
+cn <- catch$CN@.Data[,, 1, 1, 1, 1, drop = TRUE]
+
+### function from icesAdvice R package
+if (isTRUE(verbose)) {
+  ### full time series
+  agesFbar(t(cn), plot = TRUE) ### [1] 2.663063 5.456509
+  ### last 10 years
+  agesFbar(t(cn[, 35:44]), plot = TRUE) ### [1] 2.952658 5.923334
+}
+### i.e. 3 - 6 (rounded)
 
 ### ------------------------------------------------------------------------ ###
 ### final data for OM ####
