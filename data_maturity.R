@@ -564,7 +564,7 @@ pred_ALK_yr_ma3 <- pred_ALK_yr %>%
   column_to_rownames("year") %>%
   ### moving average for all ages
   mutate(across(everything(), ~ slide(.x, .f = mean, .before = 2, .after = 0,
-                                      .complete = TRUE))) %>%
+                                      .complete = FALSE))) %>%
   rownames_to_column("year") %>%
   pivot_longer(-year, names_to = "age", values_to = "prop_mature") %>%
   mutate(year = as.numeric(year),
@@ -578,7 +578,7 @@ pred_ALK_yr_ma5 <- pred_ALK_yr %>%
   column_to_rownames("year") %>%
   ### moving average for all ages
   mutate(across(everything(), ~ slide(.x, .f = mean, .before = 4, .after = 0,
-                                      .complete = TRUE))) %>%
+                                      .complete = FALSE))) %>%
   rownames_to_column("year") %>%
   pivot_longer(-year, names_to = "age", values_to = "prop_mature") %>%
   mutate(year = as.numeric(year),
@@ -619,7 +619,7 @@ ggsave("data/maturity/plots/maturity_vB_yr_age_timeseries_smoothed.png",
 ### - converted to age with annual von Bertalanffy growth model fit
 ### - smoothed with 3-year moving average
 ### - ages 2 - 10
-### - before maturity time series: mean of available values
+### - before maturity time series: mean of first three years
 
 ### FLQuant template
 flq_mat <- FLQuant(NA, dimnames = list(ages = 2:10, year = 1980:2023))
@@ -627,21 +627,22 @@ flq_mat <- FLQuant(NA, dimnames = list(ages = 2:10, year = 1980:2023))
 ### fill in values from survey
 mat_tmp_annual <- pred_ALK_yr_ma3 %>%
   pivot_wider(names_from = age, values_from = prop_mature) %>%
-  filter(year >= 2008) %>%
+  #filter(year >= 2008) %>%
   select(year, as.character(2:10)) %>%
   column_to_rownames("year") %>%
   t()
-flq_mat[, ac(2008:2023)] <- mat_tmp_annual
+flq_mat[, ac(2006:2023)] <- mat_tmp_annual
 
-### historical year: mean
+### historical year: mean of first 3 years
 mat_tmp_mean <- pred_ALK_yr %>%
   select(age, year, prop_mature) %>%
+  filter(year %in% 2006:2008) %>%
   group_by(age) %>%
   summarise(prop_mature = mean(prop_mature)) %>%
   filter(age %in% 2:10) %>%
   select(prop_mature) %>%
   unlist()
-flq_mat[, ac(1980:2007)] <- mat_tmp_mean
+flq_mat[, ac(1980:2005)] <- mat_tmp_mean
 
 ### save
 mkdir("data/OM")
