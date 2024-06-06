@@ -83,7 +83,6 @@ units(stk)[c("catch.wt", "discards.wt", "landings.wt", "stock.wt")] <- "kg"
 units(stk)["harvest"] <- "f"
 
 ### baseline OM - assume 50% discard survival
-
 discards.n(stk) <- discards.n(stk) * 0.5 ### discard survival
 discards(stk) <- discards(stk) * 0.5
 catch.n(stk) <- landings.n(stk) + discards.n(stk) ### update catch
@@ -130,10 +129,10 @@ units(idx_Q1)["catch.wt"] <- c("kg")
 ### UK-FSP
 FSP_idx <- as.FLQuant(FSP %>%
                         select(year = year, age = age, data = numbers) %>%
-                        filter(age >= 2 & age <= 9))
+                        filter(age >= 2 & age <= 8))
 FSP_wt <- as.FLQuant(FSP %>%
                         select(year = year, age = age, data = weight) %>%
-                        filter(age >= 2 & age <= 9))
+                        filter(age >= 2 & age <= 8))
 
 idx_FSP <- FLIndex(index = FSP_idx)
 catch.n(idx_FSP)[] <- FSP_idx
@@ -154,4 +153,127 @@ idcs <- FLIndices("UK-FSP" = idx_FSP,
 
 ### save
 saveRDS(idcs, file = "data/OM/idcs.rds")
+
+### ------------------------------------------------------------------------ ###
+### alternative plusgroups ####
+### ------------------------------------------------------------------------ ###
+
+stk_pg9 <- setPlusGroup(stk, 9)
+stk_pg8 <- setPlusGroup(stk, 8)
+saveRDS(stk_pg9, file = "data/OM/stk_baseline_pg9.rds")
+saveRDS(stk_pg8, file = "data/OM/stk_baseline_pg8.rds")
+
+idcs_pg9 <- idcs
+idcs_pg9$Q1SWBeam <- idcs_pg9$Q1SWBeam[ac(2:8), ]
+idcs_pg8 <- idcs
+idcs_pg8$`UK-FSP` <- idcs_pg8$`UK-FSP`[ac(2:7), ]
+idcs_pg8$Q1SWBeam <- idcs_pg8$Q1SWBeam[ac(2:7), ]
+saveRDS(idcs_pg9, file = "data/OM/idcs_pg9.rds")
+saveRDS(idcs_pg8, file = "data/OM/idcs_pg8.rds")
+
+### ------------------------------------------------------------------------ ###
+### 0% discard survival ####
+### ------------------------------------------------------------------------ ###
+
+stk_d100 <- stk
+
+### catch
+catch.n(stk_d100)[]  <- catch$CN
+catch.wt(stk_d100)[] <- catch$CW
+catch(stk_d100)[]    <- catch$CA
+landings.n(stk_d100)[]  <- catch$LN
+landings.wt(stk_d100)[] <- catch$LW
+landings(stk_d100)[]    <- catch$LA
+discards.n(stk_d100)[]  <- catch$DN
+discards.wt(stk_d100)[] <- catch$DW
+discards.wt(stk_d100)[is.na(discards.wt(stk_d100))] <- 0
+discards(stk_d100)[]    <- catch$DA
+
+# (discards.n(stk_d100) + landings.n(stk_d100))/catch.n(stk_d100)
+# (discards.n(stk_d100)*discards.wt(stk_d100) + landings.n(stk_d100)*landings.wt(stk_d100))/(catch.n(stk_d100)*catch.wt(stk_d100))
+# quantSums(discards.n(stk_d100)*discards.wt(stk_d100) + landings.n(stk_d100)*landings.wt(stk_d100))/quantSums(catch.n(stk_d100)*catch.wt(stk_d100))
+# quantSums(discards.n(stk_d100)*discards.wt(stk_d100) + landings.n(stk_d100)*landings.wt(stk_d100))/quantSums(catch.n(stk_d100)*catch.wt(stk_d100))
+
+### save
+saveRDS(stk_d100, file = "data/OM/stk_d100.rds")
+
+### ------------------------------------------------------------------------ ###
+### 100% discard survival ####
+### ------------------------------------------------------------------------ ###
+
+stk_d0 <- stk_d100
+
+discards.n(stk_d0) <- 0 ### no discards
+discards.wt(stk_d0) <- 0
+discards(stk_d0) <- 0
+catch.n(stk_d0) <- landings.n(stk_d0) ### update catch
+catch.wt(stk_d0) <- landings.wt(stk_d0)
+catch(stk_d0) <- landings(stk_d0)
+
+# (discards.n(stk_d0) + landings.n(stk_d0))/catch.n(stk_d0)
+# (discards.n(stk_d0)*discards.wt(stk_d0) + landings.n(stk_d0)*landings.wt(stk_d0))/(catch.n(stk_d0)*catch.wt(stk_d0))
+# quantSums(discards.n(stk_d0)*discards.wt(stk_d0) + landings.n(stk_d0)*landings.wt(stk_d0))/quantSums(catch.n(stk_d0)*catch.wt(stk_d0))
+# quantSums(discards.n(stk_d0)*discards.wt(stk_d0) + landings.n(stk_d0)*landings.wt(stk_d0))/quantSums(catch.n(stk_d0)*catch.wt(stk_d0))
+
+### save
+saveRDS(stk_d0, file = "data/OM/stk_d0.rds")
+
+### ------------------------------------------------------------------------ ###
+### M scenarios ####
+### ------------------------------------------------------------------------ ###
+
+### M -50%
+stk_M_low <- stk
+m(stk_M_low) <- m(stk_M_low) * (1 - 0.5)
+saveRDS(stk_M_low, file = "data/OM/stk_M_low.rds")
+
+### M +50%
+stk_M_high <- stk
+m(stk_M_high) <- m(stk_M_high) * (1 + 0.5)
+saveRDS(stk_M_high, file = "data/OM/stk_M_high.rds")
+
+### M Lorenzen L=Linf
+stk_M_Lorenzen_Linf <- stk
+M_Lorenzen_Linf <- readRDS("data/OM/M_Lorenzen_Linf.rds")
+m(stk_M_Lorenzen_Linf)[] <- M_Lorenzen_Linf
+saveRDS(stk_M_Lorenzen_Linf, file = "data/OM/stk_M_Lorenzen_Linf.rds")
+
+### M Gislason
+stk_M_Gislason <- stk
+M_Gislason <- readRDS("data/OM/M_Gislason.rds")
+m(stk_M_Gislason)[] <- M_Gislason
+saveRDS(stk_M_Gislason, file = "data/OM/stk_M_Gislason.rds")
+
+### ------------------------------------------------------------------------ ###
+### Migration - removed ####
+### ------------------------------------------------------------------------ ###
+
+stk_no_migration <- stk
+
+### catch
+catch.n(stk_no_migration)[]  <- catch$CN_7e
+catch.wt(stk_no_migration)[] <- catch$CW_7e
+catch(stk_no_migration)[]    <- catch$CA_7e
+landings.n(stk_no_migration)[]  <- catch$LN_7e
+landings.wt(stk_no_migration)[] <- catch$LW_7e
+landings(stk_no_migration)[]    <- catch$LA_7e
+discards.n(stk_no_migration)[]  <- catch$DN_7e
+discards.wt(stk_no_migration)[] <- catch$DW_7e
+discards.wt(stk_no_migration)[is.na(discards.wt(stk_no_migration))] <- 0
+discards(stk_no_migration)[]    <- catch$DA_7e
+
+### then consider 50% discard survival
+discards.n(stk_no_migration) <- discards.n(stk_no_migration) * 0.5 ### discard survival
+discards(stk_no_migration) <- discards(stk_no_migration) * 0.5
+catch.n(stk_no_migration) <- landings.n(stk_no_migration) + discards.n(stk_no_migration) ### update catch
+catch(stk_no_migration) <- landings(stk_no_migration) + discards(stk_no_migration) ### 
+catch.wt(stk_no_migration) <- (landings.wt(stk_no_migration)*landings.n(stk_no_migration) + discards.wt(stk_no_migration) * discards.n(stk_no_migration))/(landings.n(stk_no_migration) + discards.n(stk_no_migration)) ### adapt catch weights
+
+# (discards.n(stk_no_migration) + landings.n(stk_no_migration))/catch.n(stk_no_migration)
+# (discards.n(stk_no_migration)*discards.wt(stk_no_migration) + landings.n(stk_no_migration)*landings.wt(stk_no_migration))/(catch.n(stk_no_migration)*catch.wt(stk_no_migration))
+# quantSums(discards.n(stk_no_migration)*discards.wt(stk_no_migration) + landings.n(stk_no_migration)*landings.wt(stk_no_migration))/quantSums(catch.n(stk_no_migration)*catch.wt(stk_no_migration))
+# quantSums(discards.n(stk_no_migration)*discards.wt(stk_no_migration) + landings.n(stk_no_migration)*landings.wt(stk_no_migration))/quantSums(catch.n(stk_no_migration)*catch.wt(stk_no_migration))
+
+### save
+saveRDS(stk_no_migration, file = "data/OM/stk_no_migration.rds")
 
