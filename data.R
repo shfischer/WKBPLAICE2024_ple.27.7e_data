@@ -24,3 +24,10 @@ sourceTAF("data_natural_mortality.R")
 
 ### maturity
 sourceTAF("data_maturity.R")
+
+### prepare data for OM
+sourceTAF("data_OM.R")
+
+### run exploratory SAM models
+# sourceTAF("model_SAM.R")
+

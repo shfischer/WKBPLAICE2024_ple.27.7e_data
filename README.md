@@ -12,9 +12,11 @@ The following R packages from CRAN are required to run the assessment:
 
 ``` r
 icesTAF
+icesAdvice
 ggplot2
 tidyr
 dplyr
+tibble
 stringr
 foreach
 patchwork
@@ -22,13 +24,14 @@ XLConnect
 icesDatras
 mapdata
 foreign
+slider
 ```
 
 They can be installed with:
 
 ``` r
 ### list with required packages
-req_pkgs <- c("icesTAF", "ggplot2", "tidyr", "dplyr", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign")
+req_pkgs <- c("icesTAF", "icesAdvice", "ggplot2", "tidyr", "dplyr", "tibble", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign", "slider")
 ### install/update packages
 install.packages(req_pkgs)
 ```
@@ -44,6 +47,13 @@ They can be installed with
 
 ``` r
 install.packages("FLCore", repos = c("https://ices-tools-prod.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+The SAM R package `stockassessment` is needed to run SAM and can be
+installed with
+
+``` r
+install.packages("stockassessment", repos = c("https://ices-tools-prod.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 ## Running the code
