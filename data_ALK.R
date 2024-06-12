@@ -346,3 +346,170 @@ p <- ggplot() +
 if (isTRUE(verbose)) p
 ggsave("data/ALKs/plots/ALKs_combined_fitted_q.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+### ------------------------------------------------------------------------ ###
+### Prepare ALKs for MSE ####
+### ------------------------------------------------------------------------ ###
+
+### load commercial ALKs
+alks <- read.csv("boot/initial/data/ALK/ALKs_commercial.csv")
+alks <- alks %>% mutate(across(starts_with("X"), as.numeric)) %>%
+  pivot_longer(starts_with("X"), names_prefix = "X", names_to = "age", 
+               values_to = "count", values_transform = as.numeric) %>%
+  mutate(age = as.numeric(age)) %>%
+  ### 1cm bins in 2017, 2cm bins in other years 
+  ### -> standardise to 2cm in 2017
+  mutate(length = ifelse((length %% 2) == 0, length - 1, length)) %>%
+  group_by(year, length, age) %>%
+  summarise(count = sum(count, na.rm = TRUE)) %>%
+  filter(count > 0)
+
+### check number of fish measured per year
+if (isTRUE(verbose)) 
+  alks %>% 
+    group_by(year) %>%
+    summarise(count = sum(count))
+# year count
+# 2013  2149
+# 2014  2616
+# 2015  2124
+# 2016  1998
+# 2017  2525
+# 2018  1675
+# 2019  2331
+# 2020  1992
+# 2021  2454
+# 2022  2773
+# 2023  2322
+if (isTRUE(verbose)) 
+  alks %>% 
+    group_by(year) %>%
+    summarise(count = sum(count)) %>%
+    ungroup() %>%
+    summarise(average = mean(count))
+# 2269
+
+### Q1SWBeam ALK
+Q1_ALK <- readRDS("boot/initial/data/ALK/Q1SWBeam_ple_ALK.rds")
+### standardise to 2cm length classes (same as for commercial data)
+Q1_ALK <- Q1_ALK %>%
+  mutate(length = ifelse((length %% 2) == 0, length - 1, length))
+
+### check number of fish measured per year
+if (isTRUE(verbose)) 
+  Q1_ALK %>% 
+    group_by(year) %>%
+    summarise(count = sum(count))
+# year count
+# 2006   276
+# 2007   269
+# 2008   200
+# 2009   329
+# 2010   375
+# 2011   541
+# 2012   394
+# 2013   522
+# 2014   938
+# 2015   812
+# 2016   870
+# 2017   902
+# 2018   835
+# 2019   669
+# 2020   371
+# 2021   570
+# 2022   430
+# 2023   396
+
+### year ranges
+yrs <- intersect(unique(alks$year), unique(Q1_ALK$year))
+
+### combine 
+ALKs <- bind_rows(alks %>% 
+                    filter(year %in% yrs) %>%
+                    mutate(data = "commercial"),
+                  Q1_ALK %>% 
+                    filter(year %in% yrs) %>%
+                    mutate(data = "Q1SWBeam"))
+
+### standardise length frequencies by age - 1st by data source
+ALKs <- ALKs %>%
+  group_by(data, year, age) %>%
+  mutate(freq = count / sum(count))
+### then - combine data source and standardise again
+### (equal weight for commercial and survey data)
+ALKs <- ALKs %>%
+  ungroup() %>%
+  group_by(year, age) %>%
+  mutate(freq = freq/sum(freq))
+### remove redundant columns
+ALKs <- ALKs %>%
+  ungroup() %>%
+  group_by(year, age, length) %>%
+  summarise(freq = sum(freq))
+
+### check total freq per year & age
+if (isTRUE(verbose)) 
+  ALKs %>% 
+    group_by(year, age) %>%
+    summarise(total = sum(freq)) %>%
+    summary()
+
+### trim ages for OM 2-10
+ALKs <- ALKs %>%
+  ### remove ages < 2 because not modelled in OM
+  filter(age >= 2) %>% 
+  #mutate(age = ifelse(age < 2, 2, age)) %>%
+  ### plusgroup 10+
+  mutate(age = ifelse(age > 10, 10, age))
+### standardise again
+ALKs <- ALKs %>%
+  ungroup() %>%
+  group_by(year, age) %>%
+  mutate(freq = freq/sum(freq))
+
+### save ALK for MSE
+saveRDS(ALKs, file = "data/ALKs/ALK_MSE.rds")
+# saveRDS(ALKs, file = "../../../data-limited/MSE_risk_comparison_WKBPLAICE/input/ple.27.7e/preparation/ALK_MSE.rds")
+
+### check reproduction of length frequencies for historical period ####
+stk <- readRDS("data/OM/stk_d100.rds")
+cn <- as.data.frame(catch.n(stk)[, ac(yrs)])
+
+### catch numbers at age
+cn <- cn %>%
+  select(year, age, iter, data) %>%
+  rename("caa" = "data") %>%
+  mutate(iter = as.numeric(as.character(iter)))
+### match ALKs with data
+cn <- left_join(cn, ALKs)
+### calculate numbers at length
+cn <- cn %>%
+  mutate(cal = caa * freq)
+
+p <- cn %>% group_by(year, length) %>%
+  summarise(cal = sum(cal)) %>%
+  ggplot(aes(x = length, y = cal)) +
+  geom_line() +
+  facet_wrap(~ year)
+if (isTRUE(verbose)) p
+
+### mean catch length above Lc
+Lc <- 26.4
+if (isTRUE(verbose)) 
+  cn %>%
+    filter(length >= Lc) %>%
+    #filter(!is.na(length) & !is.na(cal)) %>%
+    group_by(year) %>%
+    summarise(L = weighted.mean(x = length, w = cal))
+
+### sample
+if (isTRUE(verbose)) 
+  cn %>%
+    group_by(year, iter) %>%
+    filter(length >= Lc) %>%
+    summarise(data = mean(sample(x = length, prob = cal, 
+                                 size = 2000, replace = TRUE))) %>%
+    arrange(as.numeric(as.character(iter)))
+
+
+
