@@ -255,11 +255,11 @@ dev.off()
 ### Discard survival ####
 ### ------------------------------------------------------------------------ ###
 
-### 0% survival
+### 100% survival - 0% discards
 stk_d0 <- readRDS("data/OM/stk_d0.rds")
 fit_d0 <- FLR_SAM(stk = stk_d0, idx = idx) 
 
-### 100% survival
+### 0% survival - 100% discards included
 stk_d100 <- readRDS("data/OM/stk_d100.rds")
 fit_d100 <- FLR_SAM(stk = stk_d100, idx = idx) 
 
@@ -267,13 +267,17 @@ fit_d100 <- FLR_SAM(stk = stk_d100, idx = idx)
 png(filename = "model/SAM_fit_comparison_d_survival.png", 
     width = 20, height = 12, units = "cm", res = 300, type = "cairo")
 par(mar = c(2, 4.5, 0.5, 0.5))
-plot(c("50% (baseline)" = fit, "0%" = fit_d100, "100%" = fit_d0))
+plot(c("50% discard\nsurvival (baseline)" = fit, 
+       "0% discard\nsurvival" = fit_d100, 
+       "100% discard\nsurvival" = fit_d0))
 dev.off()
 
 png(filename = "model/SAM_fit_catch_comparison_d_suvival.png", 
     width = 15, height = 10, units = "cm", res = 300, type = "cairo")
 par(mar = c(2, 4.5, 0.5, 0.5))
-catchplot(c("50% (baseline)" = fit, "0%" = fit_d100, "100%" = fit_d0))
+catchplot(c("50% discard\nsurvival (baseline)" = fit, 
+            "0% discard\nsurvival" = fit_d100, 
+            "100% discard\nsurvival" = fit_d0))
 dev.off()
 
 ### ------------------------------------------------------------------------ ###
