@@ -8,6 +8,7 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(icesDatras)
+library(cat3advice)
 
 mkdir("data/ALKs")
 mkdir("data/ALKs/plots")
@@ -494,7 +495,15 @@ p <- cn %>% group_by(year, length) %>%
 if (isTRUE(verbose)) p
 
 ### mean catch length above Lc
-Lc <- 26.4
+### calculate with cat3advice package
+lc_data <- cn %>%
+  select(year, length, numbers = cal)
+lc_annual <- Lc(data = lc_data)
+if (isTRUE(verbose)) plot(lc_annual)
+lc <- Lc(data = lc_data, 2019:2023)
+if (isTRUE(verbose)) plot(lc)
+if (isTRUE(verbose)) lc
+Lc <- 25
 if (isTRUE(verbose)) 
   cn %>%
     filter(length >= Lc) %>%

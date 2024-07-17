@@ -22,6 +22,7 @@ idx <- readRDS("data/OM/idcs.rds")
 
 fit <- FLR_SAM(stk = stk, idx = idx)
 if (isTRUE(verbose)) plot(fit)
+saveRDS(fit, file = "model/fit_baseline.rds")
 
 fit$opt$message
 fit$opt$convergence

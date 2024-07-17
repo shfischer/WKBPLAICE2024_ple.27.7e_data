@@ -56,6 +56,13 @@ installed with
 install.packages("stockassessment", repos = c("https://ices-tools-prod.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
+Finally, R package `cat3advice` for calculations of ICES category 3
+methods is needed and can be installed with
+
+``` r
+install.packages("cat3advice", repos = c("https://ices-tools-prod.r-universe.dev", "https://cloud.r-project.org"))
+```
+
 ## Running the code
 
 The easiest way to run the code is to clone or download this repository,
