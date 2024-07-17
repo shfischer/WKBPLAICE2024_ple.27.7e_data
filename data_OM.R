@@ -277,3 +277,67 @@ catch.wt(stk_no_migration) <- (landings.wt(stk_no_migration)*landings.n(stk_no_m
 ### save
 saveRDS(stk_no_migration, file = "data/OM/stk_no_migration.rds")
 
+### ------------------------------------------------------------------------ ###
+### Migration - removed - for OM ####
+### ------------------------------------------------------------------------ ###
+### use landings/discard slots to save 7.e/d catches
+### landings: 7.e
+### discards: 7.d (migration element)
+
+### account for 50% discard survival
+### create two stocks, one for 7.e, one for 7.d and correct for discards
+
+### 7.e data
+stk_7e <- stk
+### discards and landings
+landings.n(stk_7e) <- catch$LN_7e
+landings.wt(stk_7e) <- catch$LW_7e
+landings(stk_7e) <- catch$LA_7e
+discards.n(stk_7e) <- catch$DN_7e
+discards.wt(stk_7e) <- catch$DW_7e
+discards.wt(stk_7e)[is.na(discards.wt(stk_7e))] <- 0
+discards(stk_7e) <- catch$DA_7e
+discards(stk_7e)[is.na(discards(stk_7e))] <- 0
+### 50% discard survival
+discards.n(stk_7e) <- discards.n(stk_7e) * 0.5
+discards(stk_7e) <- computeDiscards(stk_7e)
+### combine landings and discards into catch
+catch.n(stk_7e)[] <- catch.wt(stk_7e)[] <- catch(stk_7e)[] <- NA
+catch(stk_7e) <- computeCatch(stk_7e, slot = "all")
+
+### same for 7.d data
+stk_7d <- stk
+### discards and landings
+landings.n(stk_7d) <- catch$LN_7d
+landings.wt(stk_7d) <- catch$LW_7d
+landings(stk_7d) <- catch$LA_7d
+discards.n(stk_7d) <- catch$DN_7d
+discards.wt(stk_7d) <- catch$DW_7d
+discards.wt(stk_7d)[is.na(discards.wt(stk_7d))] <- 0
+discards(stk_7d) <- catch$DA_7d
+discards(stk_7d)[is.na(discards(stk_7d))] <- 0
+### 50% discard survival
+discards.n(stk_7d) <- discards.n(stk_7d) * 0.5
+discards(stk_7d) <- computeDiscards(stk_7d)
+### combine landings and discards into catch
+catch.n(stk_7d)[] <- catch.wt(stk_7d)[] <- catch(stk_7d)[] <- NA
+catch(stk_7d) <- computeCatch(stk_7d, slot = "all")
+
+### combine into one stock
+stk_migration_LD <- stk
+landings.n(stk_migration_LD) <- catch.n(stk_7e)
+landings.wt(stk_migration_LD) <- catch.wt(stk_7e)
+landings(stk_migration_LD) <- catch(stk_7e)
+discards.n(stk_migration_LD) <- catch.n(stk_7d)
+discards.wt(stk_migration_LD) <- catch.wt(stk_7d)
+discards(stk_migration_LD) <- catch(stk_7d)
+catch.n(stk_migration_LD)[] <- catch.wt(stk_migration_LD)[] <- 
+  catch(stk_migration_LD)[] <- NA
+catch(stk_migration_LD) <- computeCatch(stk_migration_LD, slot = "all")
+units(stk_migration_LD) <- units(stk)
+
+### save
+saveRDS(stk_migration_LD, file = "data/OM/stk_migration_LD.rds")
+
+
+
