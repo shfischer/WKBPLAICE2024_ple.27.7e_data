@@ -13,7 +13,9 @@ The following R packages from CRAN are required to run the assessment:
 ``` r
 icesTAF
 icesAdvice
+icesDatras
 ggplot2
+ggrastr
 tidyr
 dplyr
 tibble
@@ -31,7 +33,7 @@ They can be installed with:
 
 ``` r
 ### list with required packages
-req_pkgs <- c("icesTAF", "icesAdvice", "ggplot2", "tidyr", "dplyr", "tibble", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign", "slider")
+req_pkgs <- c("icesTAF", "icesAdvice", "icesDatras", "ggplot2", "ggrastr", "tidyr", "dplyr", "tibble", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign", "slider")
 ### install/update packages
 install.packages(req_pkgs)
 ```
