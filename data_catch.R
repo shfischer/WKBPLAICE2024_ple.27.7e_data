@@ -538,6 +538,9 @@ if (isTRUE(verbose)) p_
 ggsave(file = paste0("data/catch/plots/catch_stock_discard_rate.png"),
        width = 15, height = 8,  plot = p_,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_stock_discard_rate.pdf"),
+       width = 16, height = 8,  plot = p_,
+       units = "cm")
 
 ### total catch - by area & total - landings and discards
 p <- as.data.frame(catch[c("LA", "DA", "LA_7e", "DA_7e", "LA_7d", "DA_7d")]) %>%
@@ -563,6 +566,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_stock_area.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_stock_area.pdf"),
+       width = 16, height = 8,  plot = p,
+       units = "cm")
 
 ### age structure - numbers
 p <- as.data.frame(catch[c("LN", "DN")]) %>%
@@ -572,13 +578,16 @@ p <- as.data.frame(catch[c("LN", "DN")]) %>%
   geom_col() +
   scale_fill_discrete("") + 
   facet_wrap(~ year) + 
-  labs(x = "Year", y = "Catch numbers (thousands)") + 
+  labs(x = "Age (years)", y = "Catch numbers (thousands)") + 
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_age.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_age.pdf"),
+       width = 16, height = 12,  plot = p,
+       units = "cm")
 ### age structure - numbers - 2023 only
 p <- as.data.frame(catch[c("LN", "DN")]) %>%
   mutate(qname = factor(qname, levels = c("DN", "LN"), 
@@ -588,7 +597,7 @@ p <- as.data.frame(catch[c("LN", "DN")]) %>%
   geom_col() +
   scale_fill_discrete("") + 
   facet_wrap(~ year) + 
-  labs(x = "Year", y = "Catch numbers (thousands)") + 
+  labs(x = "Age (years)", y = "Catch numbers (thousands)") + 
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
@@ -604,13 +613,15 @@ p <- as.data.frame(FLQuants(LN = catch$LN * catch$LW,
   geom_col() +
   scale_fill_discrete("") + 
   facet_wrap(~ year) + 
-  labs(x = "Year", y = "Catch biomass (tonnes)") + 
+  labs(x = "Age (years)", y = "Catch biomass (tonnes)") + 
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_age_biomass.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_age_biomass.pdf"),
+       width = 16, height = 12,  plot = p, units = "cm")
 ### age structure - standardised numbers as bubbles
 p <- as.data.frame(catch$CN) %>%
   group_by(age) %>%
@@ -628,6 +639,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_age_numbers_bubbles.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_age_numbers_bubbles.pdf"),
+       width = 16, height = 8,  plot = p,
+       units = "cm")
 
 ### catch weights at age
 cols <- scales::hue_pal()(length(0:15))
@@ -653,6 +667,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_weights_raw.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_weights_raw.pdf"),
+       width = 16, height = 8,  plot = p,
+       units = "cm")
 
 ### catch weights at age - growth curve by year
 p <- as.data.frame(catch[c("CW", "LW", "DW")]) %>%
@@ -671,6 +688,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_weights_raw_growth.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_weights_raw_growth.pdf"),
+       width = 16, height = 12,  plot = p,
+       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### fit model to weights at age ####
@@ -766,6 +786,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_weights_fit.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_weights_fit.pdf"),
+       width = 16, height = 12,  plot = p,
+       units = "cm")
 ### plot data, fit, and predicted values - example year
 p <- df %>% filter(year == 2018) %>%
   ggplot() +
@@ -785,6 +808,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_weights_fit_2018.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_weights_fit_2018.pdf"),
+       width = 10, height = 6,  plot = p,
+       units = "cm")
 
 ### save
 saveRDS(fits_data, file = "data/catch/catch_weights_fitted.rds")
@@ -823,6 +849,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/IC_weights_Q1_comparison.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/IC_weights_Q1_comparison.pdf"),
+       width = 16, height = 8,  plot = p,
+       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### stock weights ####
@@ -951,6 +980,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_SOP.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_SOP.pdf"),
+       width = 10, height = 6,  plot = p,
+       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### plot final catch and stock weights & catch numbers ####
@@ -983,6 +1015,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_stock_weights_pg.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_stock_weights_pg.pdf"),
+       width = 16, height = 10,  plot = p,
+       units = "cm")
 
 ### catch age structure
 p <- as.data.frame(FLQuants(catch_SOP[c("LN", "DN")])) %>%
@@ -1001,6 +1036,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/catch_age_pg.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/catch_age_pg.pdf"),
+       width = 16, height = 12,  plot = p,
+       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### 7.e InterCatch data - countries & fleets ####
@@ -1022,7 +1060,7 @@ p <- table1 %>%
               summarise(CATON = sum(CATON)),
             aes(x = Year, y = CATON/1000 + 50,
                 label = round(CATON/1000, 0)),
-            size = 2) +
+            size = 1.5) +
   facet_wrap(~ CatchCategory, ncol = 1) +
   labs(x = "Year", y = "Catch in Division 7.e (tonnes)") + 
   theme_bw(base_size = 8)
@@ -1030,6 +1068,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/InterCatch_countries.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/InterCatch_countries.pdf"),
+       width = 10, height = 6,  plot = p,
+       units = "cm")
 
 ### catch by gear
 p <- table1 %>% 
@@ -1061,6 +1102,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/InterCatch_gears.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/InterCatch_gears.pdf"),
+       width = 10, height = 6,  plot = p,
+       units = "cm")
 
 ### sampling coverage
 p <- table1 %>% group_by(Year, CatchCategory, SampledOrEstimated) %>%
@@ -1087,6 +1131,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/InterCatch_sampling.png"),
        width = 10, height = 6,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/InterCatch_sampling.pdf"),
+       width = 10, height = 6,  plot = p,
+       units = "cm")
 
 ### plot some age samples - 2023 only
 IC_samples <- read.csv("boot/initial/data/InterCatch/NumbersAtAgeLength_hist.csv")
@@ -1133,6 +1180,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.png"),
        width = 25, height = 18,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.pdf"),
+       width = 25, height = 18,  plot = p,
+       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### Discard survivability explorations ####
@@ -1212,6 +1262,9 @@ if (isTRUE(verbose)) p
 ggsave(file = paste0("data/catch/plots/Discards_survival.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
+ggsave(file = paste0("data/catch/plots/Discards_survival.pdf"),
+       width = 10, height = 6,  plot = p,
+       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### fbar range ####

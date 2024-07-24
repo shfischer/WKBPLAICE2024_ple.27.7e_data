@@ -7,6 +7,7 @@ taf.libPaths()
 library(tidyr)
 library(dplyr)
 library(ggplot2)
+library(ggrastr)
 library(icesDatras)
 library(mapdata)
 library(foreign)
@@ -26,21 +27,25 @@ if (!exists("verbose")) verbose <- FALSE
 
 ### get data from DATRAS
 ### catch by length
-Q1_HL <- lapply(2006:2023, getHLdata, survey = "BTS", quarter = 1)
-Q1_HL <- bind_rows(Q1_HL)
-Q1_HL <- Q1_HL %>%
-  filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9")
-saveRDS(Q1_HL, "data/surveys/DATRAS_Q1SWBeam_HL.rds")
+if (isTRUE(verbose)) {
+  Q1_HL <- lapply(2006:2023, getHLdata, survey = "BTS", quarter = 1)
+  Q1_HL <- bind_rows(Q1_HL)
+  Q1_HL <- Q1_HL %>%
+    filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9")
+  saveRDS(Q1_HL, "data/surveys/DATRAS_Q1SWBeam_HL.rds")
+}
 Q1_HL <- readRDS("data/surveys/DATRAS_Q1SWBeam_HL.rds")
 
 ### Haul info
-Q1_HH <- lapply(2006:2023, getHHdata, survey = "BTS", quarter = 1)
-Q1_HH <- bind_rows(Q1_HH)
-Q1_HH <- Q1_HH %>% 
-  filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9") %>%
-  mutate(Latitude = (HaulLat + ShootLat)/2,
-         Longitude = (HaulLong + ShootLong)/2)
-saveRDS(Q1_HH, "data/surveys/DATRAS_Q1SWBeam_HH.rds")
+if (isTRUE(verbose)) {
+  Q1_HH <- lapply(2006:2023, getHHdata, survey = "BTS", quarter = 1)
+  Q1_HH <- bind_rows(Q1_HH)
+  Q1_HH <- Q1_HH %>% 
+    filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9") %>%
+    mutate(Latitude = (HaulLat + ShootLat)/2,
+           Longitude = (HaulLong + ShootLong)/2)
+  saveRDS(Q1_HH, "data/surveys/DATRAS_Q1SWBeam_HH.rds")
+}
 Q1_HH <- readRDS("data/surveys/DATRAS_Q1SWBeam_HH.rds")
 
 
@@ -117,6 +122,37 @@ p <- ggplot() +
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/map_Q1SWBeam_numbers.png", 
        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+### rasterised version for PDF
+p <- ggplot() +
+  geom_rect(data = StatRec7e,
+            mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
+            fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
+  ### add coastline
+  rasterise(geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
+                                         long >= -20 & long <= 10),
+                         aes(x = long, y = lat, group = group), fill = "grey",
+                         colour = "black", linewidth = 0.3), dpi = 600) +
+  geom_point(data = Q1_ple %>% 
+               filter(StatRec %in% StatRec7e_names),
+             aes(x = Longitude, y = Latitude, size = Numbers),
+             fill = NA, shape = 21, stroke = 0.4) +
+  scale_size("Numbers/hr", range = c(1, 4)) + 
+  geom_point(data = Q1_ple %>% 
+               filter(StatRec %in% StatRec7e_names) %>%
+               filter(is.na(Numbers)) %>%
+               mutate(Numbers = 0),
+             aes(x = Longitude, y = Latitude, size = Numbers),
+             shape = 4, fill = NA, stroke = 0.3, size = 0.4,
+             show.legend = FALSE) +
+  facet_wrap(~ Year) + 
+  labs(x = "Longitude", y = "Latitude") +
+  theme_bw(base_size = 8) +
+  theme(panel.background = element_rect(fill = "gray97")) +
+  coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
+  scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
+  scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
+ggsave("data/surveys/plots/map_Q1SWBeam_numbers.pdf", 
+       width = 16, height = 10, units = "cm", plot = p)
 
 ### biomass
 p <- ggplot() +
@@ -150,6 +186,37 @@ p <- ggplot() +
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/map_Q1SWBeam_biomass.png", 
        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+### rasterised version for pdf
+p <- ggplot() +
+  geom_rect(data = StatRec7e,
+            mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
+            fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
+  ### add coastline
+  rasterise(geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
+                                         long >= -20 & long <= 10),
+                         aes(x = long, y = lat, group = group), fill = "grey",
+                         colour = "black", linewidth = 0.3), dpi = 600) +
+  geom_point(data = Q1_ple %>% 
+               filter(StatRec %in% StatRec7e_names),
+             aes(x = Longitude, y = Latitude, size = Weight/1000),
+             fill = NA, shape = 21, stroke = 0.4) +
+  scale_size("kg/hr", range = c(1, 4)) + 
+  geom_point(data = Q1_ple %>% 
+               filter(StatRec %in% StatRec7e_names) %>%
+               filter(is.na(Numbers)) %>%
+               mutate(Numbers = 0),
+             aes(x = Longitude, y = Latitude, size = Weight/1000),
+             shape = 4, fill = NA, stroke = 0.3, size = 0.4,
+             show.legend = FALSE) +
+  facet_wrap(~ Year) + 
+  labs(x = "Longitude", y = "Latitude") +
+  theme_bw(base_size = 8) +
+  theme(panel.background = element_rect(fill = "gray97")) +
+  coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
+  scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
+  scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
+ggsave("data/surveys/plots/map_Q1SWBeam_biomass.pdf", 
+       width = 16, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### UK-FSP ####
@@ -194,6 +261,8 @@ p <- FSP_numbers %>%
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/FSP_bubbles_numbers.png", 
        width = 12, height = 7, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/FSP_bubbles_numbers.pdf", 
+       width = 12, height = 7, units = "cm", plot = p)
 
 ### plot numbers and biomass
 cols <- scales::hue_pal()(length(1:10))
@@ -216,6 +285,8 @@ p <- full_join(FSP_numbers %>% mutate(type = "Numbers"),
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/FSP_numbers_biomass.png", 
        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/FSP_numbers_biomass.pdf", 
+       width = 16, height = 8, units = "cm", plot = p)
 
 ### weight at age
 p <- FSP_weight %>%
@@ -244,6 +315,8 @@ p <- FSP_weight %>%
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/FSP_weight_at_age.png", 
        width = 10, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/FSP_weight_at_age.pdf", 
+       width = 10, height = 10, units = "cm", plot = p)
   
 
 ### ------------------------------------------------------------------------ ###
@@ -285,6 +358,8 @@ p <- Q1SWBeam_numbers %>%
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/Q1SWBeam_bubbles_numbers.png", 
        width = 12, height = 7, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/Q1SWBeam_bubbles_numbers.pdf", 
+       width = 12, height = 7, units = "cm", plot = p)
 
 ### plot numbers and biomass
 cols <- scales::hue_pal()(length(1:10))
@@ -307,6 +382,8 @@ p <- Q1SWBeam_numbers %>%
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/Q1SWBeam_numbers_biomass.png", 
        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/Q1SWBeam_numbers_biomass.pdf", 
+       width = 16, height = 8, units = "cm", plot = p)
 
 ### weight at age
 p <- Q1SWBeam_numbers %>%
@@ -334,6 +411,8 @@ p <- Q1SWBeam_numbers %>%
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/Q1SWBeam_weight_at_age.png", 
        width = 10, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/Q1SWBeam_weight_at_age.pdf", 
+       width = 10, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### age correlations ####
@@ -347,6 +426,8 @@ p <- idx_cor(FLIndices("UK-FSP" = FLIndex(index = FSP_qnt)))
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/FSP_correlations.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/FSP_correlations.pdf", 
+       width = 15, height = 10, units = "cm", plot = p)
 
 Q1SWBeam_qnt <- as.FLQuant(Q1SWBeam_numbers %>%
                         select(year = Year, age = Age, data = Numbers) %>%
@@ -356,6 +437,8 @@ p <- idx_cor(FLIndices("Q1SWBeam" = FLIndex(index = Q1SWBeam_qnt)))
 if (isTRUE(verbose)) p
 ggsave("data/surveys/plots/Q1SWBeam_correlations.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/surveys/plots/Q1SWBeam_correlations.pdf", 
+       width = 15, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### final data ####
