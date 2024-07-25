@@ -32,12 +32,13 @@ icesDatras
 mapdata
 foreign
 slider
+lme4
 ```
 
 They can be installed with:
 ```{r, eval = FALSE}
 ### list with required packages
-req_pkgs <- c("icesTAF", "icesAdvice", "icesDatras", "ggplot2", "ggrastr", "tidyr", "dplyr", "tibble", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign", "slider")
+req_pkgs <- c("icesTAF", "icesAdvice", "icesDatras", "ggplot2", "ggrastr", "tidyr", "dplyr", "tibble", "stringr", "foreach", "patchwork", "XLConnect", "icesDatras", "mapdata", "foreign", "slider", "lme4")
 ### install/update packages
 install.packages(req_pkgs)
 ```
