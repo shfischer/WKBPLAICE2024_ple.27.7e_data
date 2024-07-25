@@ -18,7 +18,7 @@ mkdir("data/maturity/plots")
 if (!exists("verbose")) verbose <- FALSE
 
 ### ------------------------------------------------------------------------ ###
-### data extract ####
+### data extraction ####
 ### ------------------------------------------------------------------------ ###
 
 mat <- read.csv("boot/initial/data/maturity/Cefas_maturity.csv")
@@ -35,6 +35,7 @@ mat_ <- mat_ %>%
   mutate(year = as.numeric(year) + 2000)
 
 table(mat$fldCruiseName)
+table(mat_$fldCruiseName)
 table(mat_$year)
 #table(mat_$fldCruiseName[mat_$year == 2023])
 table(mat_$fldCruiseName, mat_$year)
@@ -60,6 +61,11 @@ table(mat_$maturity)
 ### remove unknown/abnormal/NA
 mat_ <- mat_%>%
   filter(maturity %in% c("immature", "mature"))
+
+### ------------------------------------------------------------------------ ###
+### data - combined sexes ####
+### ------------------------------------------------------------------------ ###
+
 ### proportion mature
 mat_smry <- mat_ %>%
   select(year, length = fldFishLength, maturity) %>%
@@ -75,8 +81,6 @@ mat_smry <- mat_ %>%
   ungroup() %>%
   group_by(year) %>%
   mutate(prop_length = total/sum(total))
-
-###
 
 ### plot
 p <- mat_smry %>%
@@ -95,9 +99,303 @@ ggsave("data/maturity/plots/Q1SWBeam_maturity_prop.png",
 mat_ %>%
   filter(year == 2021 & fldFishLength <= 170)
 
+### ------------------------------------------------------------------------ ###
+### data - by sex ####
+### ------------------------------------------------------------------------ ###
+
+### proportion mature
+mat_smry_sex <- mat_ %>%
+  select(year, sex = fldFishSex, length = fldFishLength, maturity) %>%
+  mutate(tmp = 1) %>%
+  group_by(year, sex, length, maturity) %>%
+  summarise(count = sum(tmp, na.rm = TRUE)) %>%
+  mutate(count = ifelse(!is.na(count), count, 0)) %>%
+  pivot_wider(names_from = maturity, values_from = count) %>%
+  mutate(immature = ifelse(!is.na(immature), immature, 0),
+         mature = ifelse(!is.na(mature), mature, 0)) %>%
+  mutate(total = immature + mature) %>%
+  mutate(prop_mature = mature/total) %>%
+  ungroup() %>%
+  group_by(year) %>%
+  mutate(prop_length = total/sum(total))
+
+### plot data
+p <- mat_smry_sex %>%
+  ggplot(aes(x = length/10, y = prop_mature, alpha = prop_length, 
+             colour = sex)) +
+  geom_point(size = 0.4) +
+  facet_wrap(~ year) +
+  scale_alpha("Proportion of\nmeasured\nindividuals") +
+  scale_colour_discrete("Sex") + 
+  labs(x = "Length (cm)", y = "Proportion mature") +
+  xlim(c(0, 60)) + 
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/Q1SWBeam_maturity_prop_sex.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
 
 ### ------------------------------------------------------------------------ ###
-### fit model ####
+### final model - by sex, year as random effect ####
+### ------------------------------------------------------------------------ ###
+### logistic regression of maturity proportion at length
+### by sex (F/M)
+### year as random effect
+### use females only, males and combined only for plotting
+
+### females
+glm_yr_F <- glmer(prop_mature ~ length + (1 | year), 
+                  data = mat_smry_sex %>% 
+                    filter(sex == "F") %>% 
+                    mutate(length = length/10),
+                  family = binomial(link = "logit"), weights = total)
+summary(glm_yr_F)
+
+pred_df <- expand.grid(length = lngths_pred/10, year = as.vector(yrs))
+pred_F <- predict(glm_yr_F, pred_df, type = "response")
+pred_df$females <- pred_F
+
+### males
+glm_yr_M <- glmer(prop_mature ~ length + (1 | year), 
+                  data = mat_smry_sex %>% 
+                    filter(sex == "M") %>% 
+                    mutate(length = length/10),
+                  family = binomial(link = "logit"), weights = total)
+pred_M <- predict(glm_yr_M, pred_df, type = "response")
+pred_df$males <- pred_M
+### combined
+glm_yr_C <- glmer(prop_mature ~ length + (1 | year), 
+                  data = mat_smry_sex %>% 
+                    mutate(length = length/10),
+                  family = binomial(link = "logit"), weights = total)
+pred_C <- predict(glm_yr_C, pred_df, type = "response")
+pred_df$combined <- pred_C
+
+### plot
+p <-  ggplot() +
+  geom_point(data = mat_smry_sex %>%
+               mutate(sex = factor(sex, levels = c("F", "M", "C"),
+                                   labels = c("females", "males", "combined"))),
+             mapping = aes(x = length/10, y = prop_mature, alpha = prop_length,
+                           colour = sex, shape = sex, linetype = sex),
+             size = 0.4) +
+  geom_line(data = pred_df %>%
+              pivot_longer(c(females, males, combined), 
+                           names_to = "sex", values_to = "maturity") %>%
+              mutate(sex = factor(sex, levels = c("females", "males", "combined"))),
+            mapping = aes(x = length, y = maturity, colour = sex,
+                          linetype = sex, shape = sex),
+            linewidth = 0.3) +
+  facet_wrap(~ year) +
+  scale_alpha("Proportion of\nmeasured\nindividuals", range = c(0.3, 1)) +
+  scale_colour_manual("Sex",
+                      values = c("females" = "#E41A1C", "males" = "#377EB8",
+                                 "combined" = "grey")) +
+  scale_linetype_manual("Sex", values = c("females" = "solid", "males" = "solid",
+                                          "combined" = "2121")) +
+  scale_shape("Sex") +
+  xlim(c(0, 60)) + 
+  labs(x = "Length (cm)", y = "Proportion mature") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/Q1SWBeam_maturity_prop_fit_sex_yr.png", 
+       width = 16, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/maturity/plots/Q1SWBeam_maturity_prop_fit_sex_yr.pdf", 
+       width = 16, height = 10, units = "cm", plot = p)
+
+### L50
+### find manually...
+L50_sex_yr <- pred_df %>% pivot_longer(c(females, males, combined), 
+                                       names_to = "sex", values_to = "maturity") %>%
+  mutate(sex = factor(sex, levels = c("females", "males", "combined"))) %>%
+  mutate(diff = abs(maturity - 0.5)) %>%
+  group_by(year, sex) %>%
+  summarise(length = length[diff == min(diff)])
+  
+p <- L50_sex_yr %>%
+  ggplot(aes(x = year, y = length, colour = sex, shape = sex)) +
+  geom_line() +
+  geom_point() + 
+  scale_colour_manual("Sex",
+                      values = c("females" = "#E41A1C", "males" = "#377EB8",
+                                 "combined" = "grey")) +
+  scale_shape("Sex") +
+  labs(x = "Year", y = "L50 (cm)") +
+  ylim(c(0, NA)) +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.6, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/Q1SWBeam_L50_sex_year.png", 
+       width = 10, height = 6, units = "cm", dpi = 300, plot = p)
+ggsave("data/maturity/plots/Q1SWBeam_L50_sex_year.pdf", 
+       width = 10, height = 6, units = "cm", plot = p)
+
+### ------------------------------------------------------------------------ ###
+### convert to maturity at age - apply annual vB model fit ####
+### ------------------------------------------------------------------------ ###
+
+yrs <- unique(mat_smry_sex$year)
+names(yrs) <- yrs
+
+### define ages
+ages <- 0:15
+### estimate length at age
+### von Bertalanffy growth function
+vB_length <- function(L_inf, k, t, t_0 = 0){
+  L_inf * (1 - exp(-k * (t - t_0)))
+}
+### get von Bertalanffy growth parameters
+vB_pars <- read.csv("data/ALKs/vB_pars_q.csv")
+
+### annual vB model fits
+### lengths corresponding to ages
+lengths_yr <- lapply(yrs, function(yr) {#  browser()
+  vB_Linf_i <- vB_pars$Linf[vB_pars$year == yr]
+  vB_k_i <- vB_pars$k[vB_pars$year == yr]
+  vB_t0_i <- vB_pars$t0[vB_pars$year == yr]
+  lengths_i <- vB_length(L_inf = vB_Linf_i, k = vB_k_i, t_0 = vB_t0_i, t = ages)
+  data.frame(age = ages,
+             length = lengths_i,
+             year = yr)
+})
+lengths_yr <- do.call(rbind, lengths_yr)
+
+### predict maturity at these lengths
+pred_ALK_yr <- lengths_yr
+pred_ALK_yr_values <- predict(glm_yr_F, pred_ALK_yr, type = "response")
+pred_ALK_yr$prop_mature <- pred_ALK_yr_values
+pred_ALK_yr$age <- ages
+
+### average
+pred_ALK_yr_mean <- pred_ALK_yr %>%
+  group_by(age) %>%
+  summarise(prop_mature = mean(prop_mature, na.rm = TRUE)) %>%
+  mutate(year = "average")
+
+### plot by year
+p <- bind_rows(pred_ALK_yr %>% 
+                 mutate(year = as.character(year)), 
+               pred_ALK_yr_mean) %>%
+  ggplot(aes(x = age, y = prop_mature)) +
+  geom_line() +
+  facet_wrap(~ year) +
+  labs(x = "Age (years)", y = "Proportion mature") +
+  coord_cartesian(xlim = c(0, 15)) +
+  theme_bw(base_size = 8)
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_yr_age.png", 
+       width = 16, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/maturity/plots/maturity_vB_yr_age.pdf", 
+       width = 16, height = 10, units = "cm", plot = p)
+
+### time series
+cols <- scales::hue_pal()(length(0:10))
+cols <- cols[c(seq(from = 1, to = length(cols), by = 3),
+               seq(from = 2, to = length(cols), by = 3),
+               seq(from = 3, to = length(cols), by = 3))]
+p <- pred_ALK_yr %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = 10:0)) %>%
+  ggplot(aes(x = year, y = prop_mature, colour = age)) +
+  geom_line() + geom_point(size = 0.3) +
+  geom_hline(data = pred_ALK_yr_mean %>%
+               filter(age <= 10) %>%
+               mutate(age = factor(age, levels = 10:0)),
+             aes(yintercept = prop_mature, colour = age),
+             linetype = "1212", alpha = 0.5) +
+  scale_colour_manual("Age (years)", values = cols) +
+  labs(x = "Year", y = "Proportion mature") +
+  #coord_cartesian(xlim = c(0, 15)) +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_yr_age_timeseries.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+
+
+### moving average - 3-year average
+head(pred_ALK_yr)
+pred_ALK_yr_ma3 <- pred_ALK_yr %>%
+  select(year, age, prop_mature) %>%
+  pivot_wider(names_from = age, values_from = prop_mature) %>%
+  column_to_rownames("year") %>%
+  ### moving average for all ages
+  mutate(across(everything(), ~ slide(.x, .f = mean, .before = 2, .after = 0,
+                                      .complete = FALSE))) %>%
+  rownames_to_column("year") %>%
+  pivot_longer(-year, names_to = "age", values_to = "prop_mature") %>%
+  mutate(year = as.numeric(year),
+         age = as.numeric(age)) %>%
+  mutate(prop_mature = sapply(prop_mature, 
+                              function(x) {ifelse(is.null(x), NA, x)}))
+
+### plot
+p <- bind_rows(pred_ALK_yr_ma3 %>% 
+                 mutate(source = "3-year average"),
+               pred_ALK_yr %>% mutate(source = "annual")) %>%
+  mutate(source = factor(source, levels = c("annual", "3-year average"))) %>%
+  filter(age <= 10) %>%
+  mutate(age = factor(age, levels = 10:0)) %>%
+  ggplot(aes(x = year, y = prop_mature, colour = age, linetype = source)) +
+  geom_line() +
+  scale_colour_manual("Age (years)", values = cols) +
+  scale_linetype_manual("", values = c("annual" = "solid",
+                                       "3-year average" = "3131")) +
+  labs(x = "Year", y = "Proportion mature") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.5, "lines"))
+if (isTRUE(verbose)) p
+ggsave("data/maturity/plots/maturity_vB_yr_age_timeseries_smoothed.png", 
+       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/maturity/plots/maturity_vB_yr_age_timeseries_smoothed.pdf", 
+       width = 10, height = 6, units = "cm", plot = p)
+
+### ------------------------------------------------------------------------ ###
+### final data for OM ####
+### ------------------------------------------------------------------------ ###
+### maturity values from Q1SWBeam survey
+### - females only
+### - modelled with logistic regression, year as a random effect
+### - converted to age with annual von Bertalanffy growth model fit
+### - smoothed with 3-year moving average
+### - ages 2 - 10
+### - before maturity time series: mean of first three years
+
+### FLQuant template
+flq_mat <- FLQuant(NA, dimnames = list(ages = 2:10, year = 1980:2023))
+
+### fill in values from survey
+mat_tmp_annual <- pred_ALK_yr_ma3 %>%
+  pivot_wider(names_from = age, values_from = prop_mature) %>%
+  #filter(year >= 2008) %>%
+  select(year, as.character(2:10)) %>%
+  column_to_rownames("year") %>%
+  t()
+flq_mat[, ac(2006:2023)] <- mat_tmp_annual
+
+### historical year: mean of first 3 years
+mat_tmp_mean <- pred_ALK_yr %>%
+  select(age, year, prop_mature) %>%
+  filter(year %in% 2006:2008) %>%
+  group_by(age) %>%
+  summarise(prop_mature = mean(prop_mature)) %>%
+  filter(age %in% 2:10) %>%
+  select(prop_mature) %>%
+  unlist()
+flq_mat[, ac(1980:2005)] <- mat_tmp_mean
+
+### save
+mkdir("data/OM")
+saveRDS(flq_mat, "data/OM/maturity.rds")
+
+
+### ------------------------------------------------------------------------ ###
+### from here, exploratory only, not used ####
+### ------------------------------------------------------------------------ ###
+
+### ------------------------------------------------------------------------ ###
+### combined sexes - fit model ####
 ### ------------------------------------------------------------------------ ###
 ### logistic regression
 
@@ -163,40 +461,8 @@ ggsave("data/maturity/plots/Q1SWBeam_fit_L50.png",
        width = 10, height = 6, units = "cm", dpi = 300, plot = p)
 
 ### ------------------------------------------------------------------------ ###
-### data - by sex ####
+### model by sex ####
 ### ------------------------------------------------------------------------ ###
-
-### proportion mature
-mat_smry_sex <- mat_ %>%
-  select(year, sex = fldFishSex, length = fldFishLength, maturity) %>%
-  mutate(tmp = 1) %>%
-  group_by(year, sex, length, maturity) %>%
-  summarise(count = sum(tmp, na.rm = TRUE)) %>%
-  mutate(count = ifelse(!is.na(count), count, 0)) %>%
-  pivot_wider(names_from = maturity, values_from = count) %>%
-  mutate(immature = ifelse(!is.na(immature), immature, 0),
-         mature = ifelse(!is.na(mature), mature, 0)) %>%
-  mutate(total = immature + mature) %>%
-  mutate(prop_mature = mature/total) %>%
-  ungroup() %>%
-  group_by(year) %>%
-  mutate(prop_length = total/sum(total))
-
-### plot
-p <- mat_smry_sex %>%
-  ggplot(aes(x = length/10, y = prop_mature, alpha = prop_length, 
-             colour = sex)) +
-  geom_point(size = 0.4) +
-  facet_wrap(~ year) +
-  scale_alpha("Proportion of\nmeasured\nindividuals") +
-  scale_colour_discrete("Sex") + 
-  labs(x = "Length (cm)", y = "Proportion mature") +
-  xlim(c(0, 60)) + 
-  theme_bw(base_size = 8) +
-  theme(legend.key.height = unit(0.5, "lines"))
-if (isTRUE(verbose)) p
-ggsave("data/maturity/plots/Q1SWBeam_maturity_prop_sex.png", 
-       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
 
 ### fit model by sex
 glm_F <- lapply(yrs, function(yr) {
@@ -290,7 +556,7 @@ ggsave("data/maturity/plots/Q1SWBeam_fit_L50_sex.png",
        width = 10, height = 6, units = "cm", dpi = 300, plot = p)
 
 ### ------------------------------------------------------------------------ ###
-### fit model - year as random effect ####
+### data by sex - fit model - year as random effect ####
 ### ------------------------------------------------------------------------ ###
 ### logistic regression
 
@@ -338,6 +604,16 @@ p <- pred_df %>%
 if (isTRUE(verbose)) p
 ggsave("data/maturity/plots/Q1SWBeam_fit_L50_F_year.png", 
        width = 10, height = 6, units = "cm", dpi = 300, plot = p)
+
+
+
+
+
+
+
+
+
+
 
 ### ------------------------------------------------------------------------ ###
 ### convert to maturity at age - apply Q1SWBeam ALKs ####
