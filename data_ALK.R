@@ -175,6 +175,8 @@ p <- ALK_combined %>%
 if (isTRUE(verbose)) p
 ggsave("data/ALKs/plots/ALKs_combined.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/ALKs/plots/ALKs_combined.pdf", 
+       width = 16, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### combine ALKs - with quarterly ages ####
@@ -225,6 +227,8 @@ p <- ALK_combined_q %>%
 if (isTRUE(verbose)) p
 ggsave("data/ALKs/plots/ALKs_combined_q.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/ALKs/plots/ALKs_combined_q.pdf", 
+       width = 16, height = 10, units = "cm", dpi = 300, plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### fit von Bertalanffy growth model ####
@@ -329,7 +333,7 @@ p <- ggplot() +
              alpha = 0.5, shape = 21) +
   ### curve by year
   geom_line(data = length_predicted_years %>% 
-              filter(year >= 2013) %>%
+              filter(year >= 2013 & year != "all") %>%
               mutate(year = as.numeric(as.character(year))),
             aes(x = age, y = length)) +
   ### last 5 years
@@ -347,6 +351,8 @@ p <- ggplot() +
 if (isTRUE(verbose)) p
 ggsave("data/ALKs/plots/ALKs_combined_fitted_q.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/ALKs/plots/ALKs_combined_fitted_q.pdf", 
+       width = 16, height = 10, units = "cm", dpi = 300, plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### Prepare ALKs for MSE ####

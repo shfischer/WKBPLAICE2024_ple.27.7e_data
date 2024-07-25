@@ -91,11 +91,11 @@ p <- df_M %>%
                filter(age %% 0.5 == 0 & age %% 1 != 0) %>%
                filter(name %in% c("Gislason", "Lorenzen_L")),
              size = 0.6, show.legend = FALSE) + 
-  scale_colour_discrete("", labels = c("default", "Gislason",
+  scale_colour_discrete("", labels = c("old", "Gislason",
                                        "Lorenzen", 
                                        expression(Lorenzen~M[L==L[infinity]]),
                                        "Then")) + 
-  scale_linetype("", labels = c("default", "Gislason",
+  scale_linetype("", labels = c("old", "Gislason",
                                 "Lorenzen", 
                                 expression(Lorenzen~M[L==L[infinity]]),
                                 "Then")) + 
@@ -107,6 +107,8 @@ p <- df_M %>%
 if (isTRUE(verbose)) p
 ggsave("data/M/plots/M_options.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+ggsave("data/M/plots/M_options.pdf", 
+       width = 15, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### final data for OM ####
