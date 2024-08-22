@@ -497,3 +497,134 @@ dev.off()
 
 ### compare models: modeltable()
 
+### ------------------------------------------------------------------------ ###
+### decouple plusgroup in SAM configuration ####
+### ------------------------------------------------------------------------ ###
+
+conf <- fit$conf
+conf_pg_decoupled <- conf
+conf_pg_decoupled$keyLogFsta[1, 9] <- 8
+conf_pg_decoupled$keyLogFsta
+
+fit_pg_decoupled <- FLR_SAM(stk = stk, idx = idx, conf = conf_pg_decoupled)
+# Error in newton(par = c(logF = -2.2715827629051, logF = -0.886308382956911,  : 
+#   Newton drop out: Too many failed attempts.
+# Error in newton(par = c(logF = -2.27655108498006, logF = -0.892675583256208,  : 
+#   Newton failed to find minimum.
+# In addition: Warning message:
+# In nlminb(obj$par, obj$fn, obj$gr, control = list(trace = 1, eval.max = 2000,  :
+#   NA/NaN function evaluation
+# Error in newton(par = c(logF = -2.27725579693323, logF = -0.893590926686796,  : 
+#   Newton failed to find minimum.
+# In addition: Warning message:
+# In nlminb(obj$par, obj$fn, obj$gr, control = list(trace = 1, eval.max = 2000,  :
+#   NA/NaN function evaluation
+# Error in newton(par = c(logF = -2.27725710289992, logF = -0.893593862062482,  : 
+#   Newton failed to find minimum.
+# In addition: Warning message:
+# In nlminb(obj$par, obj$fn, obj$gr, control = list(trace = 1, eval.max = 2000,  :
+#   NA/NaN function evaluation
+# Error in newton(par = c(logF = -2.27725710289992, logF = -0.893593862062482,  : 
+#   Newton failed to find minimum.
+# In addition: Warning message:
+# In nlminb(obj$par, obj$fn, obj$gr, control = list(trace = 1, eval.max = 2000,  :
+#   NA/NaN function evaluation
+# Warning message:
+# In nlminb(obj$par, obj$fn, obj$gr, control = list(trace = 1, eval.max = 2000,  :
+#   NA/NaN function evaluation
+
+### ------------------------------------------------------------------------ ###
+### decouple last survey age in SAM configuration ####
+### ------------------------------------------------------------------------ ###
+
+conf <- fit$conf
+
+### UK-FSP
+conf_idx1_decoupled <- conf
+conf_idx1_decoupled$keyLogFpar[2, 1:7] <- 0:6
+conf_idx1_decoupled$keyLogFpar[3, 1:8] <- c(7:13, 13)
+conf_idx1_decoupled$keyLogFpar
+fit_idx1_decoupled <- FLR_SAM(stk = stk, idx = idx, conf = conf_idx1_decoupled)
+
+### Q1SWBeam
+conf_idx2_decoupled <- conf
+conf_idx2_decoupled$keyLogFpar[3, 1:8] <- 6:13
+conf_idx2_decoupled$keyLogFpar
+fit_idx2_decoupled <- FLR_SAM(stk = stk, idx = idx, conf = conf_idx2_decoupled)
+
+### both
+conf_idx12_decoupled <- conf
+conf_idx12_decoupled$keyLogFpar[2, 1:7] <- 0:6
+conf_idx12_decoupled$keyLogFpar[3, 1:8] <- 7:14
+conf_idx12_decoupled$keyLogFpar
+fit_idx12_decoupled <- FLR_SAM(stk = stk, idx = idx, conf = conf_idx12_decoupled)
+
+### summary plot
+plot(c(baseline = fit, 
+       `UK-FSP` = fit_idx1_decoupled,
+       `Q1SWBeam` = fit_idx2_decoupled,
+       `both` = fit_idx12_decoupled))
+png(filename = "model/SAM_fit_comparison_idx_decoupled.png", 
+    width = 20, height = 12, units = "cm", res = 300, type = "cairo")
+par(mar = c(2, 4.5, 0.5, 0.5))
+plot(c(baseline = fit, 
+       `UK-FSP` = fit_idx1_decoupled,
+       `Q1SWBeam` = fit_idx2_decoupled,
+       `both` = fit_idx12_decoupled))
+dev.off()
+pdf(file = "model/SAM_fit_comparison_idx_decoupled.pdf", 
+    width = 16/2.54, height = 8/2.54)
+par(mar = c(2, 4.5, 0.5, 0.5))
+plot(c(baseline = fit, 
+       `UK-FSP` = fit_idx1_decoupled,
+       `Q1SWBeam` = fit_idx2_decoupled,
+       `both` = fit_idx12_decoupled))
+dev.off()
+
+fit_list <- c(baseline = fit, 
+              `UK-FSP` = fit_idx1_decoupled,
+              `Q1SWBeam` = fit_idx2_decoupled,
+              `both` = fit_idx12_decoupled)
+
+modeltable(fit_list)
+
+df <- lapply(seq_along(fit_list), function(x) {
+  qtable_tmp <- qtable(fit_list[[x]])
+  data.frame(age = 2:10,
+             `UK-FSP_value` = qtable_tmp[1,],
+             `Q1SWBeam_value` = qtable_tmp[2,],
+             `UK-FSP_low` = qtable_tmp[1,] - 2*attr(qtable_tmp, "sd")[1,],
+             `Q1SWBeam_low` = qtable_tmp[2,] - 2*attr(qtable_tmp, "sd")[2,],
+             `UK-FSP_high` = qtable_tmp[1,] + 2*attr(qtable_tmp, "sd")[1,],
+             `Q1SWBeam_high` = qtable_tmp[2,] + 2*attr(qtable_tmp, "sd")[2,],
+             model = names(fit_list)[x])
+})
+df <- as.data.frame(do.call(rbind, df))
+
+
+p <- df %>%
+  mutate(across(`UK.FSP_value`:`Q1SWBeam_high`, exp)) %>%
+  pivot_longer(c(-1, -8)) %>%
+  separate(name, into = c("idx", "type"), sep = "_") %>%
+  pivot_wider(names_from = type, values_from = value) %>%
+  mutate(idx = factor(idx, levels = c("UK.FSP", "Q1SWBeam"),
+                      labels = c("UK-FSP", "Q1SWBeam")),
+         model = factor(model, 
+                        levels = c("baseline", "UK-FSP", "Q1SWBeam", "both"))) %>%
+  ggplot(aes(x = age, y = value, colour = model)) +
+  geom_errorbar(aes(ymin = low, ymax = high), 
+                position = position_dodge(width = 0.4),
+                linewidth = 0.3) +
+  geom_line() +
+  scale_colour_brewer("", palette = "Set1") +
+  ylim(c(0, NA)) +
+  scale_x_continuous(breaks = c(seq(2, 10, 2))) +
+  labs(x = "Age (years)", y = "Catchability") +
+  facet_wrap(~ idx, scales = "free_y") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.6, "lines"))
+p
+ggsave("model/SAM_fit_surveyQ_decoupled.png", 
+       width = 15, height = 7, units = "cm", dpi = 300, plot = p)
+ggsave("model/SAM_fit_surveyQ_decoupled.pdf", 
+       width = 15, height = 7, units = "cm", plot = p)
