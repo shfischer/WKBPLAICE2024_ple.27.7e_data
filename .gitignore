@@ -45,4 +45,8 @@ vignettes/*.pdf
 /model/
 /data/
 /output/
+/report_WGCSE2025_revision/
+/model_WGCSE2025_revision/
+/data_WGCSE2025_revision/
+/output_WGCSE2025_revision/
 
