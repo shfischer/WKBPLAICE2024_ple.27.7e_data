@@ -143,72 +143,17 @@ hist_catch <- FLQuants(
 )
 
 ### save data
-dir.create("data/catch/")
-saveRDS(hist_catch, file = "data/catch/catch_pre_InterCatch.rds")
-#hist_catch <- readRDS("data/catch/catch_pre_InterCatch.rds")
-
-# ### plots weights at age
-# hist_LN %>%
-#   ggplot(aes(x = year, y = LW_7e, colour = as.factor(age))) +
-#   geom_line() +
-#   theme_bw(base_size = 8)
-# 
-# 
-# 
-# 
-# 
-# ### save data
-# dir.create("data/catch/")
-# saveRDS(FLQuants(
-#   LA_7e = LA_7e, LA_7d = LA_7d,
-#   LN_7e = LN_7e, LN_7d = LN_7d,
-#   LW_7e = LW_7e, LW_7d = LW_7d
-# ), file = "data/catch/catch_pre_InterCatch.rds")
-# 
-# 
-
-
-
-
-# 
-# 
-# ### weights at age history from InterCatch
-# table2 <- read.csv("boot/data/InterCatch/table2_hist.txt")
-# 
-# 
-# table2 %>%
-#   group_by(Year, Season) %>%
-#   mutate(catch = CANUM * WECA) %>%
-#   summarise(catch = sum(catch)) %>%
-#   print(n = Inf)
-# 
-# 
-# ### replicate weca.txt
-# weca <- table2 %>%
-#   #filter(Year == 2022) %>%
-#   group_by(Year, AgeOrLength) %>%
-#   summarise(WECA = weighted.mean(x = WECA, w = CANUM, na.rm = TRUE))
-# 
-# 
-# ### for Q1 only
-# weca_Q1 <- table2 %>%
-#   filter(Season == 1) %>%
-#   group_by(Year, AgeOrLength) %>%
-#   summarise(WECA = weighted.mean(x = WECA, w = CANUM, na.rm = TRUE))
-# 
-# bind_rows(weca %>% mutate(Q = "all"),
-#           weca_Q1 %>% mutate(Q = "Q1")) %>%
-#   ggplot(aes(x = Year, y = WECA, colour = as.factor(AgeOrLength),
-#              linetype = Q)) +
-#   geom_line() +
-#   facet_wrap(~ AgeOrLength) +
-#   theme_bw(base_size = 8)
-# 
+dir.create("data_WGCSE2025_revision/catch/", recursive = TRUE)
+saveRDS(hist_catch, file = "data_WGCSE2025_revision/catch/catch_pre_InterCatch.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### InterCatch history 2012-2023 ####
 ### ------------------------------------------------------------------------ ###
 ### age data from InterCatch
+
+### WGCSE 2025: revision of UK data for 2021-2023
+### update data in these years
+
 
 IC_yrs <- 2012:2023
 lanum <- danum <- canum <- FLQuant(NA, dimnames = list(age = 0:15, year = IC_yrs))
@@ -222,7 +167,7 @@ for(catch in c("catch", "discards", "landings")) {
     ### numbers
     canum_tmp <- readFLQuant(
       input_file = paste0("boot/initial/data/InterCatch/",
-                          "full_history/", year, "/", catch, "/canum.txt"))
+                          "WGCSE2025_revision/", year, "/", catch, "/canum.txt"))
     canum_name <- switch(catch,
                          "catch" = "canum",
                          "discards" = "danum",
@@ -234,7 +179,7 @@ for(catch in c("catch", "discards", "landings")) {
     ### tonnage
     caton_tmp <- readFLQuant(
       input_file = paste0("boot/initial/data/InterCatch/",
-                          "full_history/", year, "/", catch, "/caton.txt"))
+                          "WGCSE2025_revision/", year, "/", catch, "/caton.txt"))
     caton_name <- switch(catch,
                          "catch" = "caton",
                          "discards" = "daton",
@@ -246,7 +191,7 @@ for(catch in c("catch", "discards", "landings")) {
     ### weights
     weca_tmp <- readFLQuant(
       input_file = paste0("boot/initial/data/InterCatch/",
-                          "full_history/", year, "/", catch, "/weca.txt"))
+                          "WGCSE2025_revision/", year, "/", catch, "/weca.txt"))
     weca_name <- switch(catch,
                         "catch" = "weca",
                         "discards" = "weda",
@@ -273,8 +218,8 @@ IC_catch <- FLQuants(
 )
 
 ### save data
-saveRDS(IC_catch, file = "data/catch/catch_InterCatch.rds")
-#IC_catch <- readRDS("data/catch/catch_InterCatch.rds")
+saveRDS(IC_catch, file = "data_WGCSE2025_revision/catch/catch_InterCatch.rds")
+#IC_catch <- readRDS("data_WGCSE2025_revision/catch/catch_InterCatch.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### migration data ####
@@ -305,9 +250,55 @@ if (isTRUE(verbose)) {
   ### identical until 2011
   ### -> 2010-2014: negligible changes
   
-  
-  
 }
+
+### ------------------------------------------------------------------------ ###
+### migration data - update after WKBPLAICE ####
+### ------------------------------------------------------------------------ ###
+### WKBNSCS updated 7.d data -> affects migration element
+
+(load("boot/initial/data/InterCatch/stock_removals_ple_VIIe_2024.RData"))
+# "stock_removals_ple_VIIe"
+### landings from 2002 (as before)
+### discards from 2006 (as before)
+
+### object contains landings and discards -> compute catch
+stk_migration <- stock_removals_ple_VIIe
+catch(stk_migration) <- computeCatch(stk_migration, slot = "all")
+if (isTRUE(verbose))
+  all.equal(stk_migration, stock_removals_ple_VIIe)
+### remove age 0 -> all 0
+stk_migration <- stk_migration[-1, ]
+stk_migration <- window(stk_migration, end = 2023)
+
+if (isTRUE(verbose)) {
+  ### compare original to revised data
+  landings(stk_migration)/migration_laton_hist
+  landings.n(stk_migration)/migration_lanum_hist
+  landings.wt(stk_migration)/migration_wela_hist
+  
+  discards(stk_migration)/migration_daton_hist
+  discards.n(stk_migration)/migration_danum_hist
+  discards.wt(stk_migration)/migration_weda_hist
+  
+  catch(stk_migration)/migration_caton_hist
+  catch.n(stk_migration)/migration_canum_hist
+  catch.wt(stk_migration)/migration_weca_hist
+}
+
+### extract slots
+### keep historical migration data (<2002)
+migration_daton_hist[, ac(2006:2023)] <- discards(stk_migration)[, ac(2006:2023)]
+migration_caton_hist[, ac(2002:2023)] <- catch(stk_migration)[, ac(2002:2023)]
+migration_laton_hist[, ac(2002:2023)] <- landings(stk_migration)[, ac(2002:2023)]
+
+migration_danum_hist[, ac(2006:2023)] <- discards.n(stk_migration)[, ac(2006:2023)]
+migration_canum_hist[, ac(2002:2023)] <- catch.n(stk_migration)[, ac(2002:2023)]
+migration_lanum_hist[, ac(2002:2023)] <- landings.n(stk_migration)[, ac(2002:2023)]
+
+migration_weda_hist[, ac(2006:2023)] <- discards.wt(stk_migration)[, ac(2006:2023)]
+migration_weca_hist[, ac(2002:2023)] <- catch.wt(stk_migration)[, ac(2002:2023)]
+migration_wela_hist[, ac(2002:2023)] <- landings.wt(stk_migration)[, ac(2002:2023)]
 
 ### ------------------------------------------------------------------------ ###
 ### combine historical and recent data ####
@@ -499,13 +490,13 @@ catch <- FLQuants(
   CN_7d = CN_7d, LN_7d = LN_7d, DN_7d = DN_7d,
   CW_7d = CW_7d, LW_7d = LW_7d, DW_7d = DW_7d
 )
-saveRDS(catch, file = "data/catch/catch.rds")
-#catch <- readRDS("data/catch/catch.rds")
+saveRDS(catch, file = "data_WGCSE2025_revision/catch/catch.rds")
+#catch <- readRDS("data_WGCSE2025_revision/catch/catch.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### plot data ####
 ### ------------------------------------------------------------------------ ###
-dir.create("data/catch/plots")
+dir.create("data_WGCSE2025_revision/catch/plots", recursive = TRUE)
 
 ### total catch
 p <- as.data.frame(catch[c("LA", "DA")]) %>%
@@ -518,7 +509,7 @@ p <- as.data.frame(catch[c("LA", "DA")]) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_stock.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
 ### with discard rate
@@ -535,10 +526,10 @@ p_ <- (p + theme(axis.title.x = element_blank(),
           axis.ticks.x = element_blank())) / p2 +
   plot_layout(heights = c(1, 0.5))
 if (isTRUE(verbose)) p_
-ggsave(file = paste0("data/catch/plots/catch_stock_discard_rate.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock_discard_rate.png"),
        width = 15, height = 8,  plot = p_,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_stock_discard_rate.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock_discard_rate.pdf"),
        width = 16, height = 8,  plot = p_,
        units = "cm")
 
@@ -563,10 +554,10 @@ p <- as.data.frame(catch[c("LA", "DA", "LA_7e", "DA_7e", "LA_7d", "DA_7d")]) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_stock_area.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock_area.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_stock_area.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock_area.pdf"),
        width = 16, height = 8,  plot = p,
        units = "cm")
 
@@ -582,10 +573,10 @@ p <- as.data.frame(catch[c("LN", "DN")]) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_age.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_age.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age.pdf"),
        width = 16, height = 12,  plot = p,
        units = "cm")
 ### age structure - numbers - 2023 only
@@ -601,7 +592,7 @@ p <- as.data.frame(catch[c("LN", "DN")]) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_age_2023.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_2023.png"),
        width = 10, height = 6,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
 ### age structure - biomass
@@ -617,10 +608,10 @@ p <- as.data.frame(FLQuants(LN = catch$LN * catch$LW,
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_age_biomass.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_biomass.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_age_biomass.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_biomass.pdf"),
        width = 16, height = 12,  plot = p, units = "cm")
 ### age structure - standardised numbers as bubbles
 p <- as.data.frame(catch$CN) %>%
@@ -636,10 +627,10 @@ p <- as.data.frame(catch$CN) %>%
   theme_bw(base_size = 8) +
   labs(x = "Year", y = "Age (years)")
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_age_numbers_bubbles.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_numbers_bubbles.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_age_numbers_bubbles.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_numbers_bubbles.pdf"),
        width = 16, height = 8,  plot = p,
        units = "cm")
 
@@ -664,10 +655,10 @@ p <- as.data.frame(catch[c("CW", "LW", "DW")]) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_weights_raw.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_raw.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_weights_raw.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_raw.pdf"),
        width = 16, height = 8,  plot = p,
        units = "cm")
 
@@ -685,10 +676,10 @@ p <- as.data.frame(catch[c("CW", "LW", "DW")]) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_weights_raw_growth.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_raw_growth.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_weights_raw_growth.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_raw_growth.pdf"),
        width = 16, height = 12,  plot = p,
        units = "cm")
 
@@ -772,7 +763,7 @@ df_fit <- df_fit %>%
 p <- df %>%
   ggplot() +
   geom_line(data = df_fit, aes(x = age, y = weight), 
-            colour = "black", size = 0.3) + 
+            colour = "black", linewidth = 0.3) + 
   geom_point(aes(x = age, y = value, colour = name, shape = name), 
              size = 0.4) +
   scale_shape_manual("", values = c(stock = 1, catch = 1, data = 4)) +
@@ -783,10 +774,10 @@ p <- df %>%
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_weights_fit.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_fit.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_weights_fit.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_fit.pdf"),
        width = 16, height = 12,  plot = p,
        units = "cm")
 ### plot data, fit, and predicted values - example year
@@ -805,53 +796,21 @@ p <- df %>% filter(year == 2018) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_weights_fit_2018.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_fit_2018.png"),
        width = 10, height = 6,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_weights_fit_2018.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_weights_fit_2018.pdf"),
        width = 10, height = 6,  plot = p,
        units = "cm")
 
 ### save
-saveRDS(fits_data, file = "data/catch/catch_weights_fitted.rds")
+saveRDS(fits_data, file = "data_WGCSE2025_revision/catch/catch_weights_fitted.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### InterCatch Q1 weights ####
 ### ------------------------------------------------------------------------ ###
 ### exploration for stock weights at age -> not used
 
-table2 <- read.csv("boot/initial/data/InterCatch/table2_hist.txt")
-WECA_Q1 <- table2 %>%
-  filter(Season == 1) %>%
-  select(year = Year, age = AgeOrLength, WECA, CANUM) %>%
-  mutate(age = ifelse(age < 15, age, 15)) %>% ### plusgroup 15+
-  group_by(year, age) %>%
-  summarise(WECA = weighted.mean(x = WECA, w = CANUM, na.rm = TRUE))
-WECA_Qall <- table2 %>%
-  select(year = Year, age = AgeOrLength, WECA, CANUM) %>%
-  mutate(age = ifelse(age < 15, age, 15)) %>% ### plusgroup 15+
-  group_by(year, age) %>%
-  summarise(WECA = weighted.mean(x = WECA, w = CANUM, na.rm = TRUE))
-
-p <- full_join(WECA_Q1 %>% rename("Q1" = WECA),
-          WECA_Qall %>% rename("all" = WECA)) %>%
-  pivot_longer(c("Q1", "all")) %>%
-  mutate(value = value/1000) %>%
-  ggplot(aes(x = age, y = value, colour = name)) +
-  geom_line(size = 0.4) +
-  geom_point(size = 0.3) +
-  scale_colour_discrete("Data") +
-  facet_wrap(~ year) + 
-  labs(x = "Age (years)", y = "Weight at age (kg)") +
-  theme_bw(base_size = 8) +
-  theme(legend.key.height = unit(0.5, "lines"))
-if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/IC_weights_Q1_comparison.png"),
-       width = 25, height = 15,  plot = p,
-       units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/IC_weights_Q1_comparison.pdf"),
-       width = 16, height = 8,  plot = p,
-       units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### stock weights ####
@@ -865,7 +824,7 @@ SW[, ac(1980:2023)] <- as.FLQuant(fits_data %>%
                                     filter(year %in% 1980:2023))
 SW[is.na(SW)] <- 0
 
-saveRDS(SW, file = "data/catch/stock_weights.rds")
+saveRDS(SW, file = "data_WGCSE2025_revision/catch/stock_weights.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### prepare data for stock assessment ####
@@ -915,8 +874,8 @@ SW_2_10 <- SW_2_10[ac(2:10), ]
 SW_2_10[is.na(SW_2_10)] <- 0
 
 ### save
-saveRDS(catch_2_10, file = "data/catch/catch_pg.rds")
-saveRDS(SW_2_10, file = "data/catch/stock_weights_pg.rds")
+saveRDS(catch_2_10, file = "data_WGCSE2025_revision/catch/catch_pg.rds")
+saveRDS(SW_2_10, file = "data_WGCSE2025_revision/catch/stock_weights_pg.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### Sum of products (SOP) correction ####
@@ -959,8 +918,8 @@ catch_SOP$DW_7d <- catch_SOP$DW_7d / catch_SOP$DW_7d %=% rep(c(SOP_DA_7d),
                                                              each = n_ages)
 
 ### save
-saveRDS(catch_SOP, file = "data/catch/catch_pg_SOP.rds")
-#catch_SOP <- readRDS("data/catch/catch_pg_SOP.rds")
+saveRDS(catch_SOP, file = "data_WGCSE2025_revision/catch/catch_pg_SOP.rds")
+#catch_SOP <- readRDS("data_WGCSE2025_revision/catch/catch_pg_SOP.rds")
 
 ### plot correction factors
 p <- as.data.frame(FLQuants(
@@ -977,10 +936,10 @@ p <- as.data.frame(FLQuants(
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_SOP.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_SOP.png"),
        width = 15, height = 8,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_SOP.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_SOP.pdf"),
        width = 10, height = 6,  plot = p,
        units = "cm")
 
@@ -1012,10 +971,10 @@ p <- as.data.frame(FLQuants(
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_stock_weights_pg.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock_weights_pg.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_stock_weights_pg.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_stock_weights_pg.pdf"),
        width = 16, height = 10,  plot = p,
        units = "cm")
 
@@ -1033,156 +992,157 @@ p <- as.data.frame(FLQuants(catch_SOP[c("LN", "DN")])) %>%
   theme_bw(base_size = 8) +
   theme(legend.key.width = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/catch_age_pg.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_pg.png"),
        width = 25, height = 15,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/catch_age_pg.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/catch_age_pg.pdf"),
        width = 16, height = 12,  plot = p,
        units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### 7.e InterCatch data - countries & fleets ####
 ### ------------------------------------------------------------------------ ###
+### only for benchmark, not needed for revision
 
-### catch by country
-table1 <- read.csv("boot/initial/data/InterCatch/table1_hist.txt")
-p <- table1 %>%
-  filter(CatchCategory %in% c("Landings", "Discards")) %>%
-  mutate(CatchCategory = factor(CatchCategory, 
-                                levels = c("Landings", "Discards"))) %>%
-#  mutate(Country = factor(Country, levels = rev(sort(unique(Country))))) %>%
-  ggplot() +
-  geom_bar(aes(x = Year, y = CATON/1000, fill = Country), 
-           stat = "identity") +
-#  scale_fill_brewer(palette = "Dark2") + 
-  geom_text(data = . %>%
-              group_by(Year, CatchCategory) %>%
-              summarise(CATON = sum(CATON)),
-            aes(x = Year, y = CATON/1000 + 50,
-                label = round(CATON/1000, 0)),
-            size = 1.5) +
-  facet_wrap(~ CatchCategory, ncol = 1) +
-  labs(x = "Year", y = "Catch in Division 7.e (tonnes)") + 
-  theme_bw(base_size = 8)
-if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/InterCatch_countries.png"),
-       width = 15, height = 10,  plot = p,
-       units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/InterCatch_countries.pdf"),
-       width = 10, height = 6,  plot = p,
-       units = "cm")
-
-### catch by gear
-p <- table1 %>% 
-  filter(CatchCategory %in% c("Landings", "Discards")) %>%
-  mutate(CatchCategory = factor(CatchCategory, 
-                                levels = c("Landings", "Discards"))) %>%
-  ### simplify countries
-  mutate(Country2 = ifelse(Country %in% c("UK (Channel Island Guernsey)",
-                                          "UK (Channel Island Jersey)",
-                                          "UK (England)", "UK(Scotland)"),
-                           "UK", Country)) %>%
-  mutate(Country2 = ifelse(Country2 %in% c("Ireland", "Netherlands"),
-                           "Other", Country2)) %>%
-  ### simplify gears
-  mutate(Gear = substr(x = Fleet, start = 1, stop = 3)) %>%
-  mutate(Gear = ifelse(Gear %in% c("TBB", "OTB", "GNS"), Gear, "Other")) %>%
-  select(Year, CatchCategory, Gear, CATON) %>%
-  group_by(Year, CatchCategory, Gear) %>%
-  summarise(CATON = sum(CATON)) %>%
-  mutate(prop = CATON/sum(CATON)) %>%
-  mutate(Gear = factor(Gear, levels = rev(c("TBB", "OTB", "GNS", "Other")))) %>%
-  ggplot(aes(x = Year, y = prop * 100, fill = Gear)) +
-  geom_col() +
-  scale_fill_brewer(palette = "Set1") + 
-  facet_wrap(~ CatchCategory, ncol = 1) +
-  labs(x = "Year", y = "Gear contribution (%)") +
-  theme_bw(base_size = 8)
-if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/InterCatch_gears.png"),
-       width = 15, height = 10,  plot = p,
-       units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/InterCatch_gears.pdf"),
-       width = 10, height = 6,  plot = p,
-       units = "cm")
-
-### sampling coverage
-p <- table1 %>% group_by(Year, CatchCategory, SampledOrEstimated) %>%
-  # mutate(CatchCategory = factor(CatchCategory, 
-  #                               levels = c("Landings", "Discards"))) %>%
-  summarise(catch = sum(CATON)/1000) %>%
-  mutate(contribution = catch / sum(catch)) %>%
-  filter(SampledOrEstimated == "Sampled_Distribution") %>%
-  select(-catch, -SampledOrEstimated) %>%
-  ggplot(aes(x = Year, y = contribution * 100, colour = CatchCategory,
-             linetype = CatchCategory)) +
-  geom_line() +
-  scale_colour_discrete("") + 
-  scale_linetype_manual("", values = c("dashed", "solid")) +
-  labs(x = "Year", y = "Sampling coverage (%)") + 
-  scale_y_continuous(limits = c(0, 100)) + 
-  theme_bw(base_size = 8) +
-  theme(legend.key.height = unit(0.5, "lines"),
-        legend.position = "inside",
-        legend.position.inside = c(0.2, 0.2),
-        legend.background = element_blank(),
-        legend.key = element_blank())
-if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/InterCatch_sampling.png"),
-       width = 10, height = 6,  plot = p,
-       units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/InterCatch_sampling.pdf"),
-       width = 10, height = 6,  plot = p,
-       units = "cm")
-
-### plot some age samples - 2023 only
-IC_samples <- read.csv("boot/initial/data/InterCatch/NumbersAtAgeLength_hist.csv")
-IC_samples_plot <- IC_samples %>%
-  filter(Year == 2023) %>%
-  select(-X) %>%
-  pivot_longer(cols = starts_with("Male") | starts_with("Female") | 
-                 starts_with("Undetermined"),
-               names_prefix = "FemaleAge|MaleAge|UndeterminedAge", 
-               names_to = "age", values_to = "numbers") %>%
-  mutate(age = as.numeric(as.character(age))) %>%
-  mutate(label = paste0(Country, " - ", Catch.Cat., " - Q", Season, "\n", 
-                        Fleets)) %>%
-  mutate(numbers = numbers/1000)
-### extract some sample info
-IC_samples_info <- IC_samples_plot %>% group_by(label, Year) %>%
-  summarise(age_max = max(age, na.rm = TRUE), 
-            n_max = max(numbers, na.rm = TRUE),
-            NumAgeMeasurement = mean(NumAgeMeasurement),
-            NumLengthMeasurements = mean(NumLengthMeasurements),
-            NumSamplesAge = mean(NumSamplesAge),
-            NumSamplesLength = mean(NumSamplesLength),
-            Country = unique(Country))
-### plot
-p <- ggplot(data = IC_samples_plot, 
-            aes(x = age, y = numbers)) +
-  geom_bar(stat = "identity", aes(fill = Catch.Cat.)) +
-  geom_text(data = IC_samples_info,
-            aes(x = age_max*0.95, y = n_max*0.95,
-                label = paste0("length samples: ", NumSamplesLength, "\n",
-                               "length readings: ", NumLengthMeasurements, "\n",
-                               "age samples: ", NumSamplesAge, "\n",
-                               "age readings: ", NumAgeMeasurement)),
-            hjust = 1, vjust = 1, size = 1.5) +
-  facet_wrap(~ label, scale = "free_y", ncol = 4) +
-  labs(x = "Age (years)", y = "Numbers (thousands)") +
-  ylim(0, NA) +
-  scale_fill_discrete("") +
-  theme_bw(base_size = 7) + 
-  theme(legend.position = c(0.9, 0.05),
-        legend.background = element_blank(),
-        legend.key.width = unit(0.5, "lines"))
-if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.png"),
-       width = 25, height = 18,  plot = p,
-       units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.pdf"),
-       width = 25, height = 18,  plot = p,
-       units = "cm")
+# ### catch by country
+# table1 <- read.csv("boot/initial/data/InterCatch/table1_hist.txt")
+# p <- table1 %>%
+#   filter(CatchCategory %in% c("Landings", "Discards")) %>%
+#   mutate(CatchCategory = factor(CatchCategory, 
+#                                 levels = c("Landings", "Discards"))) %>%
+# #  mutate(Country = factor(Country, levels = rev(sort(unique(Country))))) %>%
+#   ggplot() +
+#   geom_bar(aes(x = Year, y = CATON/1000, fill = Country), 
+#            stat = "identity") +
+# #  scale_fill_brewer(palette = "Dark2") + 
+#   geom_text(data = . %>%
+#               group_by(Year, CatchCategory) %>%
+#               summarise(CATON = sum(CATON)),
+#             aes(x = Year, y = CATON/1000 + 50,
+#                 label = round(CATON/1000, 0)),
+#             size = 1.5) +
+#   facet_wrap(~ CatchCategory, ncol = 1) +
+#   labs(x = "Year", y = "Catch in Division 7.e (tonnes)") + 
+#   theme_bw(base_size = 8)
+# if (isTRUE(verbose)) p
+# ggsave(file = paste0("data/catch/plots/InterCatch_countries.png"),
+#        width = 15, height = 10,  plot = p,
+#        units = "cm", dpi = 300, type = "cairo")
+# ggsave(file = paste0("data/catch/plots/InterCatch_countries.pdf"),
+#        width = 10, height = 6,  plot = p,
+#        units = "cm")
+# 
+# ### catch by gear
+# p <- table1 %>% 
+#   filter(CatchCategory %in% c("Landings", "Discards")) %>%
+#   mutate(CatchCategory = factor(CatchCategory, 
+#                                 levels = c("Landings", "Discards"))) %>%
+#   ### simplify countries
+#   mutate(Country2 = ifelse(Country %in% c("UK (Channel Island Guernsey)",
+#                                           "UK (Channel Island Jersey)",
+#                                           "UK (England)", "UK(Scotland)"),
+#                            "UK", Country)) %>%
+#   mutate(Country2 = ifelse(Country2 %in% c("Ireland", "Netherlands"),
+#                            "Other", Country2)) %>%
+#   ### simplify gears
+#   mutate(Gear = substr(x = Fleet, start = 1, stop = 3)) %>%
+#   mutate(Gear = ifelse(Gear %in% c("TBB", "OTB", "GNS"), Gear, "Other")) %>%
+#   select(Year, CatchCategory, Gear, CATON) %>%
+#   group_by(Year, CatchCategory, Gear) %>%
+#   summarise(CATON = sum(CATON)) %>%
+#   mutate(prop = CATON/sum(CATON)) %>%
+#   mutate(Gear = factor(Gear, levels = rev(c("TBB", "OTB", "GNS", "Other")))) %>%
+#   ggplot(aes(x = Year, y = prop * 100, fill = Gear)) +
+#   geom_col() +
+#   scale_fill_brewer(palette = "Set1") + 
+#   facet_wrap(~ CatchCategory, ncol = 1) +
+#   labs(x = "Year", y = "Gear contribution (%)") +
+#   theme_bw(base_size = 8)
+# if (isTRUE(verbose)) p
+# ggsave(file = paste0("data/catch/plots/InterCatch_gears.png"),
+#        width = 15, height = 10,  plot = p,
+#        units = "cm", dpi = 300, type = "cairo")
+# ggsave(file = paste0("data/catch/plots/InterCatch_gears.pdf"),
+#        width = 10, height = 6,  plot = p,
+#        units = "cm")
+# 
+# ### sampling coverage
+# p <- table1 %>% group_by(Year, CatchCategory, SampledOrEstimated) %>%
+#   # mutate(CatchCategory = factor(CatchCategory, 
+#   #                               levels = c("Landings", "Discards"))) %>%
+#   summarise(catch = sum(CATON)/1000) %>%
+#   mutate(contribution = catch / sum(catch)) %>%
+#   filter(SampledOrEstimated == "Sampled_Distribution") %>%
+#   select(-catch, -SampledOrEstimated) %>%
+#   ggplot(aes(x = Year, y = contribution * 100, colour = CatchCategory,
+#              linetype = CatchCategory)) +
+#   geom_line() +
+#   scale_colour_discrete("") + 
+#   scale_linetype_manual("", values = c("dashed", "solid")) +
+#   labs(x = "Year", y = "Sampling coverage (%)") + 
+#   scale_y_continuous(limits = c(0, 100)) + 
+#   theme_bw(base_size = 8) +
+#   theme(legend.key.height = unit(0.5, "lines"),
+#         legend.position = "inside",
+#         legend.position.inside = c(0.2, 0.2),
+#         legend.background = element_blank(),
+#         legend.key = element_blank())
+# if (isTRUE(verbose)) p
+# ggsave(file = paste0("data/catch/plots/InterCatch_sampling.png"),
+#        width = 10, height = 6,  plot = p,
+#        units = "cm", dpi = 300, type = "cairo")
+# ggsave(file = paste0("data/catch/plots/InterCatch_sampling.pdf"),
+#        width = 10, height = 6,  plot = p,
+#        units = "cm")
+# 
+# ### plot some age samples - 2023 only
+# IC_samples <- read.csv("boot/initial/data/InterCatch/NumbersAtAgeLength_hist.csv")
+# IC_samples_plot <- IC_samples %>%
+#   filter(Year == 2023) %>%
+#   select(-X) %>%
+#   pivot_longer(cols = starts_with("Male") | starts_with("Female") | 
+#                  starts_with("Undetermined"),
+#                names_prefix = "FemaleAge|MaleAge|UndeterminedAge", 
+#                names_to = "age", values_to = "numbers") %>%
+#   mutate(age = as.numeric(as.character(age))) %>%
+#   mutate(label = paste0(Country, " - ", Catch.Cat., " - Q", Season, "\n", 
+#                         Fleets)) %>%
+#   mutate(numbers = numbers/1000)
+# ### extract some sample info
+# IC_samples_info <- IC_samples_plot %>% group_by(label, Year) %>%
+#   summarise(age_max = max(age, na.rm = TRUE), 
+#             n_max = max(numbers, na.rm = TRUE),
+#             NumAgeMeasurement = mean(NumAgeMeasurement),
+#             NumLengthMeasurements = mean(NumLengthMeasurements),
+#             NumSamplesAge = mean(NumSamplesAge),
+#             NumSamplesLength = mean(NumSamplesLength),
+#             Country = unique(Country))
+# ### plot
+# p <- ggplot(data = IC_samples_plot, 
+#             aes(x = age, y = numbers)) +
+#   geom_bar(stat = "identity", aes(fill = Catch.Cat.)) +
+#   geom_text(data = IC_samples_info,
+#             aes(x = age_max*0.95, y = n_max*0.95,
+#                 label = paste0("length samples: ", NumSamplesLength, "\n",
+#                                "length readings: ", NumLengthMeasurements, "\n",
+#                                "age samples: ", NumSamplesAge, "\n",
+#                                "age readings: ", NumAgeMeasurement)),
+#             hjust = 1, vjust = 1, size = 1.5) +
+#   facet_wrap(~ label, scale = "free_y", ncol = 4) +
+#   labs(x = "Age (years)", y = "Numbers (thousands)") +
+#   ylim(0, NA) +
+#   scale_fill_discrete("") +
+#   theme_bw(base_size = 7) + 
+#   theme(legend.position = c(0.9, 0.05),
+#         legend.background = element_blank(),
+#         legend.key.width = unit(0.5, "lines"))
+# if (isTRUE(verbose)) p
+# ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.png"),
+#        width = 25, height = 18,  plot = p,
+#        units = "cm", dpi = 300, type = "cairo")
+# ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.pdf"),
+#        width = 25, height = 18,  plot = p,
+#        units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### Discard survivability explorations ####
@@ -1193,7 +1153,7 @@ ggsave(file = paste0("data/catch/plots/InterCatch_samples_2023.pdf"),
 ### - beam trawls: 37.5%
 
 ### InterCatch catch history
-table1 <- read.csv("boot/initial/data/InterCatch/table1_hist.txt")
+table1 <- read.csv("boot/initial/data/InterCatch/table1_hist_WGCSE2025_revision.txt")
 
 ### catch by gear
 gear_split <- table1 %>% 
@@ -1233,7 +1193,7 @@ p1 <- gear_split_surv_yr %>%
 if (isTRUE(verbose)) p1
 
 ### include historical discards
-catch_2_10 <- readRDS("data/catch/catch_pg.rds")
+catch_2_10 <- readRDS("data_WGCSE2025_revision/catch/catch_pg.rds")
 gear_split_surv_yr_hist <- 
   gear_split_surv_yr %>%
   full_join(as.data.frame(catch_2_10$DA) %>%
@@ -1259,17 +1219,17 @@ if (isTRUE(verbose)) p2
 ### combine plots
 p <- p1/p2
 if (isTRUE(verbose)) p
-ggsave(file = paste0("data/catch/plots/Discards_survival.png"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/Discards_survival.png"),
        width = 15, height = 10,  plot = p,
        units = "cm", dpi = 300, type = "cairo")
-ggsave(file = paste0("data/catch/plots/Discards_survival.pdf"),
+ggsave(file = paste0("data_WGCSE2025_revision/catch/plots/Discards_survival.pdf"),
        width = 10, height = 6,  plot = p,
        units = "cm")
 
 ### ------------------------------------------------------------------------ ###
 ### fbar range ####
 ### ------------------------------------------------------------------------ ###
-catch <- readRDS("data/catch/catch_pg_SOP.rds")
+catch <- readRDS("data_WGCSE2025_revision/catch/catch_pg_SOP.rds")
 cn <- catch$CN@.Data[,, 1, 1, 1, 1, drop = TRUE]
 
 ### function from icesAdvice R package
@@ -1290,8 +1250,9 @@ if (isTRUE(verbose)) {
 ###                including all discards because they are part of the stock
 
 
-catch <- readRDS("data/catch/catch_pg_SOP.rds")
-saveRDS(catch, file = "data/OM/catch.rds")
+catch <- readRDS("data_WGCSE2025_revision/catch/catch_pg_SOP.rds")
+dir.create("data_WGCSE2025_revision/OM")
+saveRDS(catch, file = "data_WGCSE2025_revision/OM/catch.rds")
 
-stock_weights <- readRDS("data/catch/stock_weights_pg.rds")
-saveRDS(stock_weights, file = "data/OM/stock_weights.rds")
+stock_weights <- readRDS("data_WGCSE2025_revision/catch/stock_weights_pg.rds")
+saveRDS(stock_weights, file = "data_WGCSE2025_revision/OM/stock_weights.rds")
