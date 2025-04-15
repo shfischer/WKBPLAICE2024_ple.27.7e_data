@@ -16,207 +16,209 @@ library(foreach)
 
 source("utilities.R")
 
-mkdir("data/surveys")
-mkdir("data/surveys/plots")
+mkdir("data_WGCSE2025_revision/surveys")
+mkdir("data_WGCSE2025_revision/surveys/plots")
 
 if (!exists("verbose")) verbose <- FALSE
 
 ### ------------------------------------------------------------------------ ###
 ### map - get data from DATRAS for Q1SWBeam ####
 ### ------------------------------------------------------------------------ ###
+### no updates to Q1SWBeam
 
-### get data from DATRAS
-### catch by length
-if (isTRUE(verbose)) {
-  Q1_HL <- lapply(2006:2023, getHLdata, survey = "BTS", quarter = 1)
-  Q1_HL <- bind_rows(Q1_HL)
-  Q1_HL <- Q1_HL %>%
-    filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9")
-  saveRDS(Q1_HL, "data/surveys/DATRAS_Q1SWBeam_HL.rds")
-}
-Q1_HL <- readRDS("data/surveys/DATRAS_Q1SWBeam_HL.rds")
-
-### Haul info
-if (isTRUE(verbose)) {
-  Q1_HH <- lapply(2006:2023, getHHdata, survey = "BTS", quarter = 1)
-  Q1_HH <- bind_rows(Q1_HH)
-  Q1_HH <- Q1_HH %>% 
-    filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9") %>%
-    mutate(Latitude = (HaulLat + ShootLat)/2,
-           Longitude = (HaulLong + ShootLong)/2)
-  saveRDS(Q1_HH, "data/surveys/DATRAS_Q1SWBeam_HH.rds")
-}
-Q1_HH <- readRDS("data/surveys/DATRAS_Q1SWBeam_HH.rds")
-
-
-### add haul information
-Q1 <- Q1_HL %>%
-  select(-RecordType) %>%
-  full_join(Q1_HH %>% select(-RecordType))
-if (isTRUE(verbose)) head(Q1)
-
-### SpecCode 127143 -> plaice
-
-### combine haul info and species info
-Q1_ple <- Q1_HL %>% filter(SpecCode == 127143) %>%
-  select(-RecordType, -SpecCode) %>%
-  full_join(Q1_HH %>% select(-RecordType))
-### summarise catch by haul
-Q1_ple <- Q1_ple %>% 
-  filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9") %>%
-  filter(HaulVal == "V") %>%  # only valid hauls
-  group_by(Year, HaulNo, Latitude, Longitude, Gear, HaulDur, StatRec) %>%
-  mutate(Weight = CatCatchWgt/TotalNo) %>%
-  summarise(Numbers = sum(HLNoAtLngt),
-            Weight = sum(Weight)) %>%
-  ### standardise to catch per hour
-  mutate(Numbers = Numbers/HaulDur*60,
-         Weight = Weight/HaulDur*60) %>%
-  ### average between gears (BT4P/BT4S - left/right)
-  ### if only one gear available, use this gear's values
-  ungroup() %>%
-  group_by(Year, HaulNo, Latitude, Longitude, HaulDur, StatRec) %>%
-  summarise(Numbers = mean(Numbers, na.rm = TRUE),
-            Weight = mean(Weight, na.rm = TRUE))
-
-### data for maps
-coastline <- map_data("worldHires")
-StatRec <- read.dbf("boot/initial/data/surveys/StatRec_map_Areas_Full_20170124.dbf")
-StatRec7e <- subset(StatRec, Area_27 %in% c("7.e"))
-StatRec7e_names <- as.character(StatRec7e$ICESNAME)
-
-Q1_ple_data <- Q1_ple %>%
-  mutate(Numbers = ifelse(is.na(Numbers), 0, Numbers),
-         Weight = ifelse(is.na(Weight), 0, Weight),
-         Occurence = Numbers != 0)
-
-### numbers
-p <- ggplot() +
-  geom_rect(data = StatRec7e,
-            mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
-            fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
-  ### add coastline
-  geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
-                               long >= -20 & long <= 10),
-               aes(x = long, y = lat, group = group), fill = "grey",
-               colour = "black", linewidth = 0.3) +
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names),
-             aes(x = Longitude, y = Latitude, size = Numbers),
-             fill = NA, shape = 21, stroke = 0.4) +
-  scale_size("Numbers/hr", range = c(1, 4)) + 
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names) %>%
-               filter(is.na(Numbers)) %>%
-               mutate(Numbers = 0),
-             aes(x = Longitude, y = Latitude, size = Numbers),
-             shape = 4, fill = NA, stroke = 0.3, size = 0.4,
-             show.legend = FALSE) +
-  facet_wrap(~ Year) + 
-  labs(x = "Longitude", y = "Latitude") +
-  theme_bw(base_size = 8) +
-  theme(panel.background = element_rect(fill = "gray97")) +
-  coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
-  scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
-  scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
-if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/map_Q1SWBeam_numbers.png", 
-       width = 20, height = 12, units = "cm", dpi = 300, plot = p)
-### rasterised version for PDF
-p <- ggplot() +
-  geom_rect(data = StatRec7e,
-            mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
-            fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
-  ### add coastline
-  rasterise(geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
-                                         long >= -20 & long <= 10),
-                         aes(x = long, y = lat, group = group), fill = "grey",
-                         colour = "black", linewidth = 0.3), dpi = 600) +
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names),
-             aes(x = Longitude, y = Latitude, size = Numbers),
-             fill = NA, shape = 21, stroke = 0.4) +
-  scale_size("Numbers/hr", range = c(1, 4)) + 
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names) %>%
-               filter(is.na(Numbers)) %>%
-               mutate(Numbers = 0),
-             aes(x = Longitude, y = Latitude, size = Numbers),
-             shape = 4, fill = NA, stroke = 0.3, size = 0.4,
-             show.legend = FALSE) +
-  facet_wrap(~ Year) + 
-  labs(x = "Longitude", y = "Latitude") +
-  theme_bw(base_size = 8) +
-  theme(panel.background = element_rect(fill = "gray97")) +
-  coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
-  scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
-  scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
-ggsave("data/surveys/plots/map_Q1SWBeam_numbers.pdf", 
-       width = 16, height = 10, units = "cm", plot = p)
-
-### biomass
-p <- ggplot() +
-  geom_rect(data = StatRec7e,
-            mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
-            fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
-  ### add coastline
-  geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
-                               long >= -20 & long <= 10),
-               aes(x = long, y = lat, group = group), fill = "grey",
-               colour = "black", linewidth = 0.3) +
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names),
-             aes(x = Longitude, y = Latitude, size = Weight/1000),
-             fill = NA, shape = 21, stroke = 0.4) +
-  scale_size("kg/hr", range = c(1, 4)) + 
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names) %>%
-               filter(is.na(Numbers)) %>%
-               mutate(Numbers = 0),
-             aes(x = Longitude, y = Latitude, size = Weight/1000),
-             shape = 4, fill = NA, stroke = 0.3, size = 0.4,
-             show.legend = FALSE) +
-  facet_wrap(~ Year) + 
-  labs(x = "Longitude", y = "Latitude") +
-  theme_bw(base_size = 8) +
-  theme(panel.background = element_rect(fill = "gray97")) +
-  coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
-  scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
-  scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
-if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/map_Q1SWBeam_biomass.png", 
-       width = 20, height = 12, units = "cm", dpi = 300, plot = p)
-### rasterised version for pdf
-p <- ggplot() +
-  geom_rect(data = StatRec7e,
-            mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
-            fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
-  ### add coastline
-  rasterise(geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
-                                         long >= -20 & long <= 10),
-                         aes(x = long, y = lat, group = group), fill = "grey",
-                         colour = "black", linewidth = 0.3), dpi = 600) +
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names),
-             aes(x = Longitude, y = Latitude, size = Weight/1000),
-             fill = NA, shape = 21, stroke = 0.4) +
-  scale_size("kg/hr", range = c(1, 4)) + 
-  geom_point(data = Q1_ple %>% 
-               filter(StatRec %in% StatRec7e_names) %>%
-               filter(is.na(Numbers)) %>%
-               mutate(Numbers = 0),
-             aes(x = Longitude, y = Latitude, size = Weight/1000),
-             shape = 4, fill = NA, stroke = 0.3, size = 0.4,
-             show.legend = FALSE) +
-  facet_wrap(~ Year) + 
-  labs(x = "Longitude", y = "Latitude") +
-  theme_bw(base_size = 8) +
-  theme(panel.background = element_rect(fill = "gray97")) +
-  coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
-  scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
-  scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
-ggsave("data/surveys/plots/map_Q1SWBeam_biomass.pdf", 
-       width = 16, height = 10, units = "cm", plot = p)
+# 
+# ### get data from DATRAS
+# ### catch by length
+# if (isTRUE(verbose)) {
+#   Q1_HL <- lapply(2006:2023, getHLdata, survey = "BTS", quarter = 1)
+#   Q1_HL <- bind_rows(Q1_HL)
+#   Q1_HL <- Q1_HL %>%
+#     filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9")
+#   saveRDS(Q1_HL, "data/surveys/DATRAS_Q1SWBeam_HL.rds")
+# }
+# Q1_HL <- readRDS("data/surveys/DATRAS_Q1SWBeam_HL.rds")
+# 
+# ### Haul info
+# if (isTRUE(verbose)) {
+#   Q1_HH <- lapply(2006:2023, getHHdata, survey = "BTS", quarter = 1)
+#   Q1_HH <- bind_rows(Q1_HH)
+#   Q1_HH <- Q1_HH %>% 
+#     filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9") %>%
+#     mutate(Latitude = (HaulLat + ShootLat)/2,
+#            Longitude = (HaulLong + ShootLong)/2)
+#   saveRDS(Q1_HH, "data/surveys/DATRAS_Q1SWBeam_HH.rds")
+# }
+# Q1_HH <- readRDS("data/surveys/DATRAS_Q1SWBeam_HH.rds")
+# 
+# 
+# ### add haul information
+# Q1 <- Q1_HL %>%
+#   select(-RecordType) %>%
+#   full_join(Q1_HH %>% select(-RecordType))
+# if (isTRUE(verbose)) head(Q1)
+# 
+# ### SpecCode 127143 -> plaice
+# 
+# ### combine haul info and species info
+# Q1_ple <- Q1_HL %>% filter(SpecCode == 127143) %>%
+#   select(-RecordType, -SpecCode) %>%
+#   full_join(Q1_HH %>% select(-RecordType))
+# ### summarise catch by haul
+# Q1_ple <- Q1_ple %>% 
+#   filter(Survey == "BTS" & Quarter == 1 & Country == "GB" & Ship == "74E9") %>%
+#   filter(HaulVal == "V") %>%  # only valid hauls
+#   group_by(Year, HaulNo, Latitude, Longitude, Gear, HaulDur, StatRec) %>%
+#   mutate(Weight = CatCatchWgt/TotalNo) %>%
+#   summarise(Numbers = sum(HLNoAtLngt),
+#             Weight = sum(Weight)) %>%
+#   ### standardise to catch per hour
+#   mutate(Numbers = Numbers/HaulDur*60,
+#          Weight = Weight/HaulDur*60) %>%
+#   ### average between gears (BT4P/BT4S - left/right)
+#   ### if only one gear available, use this gear's values
+#   ungroup() %>%
+#   group_by(Year, HaulNo, Latitude, Longitude, HaulDur, StatRec) %>%
+#   summarise(Numbers = mean(Numbers, na.rm = TRUE),
+#             Weight = mean(Weight, na.rm = TRUE))
+# 
+# ### data for maps
+# coastline <- map_data("worldHires")
+# StatRec <- read.dbf("boot/initial/data/surveys/StatRec_map_Areas_Full_20170124.dbf")
+# StatRec7e <- subset(StatRec, Area_27 %in% c("7.e"))
+# StatRec7e_names <- as.character(StatRec7e$ICESNAME)
+# 
+# Q1_ple_data <- Q1_ple %>%
+#   mutate(Numbers = ifelse(is.na(Numbers), 0, Numbers),
+#          Weight = ifelse(is.na(Weight), 0, Weight),
+#          Occurence = Numbers != 0)
+# 
+# ### numbers
+# p <- ggplot() +
+#   geom_rect(data = StatRec7e,
+#             mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
+#             fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
+#   ### add coastline
+#   geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
+#                                long >= -20 & long <= 10),
+#                aes(x = long, y = lat, group = group), fill = "grey",
+#                colour = "black", linewidth = 0.3) +
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names),
+#              aes(x = Longitude, y = Latitude, size = Numbers),
+#              fill = NA, shape = 21, stroke = 0.4) +
+#   scale_size("Numbers/hr", range = c(1, 4)) + 
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names) %>%
+#                filter(is.na(Numbers)) %>%
+#                mutate(Numbers = 0),
+#              aes(x = Longitude, y = Latitude, size = Numbers),
+#              shape = 4, fill = NA, stroke = 0.3, size = 0.4,
+#              show.legend = FALSE) +
+#   facet_wrap(~ Year) + 
+#   labs(x = "Longitude", y = "Latitude") +
+#   theme_bw(base_size = 8) +
+#   theme(panel.background = element_rect(fill = "gray97")) +
+#   coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
+#   scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
+#   scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
+# if (isTRUE(verbose)) p
+# ggsave("data_WGCSE2025_revision/surveys/plots/map_Q1SWBeam_numbers.png", 
+#        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+# ### rasterised version for PDF
+# p <- ggplot() +
+#   geom_rect(data = StatRec7e,
+#             mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
+#             fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
+#   ### add coastline
+#   rasterise(geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
+#                                          long >= -20 & long <= 10),
+#                          aes(x = long, y = lat, group = group), fill = "grey",
+#                          colour = "black", linewidth = 0.3), dpi = 600) +
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names),
+#              aes(x = Longitude, y = Latitude, size = Numbers),
+#              fill = NA, shape = 21, stroke = 0.4) +
+#   scale_size("Numbers/hr", range = c(1, 4)) + 
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names) %>%
+#                filter(is.na(Numbers)) %>%
+#                mutate(Numbers = 0),
+#              aes(x = Longitude, y = Latitude, size = Numbers),
+#              shape = 4, fill = NA, stroke = 0.3, size = 0.4,
+#              show.legend = FALSE) +
+#   facet_wrap(~ Year) + 
+#   labs(x = "Longitude", y = "Latitude") +
+#   theme_bw(base_size = 8) +
+#   theme(panel.background = element_rect(fill = "gray97")) +
+#   coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
+#   scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
+#   scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
+# ggsave("data/surveys/plots/map_Q1SWBeam_numbers.pdf", 
+#        width = 16, height = 10, units = "cm", plot = p)
+# 
+# ### biomass
+# p <- ggplot() +
+#   geom_rect(data = StatRec7e,
+#             mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
+#             fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
+#   ### add coastline
+#   geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
+#                                long >= -20 & long <= 10),
+#                aes(x = long, y = lat, group = group), fill = "grey",
+#                colour = "black", linewidth = 0.3) +
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names),
+#              aes(x = Longitude, y = Latitude, size = Weight/1000),
+#              fill = NA, shape = 21, stroke = 0.4) +
+#   scale_size("kg/hr", range = c(1, 4)) + 
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names) %>%
+#                filter(is.na(Numbers)) %>%
+#                mutate(Numbers = 0),
+#              aes(x = Longitude, y = Latitude, size = Weight/1000),
+#              shape = 4, fill = NA, stroke = 0.3, size = 0.4,
+#              show.legend = FALSE) +
+#   facet_wrap(~ Year) + 
+#   labs(x = "Longitude", y = "Latitude") +
+#   theme_bw(base_size = 8) +
+#   theme(panel.background = element_rect(fill = "gray97")) +
+#   coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
+#   scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
+#   scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
+# if (isTRUE(verbose)) p
+# ggsave("data/surveys/plots/map_Q1SWBeam_biomass.png", 
+#        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
+# ### rasterised version for pdf
+# p <- ggplot() +
+#   geom_rect(data = StatRec7e,
+#             mapping = aes(xmin = WEST, xmax = EAST, ymin = SOUTH, ymax = NORTH),
+#             fill = "grey90", colour = "grey50", alpha = 0.8, linewidth = 0.1) +
+#   ### add coastline
+#   rasterise(geom_polygon(data = subset(coastline, lat <= 65 & lat >= 40 &
+#                                          long >= -20 & long <= 10),
+#                          aes(x = long, y = lat, group = group), fill = "grey",
+#                          colour = "black", linewidth = 0.3), dpi = 600) +
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names),
+#              aes(x = Longitude, y = Latitude, size = Weight/1000),
+#              fill = NA, shape = 21, stroke = 0.4) +
+#   scale_size("kg/hr", range = c(1, 4)) + 
+#   geom_point(data = Q1_ple %>% 
+#                filter(StatRec %in% StatRec7e_names) %>%
+#                filter(is.na(Numbers)) %>%
+#                mutate(Numbers = 0),
+#              aes(x = Longitude, y = Latitude, size = Weight/1000),
+#              shape = 4, fill = NA, stroke = 0.3, size = 0.4,
+#              show.legend = FALSE) +
+#   facet_wrap(~ Year) + 
+#   labs(x = "Longitude", y = "Latitude") +
+#   theme_bw(base_size = 8) +
+#   theme(panel.background = element_rect(fill = "gray97")) +
+#   coord_cartesian(xlim = c(-7.5, -1.5), ylim = c(47.5, 51), expand = FALSE) +
+#   scale_x_continuous(breaks = seq(from = -8, to = 2, by = 2)) +
+#   scale_y_continuous(breaks = seq(from = 48, to = 52, by = 1))
+# ggsave("data/surveys/plots/map_Q1SWBeam_biomass.pdf", 
+#        width = 16, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### UK-FSP ####
@@ -227,8 +229,8 @@ ggsave("data/surveys/plots/map_Q1SWBeam_biomass.pdf",
 ### DataFor_MeanNbyAgeP2_PLEv2.csv -> FSP_numbers.csv
 
 ### load data
-FSP_numbers <- read.csv("boot/initial/data/surveys/FSP_numbers.csv")
-FSP_biomass <- read.csv("boot/initial/data/surveys/FSP_biomass.csv")
+FSP_numbers <- read.csv("boot/initial/data/surveys/FSP_numbers_WGCSE2025_revision.csv")
+FSP_biomass <- read.csv("boot/initial/data/surveys/FSP_biomass_WGCSE2025_revision.csv")
 
 ### format
 FSP_numbers <- FSP_numbers %>%
@@ -259,9 +261,9 @@ p <- FSP_numbers %>%
   labs(x = "Year", y = "Age (years)") +
   theme_bw(base_size = 8)
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/FSP_bubbles_numbers.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_bubbles_numbers.png", 
        width = 12, height = 7, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/FSP_bubbles_numbers.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_bubbles_numbers.pdf", 
        width = 12, height = 7, units = "cm", plot = p)
 
 ### plot numbers and biomass
@@ -283,9 +285,9 @@ p <- full_join(FSP_numbers %>% mutate(type = "Numbers"),
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/FSP_numbers_biomass.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_numbers_biomass.png", 
        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/FSP_numbers_biomass.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_numbers_biomass.pdf", 
        width = 16, height = 8, units = "cm", plot = p)
 
 ### weight at age
@@ -313,15 +315,16 @@ p <- FSP_weight %>%
         strip.background = element_blank(),
         strip.text = element_text(size = 8))
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/FSP_weight_at_age.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_weight_at_age.png", 
        width = 10, height = 10, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/FSP_weight_at_age.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_weight_at_age.pdf", 
        width = 10, height = 10, units = "cm", plot = p)
   
 
 ### ------------------------------------------------------------------------ ###
 ### Q1SWBeam ####
 ### ------------------------------------------------------------------------ ###
+### no change in revision
 
 ### V2i = full area, 2022 index numbers cover smaller area (11/13 strata)
 ### V2ii = reduced area in all years (11 strata)
@@ -351,14 +354,14 @@ p <- Q1SWBeam_numbers %>%
   mutate(Numbers = ifelse(Numbers > 0, Numbers, NA)) %>%
   ggplot(aes(x = Year, y = Age, size = Numbers)) +
   geom_point(shape = 21) +
-  #scale_size(expression(Numbers h[1])) + 
-  scale_size(bquote(Numbers~km^-2), range = c(0, 6)) + 
+  #scale_size(expression(Numbers h[1])) +
+  scale_size(bquote(Numbers~km^-2), range = c(0, 6)) +
   labs(x = "Year", y = "Age (years)") +
   theme_bw(base_size = 8)
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/Q1SWBeam_bubbles_numbers.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/Q1SWBeam_bubbles_numbers.png",
        width = 12, height = 7, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/Q1SWBeam_bubbles_numbers.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/Q1SWBeam_bubbles_numbers.pdf",
        width = 12, height = 7, units = "cm", plot = p)
 
 ### plot numbers and biomass
@@ -374,15 +377,15 @@ p <- Q1SWBeam_numbers %>%
   ggplot(aes(x = Year, y = value, colour = Age)) +
   geom_line() +
   geom_text(aes(label = Age), show.legend = FALSE) +
-  scale_colour_manual("Age (years)", values = cols) + 
-  facet_wrap(~ name, scales = "free_y") + 
+  scale_colour_manual("Age (years)", values = cols) +
+  facet_wrap(~ name, scales = "free_y") +
   labs(x = "Year", y = bquote(Numbers/Biomass~km^-2)) +
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"))
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/Q1SWBeam_numbers_biomass.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/Q1SWBeam_numbers_biomass.png",
        width = 20, height = 12, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/Q1SWBeam_numbers_biomass.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/Q1SWBeam_numbers_biomass.pdf",
        width = 16, height = 8, units = "cm", plot = p)
 
 ### weight at age
@@ -390,7 +393,7 @@ p <- Q1SWBeam_numbers %>%
   pivot_longer(-1:-2) %>%
   filter(Age <= 10) %>%
   mutate(Age = factor(Age, levels = sort(unique(Age)))) %>%
-  mutate(name = factor(name, 
+  mutate(name = factor(name,
                        levels = c("Numbers", "Biomass", "Weight"),
                        labels = c("Numbers~km^-2",
                                   "kg~km^-2",
@@ -398,20 +401,20 @@ p <- Q1SWBeam_numbers %>%
   ggplot(aes(x = Year, y = value, colour = Age)) +
   geom_line(linewidth = 0.3) +
   geom_text(aes(label = Age), show.legend = FALSE, size = 2) +
-  facet_wrap(~ name, scales = "free_y", ncol = 1, labeller = label_parsed, 
+  facet_wrap(~ name, scales = "free_y", ncol = 1, labeller = label_parsed,
              strip.position = "left") +
   scale_colour_manual("Age (years)", values = cols) +
   labs(x = "Year", y = "Weight at age (kg)") +
   theme_bw(base_size = 8) +
   theme(legend.key.height = unit(0.5, "lines"),
-        axis.title.y = element_blank(), 
-        strip.placement = "outside", 
+        axis.title.y = element_blank(),
+        strip.placement = "outside",
         strip.background = element_blank(),
         strip.text = element_text(size = 8))
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/Q1SWBeam_weight_at_age.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/Q1SWBeam_weight_at_age.png",
        width = 10, height = 10, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/Q1SWBeam_weight_at_age.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/Q1SWBeam_weight_at_age.pdf",
        width = 10, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
@@ -424,27 +427,27 @@ FSP_qnt <- as.FLQuant(FSP_numbers %>%
 
 p <- idx_cor(FLIndices("UK-FSP" = FLIndex(index = FSP_qnt)))
 if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/FSP_correlations.png", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_correlations.png", 
        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/FSP_correlations.pdf", 
+ggsave("data_WGCSE2025_revision/surveys/plots/FSP_correlations.pdf", 
        width = 15, height = 10, units = "cm", plot = p)
 
-Q1SWBeam_qnt <- as.FLQuant(Q1SWBeam_numbers %>%
-                        select(year = Year, age = Age, data = Numbers) %>%
-                        filter(age <= 10))
-
-p <- idx_cor(FLIndices("Q1SWBeam" = FLIndex(index = Q1SWBeam_qnt)))
-if (isTRUE(verbose)) p
-ggsave("data/surveys/plots/Q1SWBeam_correlations.png", 
-       width = 15, height = 10, units = "cm", dpi = 300, plot = p)
-ggsave("data/surveys/plots/Q1SWBeam_correlations.pdf", 
-       width = 15, height = 10, units = "cm", plot = p)
+# Q1SWBeam_qnt <- as.FLQuant(Q1SWBeam_numbers %>%
+#                         select(year = Year, age = Age, data = Numbers) %>%
+#                         filter(age <= 10))
+# 
+# p <- idx_cor(FLIndices("Q1SWBeam" = FLIndex(index = Q1SWBeam_qnt)))
+# if (isTRUE(verbose)) p
+# ggsave("data/surveys/plots/Q1SWBeam_correlations.png", 
+#        width = 15, height = 10, units = "cm", dpi = 300, plot = p)
+# ggsave("data/surveys/plots/Q1SWBeam_correlations.pdf", 
+#        width = 15, height = 10, units = "cm", plot = p)
 
 ### ------------------------------------------------------------------------ ###
 ### final data ####
 ### ------------------------------------------------------------------------ ###
 
 ### save
-saveRDS(Q1SWBeam_numbers, file = "data/OM/idx_Q1SWBeam.rds")
-saveRDS(FSP_weight, file = "data/OM/idx_FSP.rds")
+saveRDS(Q1SWBeam_numbers, file = "data_WGCSE2025_revision/OM/idx_Q1SWBeam.rds")
+saveRDS(FSP_weight, file = "data_WGCSE2025_revision/OM/idx_FSP.rds")
 
