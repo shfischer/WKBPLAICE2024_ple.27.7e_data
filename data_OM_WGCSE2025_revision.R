@@ -23,10 +23,10 @@ if (!exists("verbose")) verbose <- FALSE
 ### ------------------------------------------------------------------------ ###
 
 ### catch
-catch <- readRDS("data/OM/catch.rds")
+catch <- readRDS("data_WGCSE2025_revision/OM/catch.rds")
 
 ### stock weights
-stock_weights <- readRDS("data/OM/stock_weights.rds")
+stock_weights <- readRDS("data_WGCSE2025_revision/OM/stock_weights.rds")
 
 ### natural mortality
 M_Then <- readRDS("data/OM/M_Then.rds")
@@ -70,7 +70,7 @@ m.spwn(stk) <- 0
 
 ### stock description
 name(stk) <- "ple.27.7e"
-desc(stk) <- "ple.27.7e from WKBPLAICE 2024 - baseline OM"
+desc(stk) <- "ple.27.7e from WKBPLAICE 2024 - baseline OM - revised by WGCSE 2025"
 
 ### fbar range 3-6
 range(stk)[["minfbar"]] <- 3
@@ -96,14 +96,14 @@ catch.wt(stk) <- (landings.wt(stk)*landings.n(stk) + discards.wt(stk) * discards
 # quantSums(discards.n(stk)*discards.wt(stk) + landings.n(stk)*landings.wt(stk))/quantSums(catch.n(stk)*catch.wt(stk))
 
 ### save
-saveRDS(stk, file = "data/OM/stk_baseline.rds")
+saveRDS(stk, file = "data_WGCSE2025_revision/OM/stk_baseline.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### indices ####
 ### ------------------------------------------------------------------------ ###
 
-Q1SWBeam <- readRDS("data/OM/idx_Q1SWBeam.rds")
-FSP <- readRDS("data/OM/idx_FSP.rds")
+Q1SWBeam <- readRDS("data_WGCSE2025_revision/OM/idx_Q1SWBeam.rds")
+FSP <- readRDS("data_WGCSE2025_revision/OM/idx_FSP.rds")
 
 ### Q1SWBeam
 Q1SWBeam_idx <- as.FLQuant(Q1SWBeam %>%
@@ -152,24 +152,24 @@ idcs <- FLIndices("UK-FSP" = idx_FSP,
                   "Q1SWBeam" = idx_Q1)
 
 ### save
-saveRDS(idcs, file = "data/OM/idcs.rds")
+saveRDS(idcs, file = "data_WGCSE2025_revision/OM/idcs.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### alternative plusgroups ####
 ### ------------------------------------------------------------------------ ###
 
-stk_pg9 <- setPlusGroup(stk, 9)
-stk_pg8 <- setPlusGroup(stk, 8)
-saveRDS(stk_pg9, file = "data/OM/stk_baseline_pg9.rds")
-saveRDS(stk_pg8, file = "data/OM/stk_baseline_pg8.rds")
-
-idcs_pg9 <- idcs
-idcs_pg9$Q1SWBeam <- idcs_pg9$Q1SWBeam[ac(2:8), ]
-idcs_pg8 <- idcs
-idcs_pg8$`UK-FSP` <- idcs_pg8$`UK-FSP`[ac(2:7), ]
-idcs_pg8$Q1SWBeam <- idcs_pg8$Q1SWBeam[ac(2:7), ]
-saveRDS(idcs_pg9, file = "data/OM/idcs_pg9.rds")
-saveRDS(idcs_pg8, file = "data/OM/idcs_pg8.rds")
+# stk_pg9 <- setPlusGroup(stk, 9)
+# stk_pg8 <- setPlusGroup(stk, 8)
+# saveRDS(stk_pg9, file = "data/OM/stk_baseline_pg9.rds")
+# saveRDS(stk_pg8, file = "data/OM/stk_baseline_pg8.rds")
+# 
+# idcs_pg9 <- idcs
+# idcs_pg9$Q1SWBeam <- idcs_pg9$Q1SWBeam[ac(2:8), ]
+# idcs_pg8 <- idcs
+# idcs_pg8$`UK-FSP` <- idcs_pg8$`UK-FSP`[ac(2:7), ]
+# idcs_pg8$Q1SWBeam <- idcs_pg8$Q1SWBeam[ac(2:7), ]
+# saveRDS(idcs_pg9, file = "data/OM/idcs_pg9.rds")
+# saveRDS(idcs_pg8, file = "data/OM/idcs_pg8.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### 0% discard survival ####
@@ -195,7 +195,7 @@ discards(stk_d100)[]    <- catch$DA
 # quantSums(discards.n(stk_d100)*discards.wt(stk_d100) + landings.n(stk_d100)*landings.wt(stk_d100))/quantSums(catch.n(stk_d100)*catch.wt(stk_d100))
 
 ### save
-saveRDS(stk_d100, file = "data/OM/stk_d100.rds")
+saveRDS(stk_d100, file = "data_WGCSE2025_revision/OM/stk_d100.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### 100% discard survival ####
@@ -216,7 +216,7 @@ catch(stk_d0) <- landings(stk_d0)
 # quantSums(discards.n(stk_d0)*discards.wt(stk_d0) + landings.n(stk_d0)*landings.wt(stk_d0))/quantSums(catch.n(stk_d0)*catch.wt(stk_d0))
 
 ### save
-saveRDS(stk_d0, file = "data/OM/stk_d0.rds")
+saveRDS(stk_d0, file = "data_WGCSE2025_revision/OM/stk_d0.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### M scenarios ####
@@ -225,24 +225,24 @@ saveRDS(stk_d0, file = "data/OM/stk_d0.rds")
 ### M -50%
 stk_M_low <- stk
 m(stk_M_low) <- m(stk_M_low) * (1 - 0.5)
-saveRDS(stk_M_low, file = "data/OM/stk_M_low.rds")
+saveRDS(stk_M_low, file = "data_WGCSE2025_revision/OM/stk_M_low.rds")
 
 ### M +50%
 stk_M_high <- stk
 m(stk_M_high) <- m(stk_M_high) * (1 + 0.5)
-saveRDS(stk_M_high, file = "data/OM/stk_M_high.rds")
+saveRDS(stk_M_high, file = "data_WGCSE2025_revision/OM/stk_M_high.rds")
 
 ### M Lorenzen L=Linf
 stk_M_Lorenzen_Linf <- stk
 M_Lorenzen_Linf <- readRDS("data/OM/M_Lorenzen_Linf.rds")
 m(stk_M_Lorenzen_Linf)[] <- M_Lorenzen_Linf
-saveRDS(stk_M_Lorenzen_Linf, file = "data/OM/stk_M_Lorenzen_Linf.rds")
+saveRDS(stk_M_Lorenzen_Linf, file = "data_WGCSE2025_revision/OM/stk_M_Lorenzen_Linf.rds")
 
 ### M Gislason
 stk_M_Gislason <- stk
 M_Gislason <- readRDS("data/OM/M_Gislason.rds")
 m(stk_M_Gislason)[] <- M_Gislason
-saveRDS(stk_M_Gislason, file = "data/OM/stk_M_Gislason.rds")
+saveRDS(stk_M_Gislason, file = "data_WGCSE2025_revision/OM/stk_M_Gislason.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### Migration - removed ####
@@ -275,7 +275,7 @@ catch.wt(stk_no_migration) <- (landings.wt(stk_no_migration)*landings.n(stk_no_m
 # quantSums(discards.n(stk_no_migration)*discards.wt(stk_no_migration) + landings.n(stk_no_migration)*landings.wt(stk_no_migration))/quantSums(catch.n(stk_no_migration)*catch.wt(stk_no_migration))
 
 ### save
-saveRDS(stk_no_migration, file = "data/OM/stk_no_migration.rds")
+saveRDS(stk_no_migration, file = "data_WGCSE2025_revision/OM/stk_no_migration.rds")
 
 ### ------------------------------------------------------------------------ ###
 ### Migration - removed - for OM ####
@@ -337,7 +337,7 @@ catch(stk_migration_LD) <- computeCatch(stk_migration_LD, slot = "all")
 units(stk_migration_LD) <- units(stk)
 
 ### save
-saveRDS(stk_migration_LD, file = "data/OM/stk_migration_LD.rds")
+saveRDS(stk_migration_LD, file = "data_WGCSE2025_revision/OM/stk_migration_LD.rds")
 
 
 
