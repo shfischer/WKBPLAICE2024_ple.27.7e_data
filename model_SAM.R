@@ -6,7 +6,9 @@ library(stockassessment)
 library(FLfse)
 library(tidyr)
 library(dplyr)
+library(tibble)
 library(ggplot2)
+library(foreach)
 
 mkdir("model")
 
@@ -628,3 +630,160 @@ ggsave("model/SAM_fit_surveyQ_decoupled.png",
        width = 15, height = 7, units = "cm", dpi = 300, plot = p)
 ggsave("model/SAM_fit_surveyQ_decoupled.pdf", 
        width = 15, height = 7, units = "cm", plot = p)
+
+
+### ------------------------------------------------------------------------ ###
+### diagnostics for all SAM OM fits ####
+### ------------------------------------------------------------------------ ###
+
+OM_names <- c("Baseline", "Catch: no discards", "Catch: 100% discards", 
+              "Catch: no migration", 
+              "M: -50%", "M: +50%", "M: Gislason")
+fit_list <- c("baseline" = fit,
+              "Catch_no_disc" = fit_d0, 
+              "Catch_no_surv" = fit_d100, 
+              "migr_none" = fit_no_migration, 
+              "M_low" = fit_M_low, 
+              "M_high" = fit_M_high, 
+              "M_Gislason" = fit_M_Gislason)
+names(fit_list) <- OM_names
+saveRDS(fit_list, file = "model/SAM_all_fits.rds")
+
+### tabulate diagnostics
+SAM_table <- as.data.frame(modeltable(fit_list))
+SAM_table <- SAM_table %>%
+  mutate(OM = OM_names) %>%
+  relocate(OM)
+rownames(SAM_table) <- NULL
+
+### Mohn's Rho
+list_retro <- retro(fit_list, year = 5)
+retro <- lapply(fit_list, retro, year = 5)
+retro_mohn <- lapply(retro, mohn)
+
+SAM_table$Mohn_rec <- sapply(retro_mohn, "[[", 1)
+SAM_table$Mohn_SSB <- sapply(retro_mohn, "[[", 2)
+SAM_table$Mohn_Fbar <- sapply(retro_mohn, "[[", 3)
+
+### simstudy - simulate data from fitted model and re-estimate from each run
+list_simstudy <- lapply(fit_list, function(fit_i) {
+  set.seed(12345)
+  simstudy(fit_i, nsim = 100, ncores = 10)
+})
+op <- par(no.readonly = TRUE)
+par(mar = c(2, 4.5, 0.5, 0.5))
+for (i in list_simstudy) plot(i)
+par(op)
+
+### compare simstudy median to default model
+list_simstudy_smry <- lapply(seq_along(OM_names), function(x) {
+  #browser()
+  sim_i <- list_simstudy[[x]]
+  fit_i <- fit_list[[x]]
+  df_fit <- as.data.frame(summary(fit_i))[, c(1, 4, 7)]
+  df_fit <- df_fit %>%
+    rownames_to_column("year") %>%
+    mutate(type = "fit") %>%
+    pivot_longer(2:4)
+  tmp <- lapply(sim_i, function(y) {
+    as.data.frame(summary(y))[, c(1, 4, 7)] %>%
+      rownames_to_column("year") %>%
+      mutate(type = "sim") %>%
+      pivot_longer(2:4)
+  })
+  tmp <- do.call(rbind, tmp)
+  tmp <- tmp %>%
+    group_by(year, type, name) %>%
+    summarise(value = median(value, na.rm = TRUE))
+  bind_rows(df_fit, tmp)
+})
+for (i in list_simstudy_smry) {
+  p <- i %>%
+  ggplot(aes(x = as.numeric(year), 
+             y = value, colour = as.factor(type), group = as.factor(type))) +
+    geom_line() +
+    facet_wrap(~ name, scales = "free_y") +
+    theme_bw(base_size = 8)
+  print(p)
+}
+
+SAM_table$simstudy <- "pass"
+
+### jitter 
+list_jitter <- lapply(fit_list, function(fit_i) {
+  set.seed(12345)
+  jit(fit_i, nojit = 100, ncores = 10)
+})
+list_jitter
+op <- par(no.readonly = TRUE)
+par(mar = c(2, 4.5, 0.5, 0.5))
+for (i in list_jitter) plot(i)
+par(op)
+
+SAM_table$jitter <- "pass"
+
+
+### one-step ahead residuals - observations
+df_res <- foreach(n = seq_along(OM_names), .combine = bind_rows) %do% {
+  #browser()
+  . <- capture.output(res <- residuals(fit_list[[n]]))
+  class(res) <- "data.frame"
+  res$OM <- OM_names[n]
+  return(res)
+}
+p <- df_res %>%
+  filter(!is.na(residual)) %>%
+  mutate(fleet = factor(fleet, levels = 1:3,
+                        labels = c("Catch", "UK-FSP", "Q1SWBeam"))) %>%
+  mutate(sign = ifelse(residual < 0, "Negative", "Positive")) %>%
+  mutate(sign = factor(sign, levels = c("Negative", "Positive"))) %>%
+  ggplot(aes(x = year, y = age, size = abs(residual), 
+           colour = sign)) +
+  geom_point(alpha = 0.5) +
+  scale_colour_manual("", values = c("red", "blue")) +
+  scale_size("log residuals", range = c(0.1, 4)) +
+  facet_grid(OM ~ fleet, scales = "free_x", space = "free_x") +
+  labs(x = "Year", y = "Age") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.6, "lines"))
+p
+ggsave("model/SAM_all_res.png", 
+       width = 16, height = 20, units = "cm", dpi = 300, plot = p)
+ggsave("model/SAM_all_res.pdf", 
+       width = 16, height = 20, units = "cm", plot = p)
+
+### one-step ahead residuals - processes
+df_procres <- foreach(n = seq_along(OM_names), .combine = bind_rows) %do% {
+  #browser()
+  . <- capture.output(res <- procres(fit_list[[n]]))
+  class(res) <- "data.frame"
+  res$OM <- OM_names[n]
+  return(res)
+}
+p <- df_procres %>%
+  filter(!is.na(residual)) %>%
+  mutate(fleet = factor(fleet, levels = 1:2,
+                        labels = c("Joint sample residuals log(N)", 
+                                   "Residual catch"))) %>%
+  mutate(sign = ifelse(residual < 0, "Negative", "Positive")) %>%
+  mutate(sign = factor(sign, levels = c("Negative", "Positive"))) %>%
+  ggplot(aes(x = year, y = age, size = abs(residual), 
+             colour = sign)) +
+  geom_point(alpha = 0.5) +
+  scale_colour_manual("", values = c("red", "blue")) +
+  scale_size("log residuals", range = c(0.1, 4)) +
+  facet_grid(OM ~ fleet, scales = "free_x", space = "free_x") +
+  labs(x = "Year", y = "Age") +
+  theme_bw(base_size = 8) +
+  theme(legend.key.height = unit(0.6, "lines"))
+p
+ggsave("model/SAM_all_procres.png", 
+       width = 16, height = 20, units = "cm", dpi = 300, plot = p)
+ggsave("model/SAM_all_procres.pdf", 
+       width = 16, height = 20, units = "cm", plot = p)
+
+
+
+
+
+
